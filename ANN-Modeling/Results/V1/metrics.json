@@ -1,0 +1,26 @@
+{
+    "accuracy": 0.7962264150943397,
+    "f1_score": 0.8085106382978723,
+    "auc": 0.9742301112061591,
+    "confusion_matrix": [
+        [
+            194,
+            2
+        ],
+        [
+            106,
+            228
+        ]
+    ],
+    "features_used": {
+        "text_column": "free_response",
+        "numerical_columns": [
+            "SRS.Raw",
+            "FSR",
+            "BIS",
+            "avg_PE",
+            "LPA_Profile_grand_mean",
+            "LPA_Profile_ASD_only"
+        ]
+    }
+}

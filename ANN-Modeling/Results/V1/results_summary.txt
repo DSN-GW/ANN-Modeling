@@ -1,0 +1,11 @@
+Accuracy: 0.7962
+F1 Score: 0.8085
+AUC: 0.9742
+
+Confusion Matrix:
+[[194   2]
+ [106 228]]
+
+Features Used:
+Text Column: free_response
+Numerical Columns: SRS.Raw, FSR, BIS, avg_PE, LPA_Profile_grand_mean, LPA_Profile_ASD_only
