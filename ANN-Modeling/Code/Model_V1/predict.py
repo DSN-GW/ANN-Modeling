@@ -31,8 +31,8 @@ def load_data(data_path):
     return data
 
 def main():
-    data_path = os.path.join('..', 'data', 'Data_v1', 'LLM data.csv')
-    results_path = os.path.join('..', 'Results', 'V1')
+    data_path = os.path.join('..', '..', 'data', 'Data_v1', 'LLM data.csv')
+    results_path = os.path.join('..', '..', 'Results', 'V1')
     
     data = load_data(data_path)
     

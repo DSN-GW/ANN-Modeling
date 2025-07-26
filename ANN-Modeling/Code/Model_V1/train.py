@@ -64,8 +64,8 @@ def evaluate_model(model, dataloader, criterion, device):
     return avg_loss, accuracy, f1
 
 def main():
-    data_path = os.path.join('..', 'data', 'Data_v1', 'LLM data.csv')
-    results_path = os.path.join('..', 'Results', 'V1')
+    data_path = os.path.join('..', '..', 'data', 'Data_v1', 'LLM data.csv')
+    results_path = os.path.join('..', '..', 'Results', 'V1')
     
     data = load_data(data_path)
     
