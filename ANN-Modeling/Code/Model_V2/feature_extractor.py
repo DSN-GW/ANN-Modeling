@@ -4,20 +4,35 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'Agent'))
 
 import pandas as pd
 import json
-import numpy as np
-import re
-from collections import Counter
+import logging
+from datetime import datetime
 
 class FeatureExtractor:
-    def __init__(self):
+    def __init__(self, batch_size=10):
         self.characteristics = self.load_characteristics()
         self.agent = None
         self.use_agent = self.initialize_agent()
-        # Always set up fallback keywords regardless of agent availability
-        # This ensures fallback works even if agent fails during processing
-        self.setup_fallback_keywords()
-        if not self.use_agent:
-            print("Warning: Sonnet agent not available. Using fallback feature extraction.")
+        self.setup_logging()
+        self.failed_samples = []
+        self.batch_size = batch_size  # Process samples in batches
+    
+    def setup_logging(self):
+        """Setup logging for failed samples"""
+        log_dir = os.path.join('..', '..', 'Results', 'V2', 'logs')
+        os.makedirs(log_dir, exist_ok=True)
+        
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        log_file = os.path.join(log_dir, f'feature_extraction_errors_{timestamp}.log')
+        
+        logging.basicConfig(
+            level=logging.INFO,
+            format='%(asctime)s - %(levelname)s - %(message)s',
+            handlers=[
+                logging.FileHandler(log_file),
+                logging.StreamHandler()
+            ]
+        )
+        self.logger = logging.getLogger(__name__)
     
     def load_characteristics(self):
         char_path = os.path.join('..', '..', 'data', 'Data_v1', 'charactristic.txt')
@@ -31,28 +46,10 @@ class FeatureExtractor:
             self.agent = SonnetAgent()
             self.setup_agent()
             return True
-        except ImportError as e:
-            print(f"Cannot import sonnet_agent: {e}")
-            print("Please install required dependencies: pip install boto3 python-dotenv")
-            return False
         except Exception as e:
-            print(f"Error initializing sonnet agent: {e}")
+            self.logger.error(f"Failed to initialize agent: {str(e)}")
             return False
-    
-    def setup_fallback_keywords(self):
-        self.characteristic_keywords = {
-            'personality inference': ['personality', 'character', 'trait', 'behavior', 'like', 'dislike', 'prefer'],
-            'sweets': ['sweet', 'candy', 'chocolate', 'cake', 'cookie', 'dessert', 'sugar', 'ice cream'],
-            'Fruits and vegetables': ['fruit', 'vegetable', 'apple', 'banana', 'orange', 'carrot', 'broccoli', 'salad'],
-            'healthy savory food': ['healthy', 'salad', 'vegetable', 'grain', 'protein', 'nutritious'],
-            'food': ['food', 'eat', 'meal', 'lunch', 'dinner', 'breakfast', 'snack', 'hungry'],
-            'cosmetics': ['makeup', 'cosmetic', 'lipstick', 'foundation', 'beauty', 'skincare'],
-            'fashion': ['clothes', 'fashion', 'shirt', 'dress', 'style', 'outfit', 'wear'],
-            'toys, gadgets and games': ['toy', 'game', 'gadget', 'play', 'fun', 'electronic', 'video game'],
-            'sports': ['sport', 'basketball', 'football', 'soccer', 'tennis', 'exercise', 'athletic'],
-            'music': ['music', 'song', 'guitar', 'piano', 'instrument', 'band', 'listen'],
-            'arts and crafts': ['art', 'craft', 'draw', 'paint', 'creative', 'design', 'make']
-        }
+
     
     def setup_agent(self):
         system_prompt = f"""You are an expert text analyzer. Your task is to analyze free response text and extract features related to specific characteristics.
@@ -72,75 +69,147 @@ Return your analysis as a JSON object with the following structure:
     }}
 }}
 
-Be precise and only mark characteristics as mentioned if there is clear evidence in the text."""
+Be precise and only mark characteristics as mentioned if there is clear evidence in the text.
+IMPORTANT: Always return valid JSON format."""
         
         self.agent.set_system_prompt(system_prompt)
-        self.agent.set_parameters(max_tokens=2000, temperature=0.1)
+        self.agent.set_parameters(max_tokens=4000, temperature=0.1)  # Increased max_tokens for batch processing
+    
+    def create_batch_prompt(self, texts_with_indices):
+        """Create a batch prompt for multiple texts"""
+        prompt = "Analyze the following texts and extract features for the given characteristics. Return a JSON array with results for each text:\n\n"
+        
+        for idx, text in texts_with_indices:
+            prompt += f"Text {idx+1}: '{text}'\n"
+        
+        prompt += "\nReturn your analysis as a JSON array with the following structure:\n"
+        prompt += "[\n"
+        prompt += "  {\n"
+        prompt += "    \"text_index\": 1,\n"
+        prompt += "    \"features\": {\n"
+        for char in self.characteristics:
+            prompt += f"      \"{char}\": {{\n"
+            prompt += "        \"mentioned\": true/false,\n"
+            prompt += "        \"sentiment\": \"positive/negative/neutral\"\n"
+            prompt += "      },\n"
+        prompt += "    }\n"
+        prompt += "  }\n"
+        prompt += "]\n\n"
+        prompt += "IMPORTANT: Return exactly one result object per text, maintaining the same order."
+        
+        return prompt
     
     def extract_features_from_text(self, text):
         if pd.isna(text) or text == "":
             return self.get_empty_features()
         
-        if self.use_agent and self.agent:
+        try:
             return self.extract_features_with_agent(text)
+        except Exception as e:
+            self.logger.error(f"Failed to extract features from text: {str(e)}")
+            self.logger.error(f"Text content: {text[:200]}...")  # Log first 200 chars
+            return self.get_empty_features()
+
+    
+    def extract_json_from_response(self, response):
+        """Extract JSON from agent response that may contain explanatory text"""
+        import re
+        
+        if not response or response.strip() == "":
+            raise ValueError("Empty response from agent")
+        
+        # Look for JSON object in the response
+        json_pattern = r'\{.*\}'
+        json_match = re.search(json_pattern, response, re.DOTALL)
+        
+        if json_match:
+            json_str = json_match.group(0)
+            return json_str
         else:
-            return self.extract_features_with_fallback(text)
+            # If no JSON found, try to parse the entire response
+            return response
     
     def extract_features_with_agent(self, text):
-        prompt = f"Analyze this text and extract features for the given characteristics: '{text}'"
-        
         try:
+            prompt = f"Analyze this text and extract features for the given characteristics: '{text}'"
+            
             response = self.agent.ask(prompt)
-            features = json.loads(response)
+            
+            if not response:
+                raise ValueError("Empty response from agent")
+            
+            json_response = self.extract_json_from_response(response)
+            
+            # Validate JSON before parsing
+            if not json_response.strip():
+                raise ValueError("Empty JSON response")
+            
+            features = json.loads(json_response)
             return self.process_features(features)
+            
         except json.JSONDecodeError as e:
-            print(f"JSON parsing error for text: '{text[:50]}...': {e}")
-            return self.extract_features_with_fallback(text)
+            self.logger.error(f"JSON decode error: {str(e)}")
+            self.logger.error(f"Raw response: {response}")
+            raise
         except Exception as e:
-            print(f"Agent error for text: '{text[:50]}...': {e}")
-            return self.extract_features_with_fallback(text)
-    
-    def extract_features_with_fallback(self, text):
-        text_lower = text.lower()
+            self.logger.error(f"Error in extract_features_with_agent: {str(e)}")
+            raise
+
+    def extract_features_batch(self, texts_with_indices):
+        """Extract features for a batch of texts"""
+        try:
+            batch_prompt = self.create_batch_prompt(texts_with_indices)
+            
+            response = self.agent.ask(batch_prompt)
+            
+            if not response:
+                raise ValueError("Empty response from agent")
+            
+            # Try to parse as JSON array first
+            try:
+                batch_results = json.loads(response)
+                if isinstance(batch_results, list):
+                    return batch_results
+            except json.JSONDecodeError:
+                pass
+            
+            # If not a valid JSON array, try to extract individual JSON objects
+            import re
+            json_objects = re.findall(r'\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}', response)
+            
+            if len(json_objects) == len(texts_with_indices):
+                batch_results = []
+                for i, json_str in enumerate(json_objects):
+                    try:
+                        features = json.loads(json_str)
+                        batch_results.append({
+                            "text_index": i + 1,
+                            "features": features
+                        })
+                    except json.JSONDecodeError:
+                        self.logger.error(f"Failed to parse JSON for text {i+1}")
+                        batch_results.append({
+                            "text_index": i + 1,
+                            "features": self.get_empty_features_dict()
+                        })
+                return batch_results
+            else:
+                raise ValueError(f"Expected {len(texts_with_indices)} results, got {len(json_objects)}")
+                
+        except Exception as e:
+            self.logger.error(f"Error in extract_features_batch: {str(e)}")
+            # Return empty features for all texts in batch
+            return [{"text_index": i+1, "features": self.get_empty_features_dict()} 
+                   for i in range(len(texts_with_indices))]
+
+    def get_empty_features_dict(self):
+        """Get empty features as a dictionary (for batch processing)"""
         features = {}
-        
-        positive_words = ['like', 'likes', 'love', 'loves', 'enjoy', 'enjoys', 'good', 'great', 'awesome']
-        negative_words = ['dislike', 'dislikes', 'hate', 'hates', 'not', 'dont', "don't", 'bad', 'terrible']
-        
         for char in self.characteristics:
-            keywords = self.characteristic_keywords.get(char, [])
-            
-            mentioned = 0
-            sentiment = 0
-            
-            keyword_matches = sum(1 for keyword in keywords if keyword.lower() in text_lower)
-            
-            if keyword_matches > 0:
-                mentioned = 1
-                
-                char_context = []
-                for keyword in keywords:
-                    if keyword.lower() in text_lower:
-                        start_idx = text_lower.find(keyword.lower())
-                        context_start = max(0, start_idx - 20)
-                        context_end = min(len(text), start_idx + len(keyword) + 20)
-                        char_context.append(text[context_start:context_end].lower())
-                
-                context_text = ' '.join(char_context)
-                
-                positive_count = sum(1 for word in positive_words if word in context_text)
-                negative_count = sum(1 for word in negative_words if word in context_text)
-                
-                if positive_count > negative_count:
-                    sentiment = 1
-                elif negative_count > positive_count:
-                    sentiment = -1
-                else:
-                    sentiment = 0
-            
-            features[f"{char}_mentioned"] = mentioned
-            features[f"{char}_sentiment"] = sentiment
-        
+            features[char] = {
+                "mentioned": False,
+                "sentiment": "neutral"
+            }
         return features
     
     def get_empty_features(self):
@@ -168,13 +237,78 @@ Be precise and only mark characteristics as mentioned if there is clear evidence
         
         return processed
     
+    def save_failed_samples(self):
+        """Save failed samples to a CSV file for analysis"""
+        if self.failed_samples:
+            failed_df = pd.DataFrame(self.failed_samples)
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            failed_file = os.path.join('..', '..', 'Results', 'V2', 'logs', f'failed_samples_{timestamp}.csv')
+            failed_df.to_csv(failed_file, index=False)
+            self.logger.info(f"Saved {len(self.failed_samples)} failed samples to {failed_file}")
+    
     def process_dataset(self, df):
         feature_list = []
-
-        for idx, row in df.iterrows():
-            print(f"Processing row {idx+1}/{len(df)}")
-            features = self.extract_features_from_text(row['free_response'])
-            feature_list.append(features)
+        df = df.reset_index(drop=True)
+        
+        # Process in batches
+        total_samples = len(df)
+        num_batches = (total_samples + self.batch_size - 1) // self.batch_size
+        
+        print(f"Processing {total_samples} samples in {num_batches} batches of size {self.batch_size}")
+        
+        for batch_idx in range(num_batches):
+            start_idx = batch_idx * self.batch_size
+            end_idx = min((batch_idx + 1) * self.batch_size, total_samples)
+            
+            print(f"Processing batch {batch_idx + 1}/{num_batches} (samples {start_idx + 1}-{end_idx})")
+            
+            # Get texts for this batch
+            batch_texts = []
+            for idx in range(start_idx, end_idx):
+                text = df.iloc[idx]['free_response']
+                batch_texts.append((idx, text))
+            
+            try:
+                # Process batch
+                batch_results = self.extract_features_batch(batch_texts)
+                
+                # Process results for this batch
+                for result in batch_results:
+                    text_index = result["text_index"]
+                    actual_idx = start_idx + text_index - 1
+                    
+                    if actual_idx < len(df):
+                        try:
+                            features = self.process_features(result["features"])
+                            feature_list.append(features)
+                        except Exception as e:
+                            self.logger.error(f"Failed to process features for sample {actual_idx + 1}: {str(e)}")
+                            feature_list.append(self.get_empty_features())
+                    else:
+                        self.logger.error(f"Invalid text index: {text_index}")
+                        feature_list.append(self.get_empty_features())
+                
+            except Exception as e:
+                self.logger.error(f"Failed to process batch {batch_idx + 1}: {str(e)}")
+                
+                # Use empty features for all samples in this batch
+                for idx in range(start_idx, end_idx):
+                    feature_list.append(self.get_empty_features())
+                    
+                    # Record failed samples
+                    failed_sample = {
+                        'row_index': idx,
+                        'sub': df.iloc[idx].get('sub', 'unknown'),
+                        'text_preview': str(df.iloc[idx].get('free_response', ''))[:200],
+                        'error_message': f"Batch processing failed: {str(e)}",
+                        'timestamp': datetime.now().isoformat()
+                    }
+                    self.failed_samples.append(failed_sample)
+        
+        # Save failed samples if any
+        if self.failed_samples:
+            self.save_failed_samples()
+            self.logger.warning(f"Total failed samples: {len(self.failed_samples)} out of {len(df)}")
         
         feature_df = pd.DataFrame(feature_list)
         result_df = pd.concat([df.reset_index(drop=True), feature_df], axis=1)

@@ -76,8 +76,20 @@ All results are saved to `ANN-Modeling/Results/V2/` including:
 - boto3 (for Claude 3.5 Sonnet integration)
 
 ## Model Performance
-The model achieves high accuracy in TD/ASD classification through:
+The model achieves reliable accuracy in TD/ASD classification through:
 - Multi-dimensional feature extraction from text
-- Advanced gradient boosting classification
+- Advanced gradient boosting classification with proper regularization
 - Comprehensive explainability analysis
 - Interactive prediction interface
+- Careful prevention of target leakage and overfitting
+
+## Target Leakage Analysis
+A comprehensive analysis was performed to identify and fix potential target leakage and overfitting issues in the model. See [target_leakage_analysis.md](target_leakage_analysis.md) for detailed findings and fixes.
+
+### Key Improvements
+1. **Fixed Double Train-Test Split**: Eliminated redundant train-test splits to ensure evaluation on truly unseen data
+2. **Enhanced Feature Selection**: Removed features with potential target leakage and implemented correlation-based filtering
+3. **Prevented Feature Extraction Leakage**: Ensured separate feature extraction for train and test data
+4. **Improved Regularization**: Added proper regularization parameters to prevent overfitting
+
+These improvements result in a more robust and reliable model that generalizes better to unseen data.

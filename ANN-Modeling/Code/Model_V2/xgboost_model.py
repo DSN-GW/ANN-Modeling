@@ -42,62 +42,123 @@ class XGBoostClassifier:
         return df
     
     def prepare_features(self, df):
-        feature_columns = []
+        """
+        Prepare features with careful feature selection to avoid target leakage.
         
+        This method:
+        1. Excludes direct identifiers and target variables
+        2. Excludes potential leaking features (those with suspiciously high correlation with target)
+        3. Applies feature selection to reduce dimensionality and prevent overfitting
+        """
+        # List of columns to exclude (direct identifiers, target, and text)
+        exclude_columns = ['sub', 'profile', 'subject', 'td_or_asd', 'free_response']
+        
+        # Additional columns that might leak target information
+        potential_leaking_columns = [
+            'LPA_Profile_ASD_only',  # This directly relates to ASD diagnosis
+            'SRS.Raw',               # Social Responsiveness Scale is used for ASD diagnosis
+            # Add any other columns that might directly encode diagnosis information
+        ]
+        
+        exclude_columns.extend(potential_leaking_columns)
+        
+        # Select numeric and boolean features, excluding the ones in exclude_columns
+        feature_columns = []
         for col in df.columns:
-            if col not in ['sub', 'profile', 'subject', 'td_or_asd', 'free_response']:
+            if col not in exclude_columns:
                 if df[col].dtype in ['int64', 'float64', 'bool']:
                     feature_columns.append(col)
         
+        # Create feature matrix and target vector
         X = df[feature_columns].copy()
         y = df['td_or_asd'].copy()
         
+        # Fill missing values
         X = X.fillna(0)
         
+        # Check for features with extremely high correlation with target
+        # These might be leaking target information
+        if len(X) > 1:  # Only if we have more than one sample
+            correlations = []
+            for col in X.columns:
+                corr = abs(X[col].corr(y))
+                correlations.append((col, corr))
+            
+            # Sort by correlation
+            correlations.sort(key=lambda x: x[1], reverse=True)
+            
+            # Print warning for suspiciously high correlations
+            suspicious_threshold = 0.9
+            suspicious_features = [col for col, corr in correlations if corr > suspicious_threshold]
+            
+            if suspicious_features:
+                print(f"WARNING: The following features have suspiciously high correlation (>{suspicious_threshold}) with the target:")
+                for col, corr in correlations:
+                    if corr > suspicious_threshold:
+                        print(f"  - {col}: {corr:.4f}")
+                print("Consider removing these features as they might be leaking target information.")
+                
+                # Remove the most suspicious features (optional)
+                X = X.drop(columns=suspicious_features)
+                feature_columns = [col for col in feature_columns if col not in suspicious_features]
+                print(f"Removed {len(suspicious_features)} suspicious features.")
+        
+        # Store the final feature names
         self.feature_names = feature_columns
         
+        print(f"Selected {len(feature_columns)} features after filtering.")
         return X, y
     
-    def train_model(self, X, y, test_size=0.2, random_state=42):
-        X_train, X_test, y_train, y_test = train_test_split(
-            X, y, test_size=test_size, random_state=random_state, stratify=y
-        )
+    def train_model(self, X, y, random_state=42):
+        """
+        Train the model on the entire training dataset without a second train-test split.
+        Use cross-validation for model evaluation during training.
         
-        X_train_scaled = self.scaler.fit_transform(X_train)
-        X_test_scaled = self.scaler.transform(X_test)
+        Note: The test data is already separated in data_preprocessor.py, so we don't need
+        another train-test split here. This prevents the double train-test split issue.
+        """
+        # Scale the features
+        X_scaled = self.scaler.fit_transform(X)
         
+        # Create a more regularized model to prevent overfitting
         self.model = xgb.XGBClassifier(
             n_estimators=100,
-            max_depth=6,
-            learning_rate=0.1,
-            subsample=0.8,
-            colsample_bytree=0.8,
+            max_depth=4,  # Reduced from 6 to prevent overfitting
+            learning_rate=0.05,  # Reduced from 0.1 to prevent overfitting
+            subsample=0.7,  # Reduced from 0.8 for more regularization
+            colsample_bytree=0.7,  # Reduced from 0.8 for more regularization
+            min_child_weight=3,  # Added to prevent overfitting
+            gamma=0.1,  # Added to prevent overfitting
+            reg_alpha=0.1,  # L1 regularization
+            reg_lambda=1.0,  # L2 regularization
             random_state=random_state,
             eval_metric='logloss'
         )
         
-        self.model.fit(X_train_scaled, y_train)
+        # Use stratified k-fold cross-validation for more reliable evaluation
+        cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=random_state)
+        cv_scores = cross_val_score(self.model, X_scaled, y, cv=cv, scoring='accuracy')
         
-        y_pred = self.model.predict(X_test_scaled)
-        y_pred_proba = self.model.predict_proba(X_test_scaled)
+        # Train the final model on the entire training set
+        self.model.fit(X_scaled, y)
         
+        # Get feature importance
         self.feature_importance = dict(zip(self.feature_names, self.model.feature_importances_))
         
+        # Create results dictionary with cross-validation metrics
         results = {
-            'accuracy': accuracy_score(y_test, y_pred),
-            'classification_report': classification_report(y_test, y_pred, output_dict=True),
-            'confusion_matrix': confusion_matrix(y_test, y_pred).tolist(),
-            'feature_importance': self.feature_importance
+            'feature_importance': self.feature_importance,
+            'cv_mean': cv_scores.mean(),
+            'cv_std': cv_scores.std(),
+            'cv_scores': cv_scores.tolist(),
+            'model_params': self.model.get_params()
         }
         
-        if len(np.unique(y)) == 2:
-            results['roc_auc'] = roc_auc_score(y_test, y_pred_proba[:, 1])
+        # Note: We don't calculate accuracy, classification_report, etc. here
+        # because we're not doing a second train-test split. These metrics
+        # will be calculated on the true test set in predict.py.
         
-        cv_scores = cross_val_score(self.model, X_train_scaled, y_train, cv=5, scoring='accuracy')
-        results['cv_mean'] = cv_scores.mean()
-        results['cv_std'] = cv_scores.std()
-        
-        return results, X_test, y_test, y_pred, y_pred_proba
+        return results
     
     def get_feature_importance_sorted(self, top_n=20):
         if self.feature_importance is None:
@@ -172,14 +233,18 @@ def train_xgboost_model():
     print(f"Number of features: {len(classifier.feature_names)}")
     print(f"Target distribution: {y.value_counts().to_dict()}")
     
-    print("Training XGBoost model...")
-    results, X_test, y_test, y_pred, y_pred_proba = classifier.train_model(X, y)
+    print("Training XGBoost model with cross-validation...")
+    results = classifier.train_model(X, y)
     
     print("Training Results:")
-    print(f"Accuracy: {results['accuracy']:.4f}")
-    print(f"Cross-validation mean: {results['cv_mean']:.4f} (+/- {results['cv_std']:.4f})")
-    if 'roc_auc' in results:
-        print(f"ROC AUC: {results['roc_auc']:.4f}")
+    print(f"Cross-validation mean accuracy: {results['cv_mean']:.4f} (+/- {results['cv_std']:.4f})")
+    print(f"Cross-validation scores: {[f'{score:.4f}' for score in results['cv_scores']]}")
+    
+    print("\nModel Parameters:")
+    for param, value in results['model_params'].items():
+        if param in ['max_depth', 'learning_rate', 'n_estimators', 'subsample', 'colsample_bytree', 
+                    'min_child_weight', 'gamma', 'reg_alpha', 'reg_lambda']:
+            print(f"  {param}: {value}")
     
     print("\nTop 10 Most Important Features:")
     top_features = classifier.get_feature_importance_sorted(10)
@@ -193,6 +258,8 @@ def train_xgboost_model():
     os.makedirs(os.path.dirname(results_path), exist_ok=True)
     with open(results_path, 'w') as f:
         json.dump(convert_numpy_types(results), f, indent=2)
+    
+    print("\nNote: Final model evaluation will be performed on the test set in predict.py")
     
     return classifier, results
 

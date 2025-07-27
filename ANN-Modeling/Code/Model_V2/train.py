@@ -5,7 +5,7 @@ from data_preprocessor import preprocess_training_data
 from xgboost_model import train_xgboost_model
 
 
-def run_complete_training_pipeline():
+def run_complete_training_pipeline(batch_size=10):
     print("=" * 60)
     print("STARTING MODEL V2 TRAINING PIPELINE")
     print("=" * 60)
@@ -22,7 +22,8 @@ def run_complete_training_pipeline():
             not os.path.exists(test_preprocessed_path) or 
             not os.path.exists(artifacts_dir)):
             print("Preprocessed data or artifacts not found. Running stratified preprocessing...")
-            train_data, test_data = preprocess_training_data()
+            print(f"Using batch size: {batch_size} for faster processing")
+            train_data, test_data = preprocess_training_data(batch_size=batch_size)
             print(f"Training data preprocessing completed. Shape: {train_data.shape}")
             print(f"Test data preprocessing completed. Shape: {test_data.shape}")
         else:
@@ -56,4 +57,8 @@ def run_complete_training_pipeline():
 
 
 if __name__ == "__main__":
-    results = run_complete_training_pipeline()
+    # You can adjust batch_size based on your needs
+    # Larger batch_size = faster processing but more memory usage
+    # Smaller batch_size = slower processing but less memory usage
+    batch_size = 10  # Process 10 samples at a time
+    results = run_complete_training_pipeline(batch_size=batch_size)
