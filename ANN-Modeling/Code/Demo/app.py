@@ -1,0 +1,414 @@
+import streamlit as st
+import pandas as pd
+import numpy as np
+import json
+import os
+import sys
+import matplotlib.pyplot as plt
+import seaborn as sns
+from PIL import Image
+import plotly.express as px
+import plotly.graph_objects as go
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'Model_V2'))
+from predict import ModelPredictor, predict_single_sample
+
+st.set_page_config(
+    page_title="TD/ASD Classification Model V2 - Demo",
+    page_icon="🧠",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+class DemoApp:
+    def __init__(self):
+        self.results_dir = os.path.join('..', '..', 'Results', 'V2')
+        self.viz_dir = os.path.join(self.results_dir, 'visualizations')
+        self.predictor = None
+        
+    def load_results(self):
+        try:
+            explainability_path = os.path.join(self.results_dir, 'explainability_analysis_v2.json')
+            training_results_path = os.path.join(self.results_dir, 'training_results_v2.json')
+            
+            with open(explainability_path, 'r') as f:
+                self.explainability_data = json.load(f)
+            
+            with open(training_results_path, 'r') as f:
+                self.training_results = json.load(f)
+            
+            return True
+        except:
+            return False
+    
+    def initialize_predictor(self):
+        if self.predictor is None:
+            try:
+                self.predictor = ModelPredictor()
+                self.predictor.load_model()
+                return True
+            except:
+                return False
+        return True
+    
+    def show_home_page(self):
+        st.title("🧠 TD/ASD Classification Model V2")
+        st.markdown("### Advanced Text Analysis for Autism Spectrum Disorder Classification")
+        
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            st.metric("Model Accuracy", f"{self.training_results['accuracy']:.3f}")
+        
+        with col2:
+            st.metric("Cross-Validation Score", f"{self.training_results['cv_mean']:.3f}")
+        
+        with col3:
+            if 'roc_auc' in self.training_results:
+                st.metric("ROC AUC", f"{self.training_results['roc_auc']:.3f}")
+        
+        st.markdown("---")
+        
+        st.markdown("""
+        ## Model Overview
+        
+        This advanced machine learning model uses **XGBoost** to classify individuals as Typically Developing (TD) or having Autism Spectrum Disorder (ASD) based on free-response text analysis.
+        
+        ### Key Features:
+        - **Characteristic-based Feature Extraction**: Uses Claude 3.5 Sonnet to extract features related to 11 specific characteristics
+        - **NLP Text Analysis**: Comprehensive text preprocessing including sentiment, cohesiveness, and linguistic features
+        - **Explainable AI**: SHAP-based feature importance and contribution analysis
+        - **Interactive Predictions**: Real-time text analysis and classification
+        
+        ### Model Pipeline:
+        1. **Text Preprocessing**: Extract characteristic-based and NLP features
+        2. **Feature Engineering**: Create comprehensive feature set from free response text
+        3. **XGBoost Classification**: Train robust gradient boosting model
+        4. **Explainability Analysis**: Generate interpretable insights
+        5. **Visualization**: Create comprehensive analysis charts
+        """)
+        
+        if st.button("🚀 Explore Model Results"):
+            st.session_state.page = "results"
+            st.rerun()
+    
+    def show_results_page(self):
+        st.title("📊 Model Results & Analysis")
+        
+        tab1, tab2, tab3, tab4 = st.tabs(["Model Performance", "Feature Importance", "Characteristic Analysis", "Visualizations"])
+        
+        with tab1:
+            st.subheader("Model Performance Metrics")
+            
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                st.json(self.training_results['classification_report'])
+            
+            with col2:
+                cm = np.array(self.training_results['confusion_matrix'])
+                fig, ax = plt.subplots(figsize=(6, 4))
+                sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', 
+                           xticklabels=['TD', 'ASD'], yticklabels=['TD', 'ASD'], ax=ax)
+                ax.set_title('Confusion Matrix')
+                st.pyplot(fig)
+        
+        with tab2:
+            st.subheader("Top Feature Importance")
+            
+            feature_importance = self.training_results['feature_importance']
+            top_features = sorted(feature_importance.items(), key=lambda x: x[1], reverse=True)[:20]
+            
+            features_df = pd.DataFrame(top_features, columns=['Feature', 'Importance'])
+            
+            fig = px.bar(features_df, x='Importance', y='Feature', orientation='h',
+                        title='Top 20 Most Important Features')
+            fig.update_layout(height=600)
+            st.plotly_chart(fig, use_container_width=True)
+        
+        with tab3:
+            st.subheader("Characteristic Analysis")
+            
+            char_summary = self.explainability_data['characteristic_summary']
+            
+            char_df = pd.DataFrame([
+                {
+                    'Characteristic': char.replace('_', ' ').title(),
+                    'Importance Score': data['importance_score'],
+                    'Feature Count': data['feature_count'],
+                    'Rank': data['rank']
+                }
+                for char, data in char_summary.items()
+            ]).sort_values('Rank')
+            
+            st.dataframe(char_df, use_container_width=True)
+            
+            fig = px.bar(char_df, x='Characteristic', y='Importance Score',
+                        title='Characteristic Importance Ranking')
+            fig.update_xaxes(tickangle=45)
+            st.plotly_chart(fig, use_container_width=True)
+        
+        with tab4:
+            st.subheader("Model Visualizations")
+            
+            viz_files = [
+                ('feature_importance_v2.png', 'Feature Importance'),
+                ('characteristic_importance_v2.png', 'Characteristic Importance'),
+                ('td_vs_asd_comparison_v2.png', 'TD vs ASD Comparison'),
+                ('model_performance_v2.png', 'Model Performance'),
+                ('confusion_matrix_v2.png', 'Confusion Matrix'),
+                ('characteristic_ranking_v2.png', 'Characteristic Ranking')
+            ]
+            
+            for filename, title in viz_files:
+                viz_path = os.path.join(self.viz_dir, filename)
+                if os.path.exists(viz_path):
+                    st.subheader(title)
+                    image = Image.open(viz_path)
+                    st.image(image, use_column_width=True)
+                else:
+                    st.warning(f"Visualization not found: {filename}")
+    
+    def show_prediction_page(self):
+        st.title("🔮 Make Predictions")
+        
+        tab1, tab2 = st.tabs(["Single Text Prediction", "Batch Prediction"])
+        
+        with tab1:
+            st.subheader("Analyze Single Text Sample")
+            
+            text_input = st.text_area(
+                "Enter free response text:",
+                placeholder="Example: He likes sports and healthy food. He enjoys playing guitar but doesn't like art.",
+                height=150
+            )
+            
+            subject_id = st.text_input("Subject ID (optional):", value="demo_sample")
+            
+            if st.button("🔍 Analyze Text"):
+                if text_input.strip():
+                    if self.initialize_predictor():
+                        with st.spinner("Analyzing text..."):
+                            try:
+                                result = self.predictor.predict_single_text(text_input, subject_id)
+                                
+                                col1, col2, col3 = st.columns(3)
+                                
+                                with col1:
+                                    prediction = "ASD" if result['predicted_td_or_asd'] == 1 else "TD"
+                                    st.metric("Prediction", prediction)
+                                
+                                with col2:
+                                    confidence = result['prediction_confidence']
+                                    st.metric("Confidence", f"{confidence:.3f}")
+                                
+                                with col3:
+                                    prob_asd = result['prediction_probability_class_1']
+                                    st.metric("ASD Probability", f"{prob_asd:.3f}")
+                                
+                                st.markdown("---")
+                                
+                                st.subheader("Probability Breakdown")
+                                prob_data = pd.DataFrame({
+                                    'Class': ['TD', 'ASD'],
+                                    'Probability': [
+                                        result['prediction_probability_class_0'],
+                                        result['prediction_probability_class_1']
+                                    ]
+                                })
+                                
+                                fig = px.bar(prob_data, x='Class', y='Probability',
+                                           title='Classification Probabilities')
+                                st.plotly_chart(fig, use_container_width=True)
+                                
+                                st.subheader("Feature Analysis")
+                                feature_cols = [col for col in result.index 
+                                              if col not in ['sub', 'profile', 'subject', 'td_or_asd', 'free_response',
+                                                           'predicted_td_or_asd', 'prediction_probability_class_0',
+                                                           'prediction_probability_class_1', 'prediction_confidence']]
+                                
+                                non_zero_features = []
+                                for col in feature_cols:
+                                    if result[col] != 0:
+                                        non_zero_features.append({'Feature': col, 'Value': result[col]})
+                                
+                                if non_zero_features:
+                                    features_df = pd.DataFrame(non_zero_features)
+                                    st.dataframe(features_df, use_container_width=True)
+                                
+                            except Exception as e:
+                                st.error(f"Error during prediction: {str(e)}")
+                    else:
+                        st.error("Failed to load model. Please ensure the model is trained.")
+                else:
+                    st.warning("Please enter some text to analyze.")
+        
+        with tab2:
+            st.subheader("Batch Prediction from File")
+            
+            uploaded_file = st.file_uploader("Upload CSV file", type=['csv'])
+            
+            if uploaded_file is not None:
+                try:
+                    df = pd.read_csv(uploaded_file)
+                    st.write("Data Preview:")
+                    st.dataframe(df.head())
+                    
+                    if st.button("🚀 Run Batch Prediction"):
+                        if self.initialize_predictor():
+                            with st.spinner("Processing batch predictions..."):
+                                try:
+                                    results_df = self.predictor.predict_batch(df)
+                                    
+                                    st.success("Batch prediction completed!")
+                                    
+                                    col1, col2, col3 = st.columns(3)
+                                    
+                                    with col1:
+                                        td_count = (results_df['predicted_td_or_asd'] == 0).sum()
+                                        st.metric("TD Predictions", td_count)
+                                    
+                                    with col2:
+                                        asd_count = (results_df['predicted_td_or_asd'] == 1).sum()
+                                        st.metric("ASD Predictions", asd_count)
+                                    
+                                    with col3:
+                                        avg_confidence = results_df['prediction_confidence'].mean()
+                                        st.metric("Avg Confidence", f"{avg_confidence:.3f}")
+                                    
+                                    st.subheader("Prediction Results")
+                                    st.dataframe(results_df[['sub', 'free_response', 'predicted_td_or_asd', 
+                                                           'prediction_confidence']].head(20))
+                                    
+                                    csv = results_df.to_csv(index=False)
+                                    st.download_button(
+                                        label="📥 Download Results",
+                                        data=csv,
+                                        file_name="batch_predictions_v2.csv",
+                                        mime="text/csv"
+                                    )
+                                    
+                                except Exception as e:
+                                    st.error(f"Error during batch prediction: {str(e)}")
+                        else:
+                            st.error("Failed to load model.")
+                            
+                except Exception as e:
+                    st.error(f"Error reading file: {str(e)}")
+    
+    def show_explainability_page(self):
+        st.title("🔍 Model Explainability")
+        
+        tab1, tab2, tab3 = st.tabs(["Characteristic Contributions", "TD vs ASD Patterns", "Feature Analysis"])
+        
+        with tab1:
+            st.subheader("How Each Characteristic Contributes to Classification")
+            
+            char_analysis = self.explainability_data['characteristic_analysis']
+            
+            contrib_data = []
+            for char, data in char_analysis.items():
+                contrib_data.append({
+                    'Characteristic': char.replace('_', ' ').title(),
+                    'Total Importance': data['total_importance'],
+                    'Feature Count': data['feature_count']
+                })
+            
+            contrib_df = pd.DataFrame(contrib_data).sort_values('Total Importance', ascending=False)
+            
+            fig = px.scatter(contrib_df, x='Feature Count', y='Total Importance', 
+                           size='Total Importance', hover_name='Characteristic',
+                           title='Characteristic Importance vs Feature Count')
+            st.plotly_chart(fig, use_container_width=True)
+            
+            st.dataframe(contrib_df, use_container_width=True)
+        
+        with tab2:
+            st.subheader("Differences Between TD and ASD Groups")
+            
+            td_patterns = self.explainability_data['class_patterns']['td_patterns']
+            asd_patterns = self.explainability_data['class_patterns']['asd_patterns']
+            
+            comparison_data = []
+            for char in td_patterns.keys():
+                td_mentioned = td_patterns[char].get(f'{char}_mentioned', 0)
+                asd_mentioned = asd_patterns[char].get(f'{char}_mentioned', 0)
+                td_sentiment = td_patterns[char].get(f'{char}_sentiment', 0)
+                asd_sentiment = asd_patterns[char].get(f'{char}_sentiment', 0)
+                
+                comparison_data.append({
+                    'Characteristic': char.replace('_', ' ').title(),
+                    'TD Mention Rate': td_mentioned,
+                    'ASD Mention Rate': asd_mentioned,
+                    'TD Sentiment': td_sentiment,
+                    'ASD Sentiment': asd_sentiment
+                })
+            
+            comparison_df = pd.DataFrame(comparison_data)
+            
+            fig1 = px.bar(comparison_df, x='Characteristic', 
+                         y=['TD Mention Rate', 'ASD Mention Rate'],
+                         title='Mention Rates: TD vs ASD',
+                         barmode='group')
+            fig1.update_xaxes(tickangle=45)
+            st.plotly_chart(fig1, use_container_width=True)
+            
+            fig2 = px.bar(comparison_df, x='Characteristic', 
+                         y=['TD Sentiment', 'ASD Sentiment'],
+                         title='Sentiment Scores: TD vs ASD',
+                         barmode='group')
+            fig2.update_xaxes(tickangle=45)
+            st.plotly_chart(fig2, use_container_width=True)
+        
+        with tab3:
+            st.subheader("Detailed Feature Analysis")
+            
+            top_features = self.explainability_data['model_performance']['top_features']
+            
+            if top_features:
+                features_df = pd.DataFrame(top_features, columns=['Feature', 'Importance'])
+                
+                fig = px.treemap(features_df, path=['Feature'], values='Importance',
+                               title='Feature Importance Treemap')
+                st.plotly_chart(fig, use_container_width=True)
+                
+                st.dataframe(features_df, use_container_width=True)
+
+def main():
+    app = DemoApp()
+    
+    st.sidebar.title("Navigation")
+    
+    if 'page' not in st.session_state:
+        st.session_state.page = "home"
+    
+    pages = {
+        "🏠 Home": "home",
+        "📊 Results": "results", 
+        "🔮 Predictions": "predictions",
+        "🔍 Explainability": "explainability"
+    }
+    
+    for page_name, page_key in pages.items():
+        if st.sidebar.button(page_name):
+            st.session_state.page = page_key
+    
+    st.sidebar.markdown("---")
+    st.sidebar.markdown("### Model V2 Info")
+    st.sidebar.info("Advanced TD/ASD Classification using XGBoost and NLP features")
+    
+    if not app.load_results():
+        st.error("Could not load model results. Please ensure the model has been trained.")
+        return
+    
+    if st.session_state.page == "home":
+        app.show_home_page()
+    elif st.session_state.page == "results":
+        app.show_results_page()
+    elif st.session_state.page == "predictions":
+        app.show_prediction_page()
+    elif st.session_state.page == "explainability":
+        app.show_explainability_page()
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,2010 @@
+{
+  "model_performance": {
+    "feature_count": 53,
+    "top_features": [
+      [
+        "LPA_Profile_ASD_only",
+        0.5884432196617126
+      ],
+      [
+        "SRS.Raw",
+        0.17524468898773193
+      ],
+      [
+        "FSR",
+        0.13204284012317657
+      ],
+      [
+        "BIS",
+        0.01675073243677616
+      ],
+      [
+        "music_mentioned",
+        0.008293739520013332
+      ],
+      [
+        "negative_word_ratio",
+        0.008122613653540611
+      ],
+      [
+        "food_mentioned",
+        0.007564781699329615
+      ],
+      [
+        "cohesiveness_score",
+        0.007551414892077446
+      ],
+      [
+        "sentiment_polarity",
+        0.006071754265576601
+      ],
+      [
+        "verb_ratio",
+        0.005663732066750526
+      ],
+      [
+        "char_count",
+        0.005306830629706383
+      ],
+      [
+        "positive_word_count",
+        0.0049788812175393105
+      ],
+      [
+        "avg_PE",
+        0.0038116301875561476
+      ],
+      [
+        "flesch_reading_ease",
+        0.0036918213590979576
+      ],
+      [
+        "negative_word_count",
+        0.0035949284210801125
+      ]
+    ]
+  },
+  "characteristic_analysis": {
+    "personality inference": {
+      "total_importance": 0.0,
+      "features": [
+        "personality inference_mentioned",
+        "personality inference_sentiment"
+      ],
+      "feature_count": 2
+    },
+    "sweets": {
+      "total_importance": 0.0,
+      "features": [
+        "sweets_mentioned",
+        "sweets_sentiment"
+      ],
+      "feature_count": 2
+    },
+    "Fruits and vegetables": {
+      "total_importance": 0.0,
+      "features": [
+        "Fruits and vegetables_mentioned",
+        "Fruits and vegetables_sentiment"
+      ],
+      "feature_count": 2
+    },
+    "healthy savory food": {
+      "total_importance": 0.0,
+      "features": [
+        "healthy savory food_mentioned",
+        "healthy savory food_sentiment"
+      ],
+      "feature_count": 2
+    },
+    "food": {
+      "total_importance": 0.007564781699329615,
+      "features": [
+        "food_mentioned",
+        "food_sentiment"
+      ],
+      "feature_count": 2
+    },
+    "cosmetics": {
+      "total_importance": 0.0,
+      "features": [
+        "cosmetics_mentioned",
+        "cosmetics_sentiment"
+      ],
+      "feature_count": 2
+    },
+    "fashion": {
+      "total_importance": 0.0,
+      "features": [
+        "fashion_mentioned",
+        "fashion_sentiment"
+      ],
+      "feature_count": 2
+    },
+    "toys, gadgets and games": {
+      "total_importance": 0.0,
+      "features": [
+        "toys, gadgets and games_mentioned",
+        "toys, gadgets and games_sentiment"
+      ],
+      "feature_count": 2
+    },
+    "sports": {
+      "total_importance": 0.002664668019860983,
+      "features": [
+        "sports_mentioned",
+        "sports_sentiment"
+      ],
+      "feature_count": 2
+    },
+    "music": {
+      "total_importance": 0.008293739520013332,
+      "features": [
+        "music_mentioned",
+        "music_sentiment"
+      ],
+      "feature_count": 2
+    },
+    "arts and crafts": {
+      "total_importance": 0.0,
+      "features": [
+        "arts and crafts_mentioned",
+        "arts and crafts_sentiment"
+      ],
+      "feature_count": 2
+    }
+  },
+  "class_patterns": {
+    "td_patterns": {
+      "personality inference": {
+        "personality inference_mentioned": 0.7887323943661971,
+        "personality inference_sentiment": 0.6222791293213829
+      },
+      "sweets": {
+        "sweets_mentioned": 0.18950064020486557,
+        "sweets_sentiment": 0.11907810499359796
+      },
+      "Fruits and vegetables": {
+        "Fruits and vegetables_mentioned": 0.23815620998719592,
+        "Fruits and vegetables_sentiment": 0.1587708066581306
+      },
+      "healthy savory food": {
+        "healthy savory food_mentioned": 0.17541613316261204,
+        "healthy savory food_sentiment": 0.08450704225352113
+      },
+      "food": {
+        "food_mentioned": 0.30217669654289375,
+        "food_sentiment": 0.17797695262483995
+      },
+      "cosmetics": {
+        "cosmetics_mentioned": 0.0,
+        "cosmetics_sentiment": 0.0
+      },
+      "fashion": {
+        "fashion_mentioned": 0.005121638924455826,
+        "fashion_sentiment": -0.0012804097311139564
+      },
+      "toys, gadgets and games": {
+        "toys, gadgets and games_mentioned": 0.1293213828425096,
+        "toys, gadgets and games_sentiment": 0.08450704225352113
+      },
+      "sports": {
+        "sports_mentioned": 0.20358514724711907,
+        "sports_sentiment": 0.10755441741357234
+      },
+      "music": {
+        "music_mentioned": 0.23943661971830985,
+        "music_sentiment": 0.15492957746478872
+      },
+      "arts and crafts": {
+        "arts and crafts_mentioned": 0.19590268886043533,
+        "arts and crafts_sentiment": 0.0973111395646607
+      }
+    },
+    "asd_patterns": {
+      "personality inference": {
+        "personality inference_mentioned": 0.7013473053892215,
+        "personality inference_sentiment": 0.5785928143712575
+      },
+      "sweets": {
+        "sweets_mentioned": 0.14595808383233533,
+        "sweets_sentiment": 0.07709580838323353
+      },
+      "Fruits and vegetables": {
+        "Fruits and vegetables_mentioned": 0.18712574850299402,
+        "Fruits and vegetables_sentiment": 0.13997005988023953
+      },
+      "healthy savory food": {
+        "healthy savory food_mentioned": 0.10703592814371257,
+        "healthy savory food_sentiment": 0.0688622754491018
+      },
+      "food": {
+        "food_mentioned": 0.25074850299401197,
+        "food_sentiment": 0.16392215568862276
+      },
+      "cosmetics": {
+        "cosmetics_mentioned": 0.0007485029940119761,
+        "cosmetics_sentiment": 0.0007485029940119761
+      },
+      "fashion": {
+        "fashion_mentioned": 0.002245508982035928,
+        "fashion_sentiment": 0.0014970059880239522
+      },
+      "toys, gadgets and games": {
+        "toys, gadgets and games_mentioned": 0.11002994011976049,
+        "toys, gadgets and games_sentiment": 0.0658682634730539
+      },
+      "sports": {
+        "sports_mentioned": 0.16541916167664672,
+        "sports_sentiment": 0.08308383233532934
+      },
+      "music": {
+        "music_mentioned": 0.19760479041916168,
+        "music_sentiment": 0.1317365269461078
+      },
+      "arts and crafts": {
+        "arts and crafts_mentioned": 0.12425149700598802,
+        "arts and crafts_sentiment": 0.07035928143712575
+      }
+    }
+  },
+  "characteristic_summary": {
+    "personality inference": {
+      "importance_score": 0.0,
+      "feature_count": 2,
+      "rank": 4
+    },
+    "sweets": {
+      "importance_score": 0.0,
+      "feature_count": 2,
+      "rank": 5
+    },
+    "Fruits and vegetables": {
+      "importance_score": 0.0,
+      "feature_count": 2,
+      "rank": 6
+    },
+    "healthy savory food": {
+      "importance_score": 0.0,
+      "feature_count": 2,
+      "rank": 7
+    },
+    "food": {
+      "importance_score": 0.007564781699329615,
+      "feature_count": 2,
+      "rank": 2
+    },
+    "cosmetics": {
+      "importance_score": 0.0,
+      "feature_count": 2,
+      "rank": 8
+    },
+    "fashion": {
+      "importance_score": 0.0,
+      "feature_count": 2,
+      "rank": 9
+    },
+    "toys, gadgets and games": {
+      "importance_score": 0.0,
+      "feature_count": 2,
+      "rank": 10
+    },
+    "sports": {
+      "importance_score": 0.002664668019860983,
+      "feature_count": 2,
+      "rank": 3
+    },
+    "music": {
+      "importance_score": 0.008293739520013332,
+      "feature_count": 2,
+      "rank": 1
+    },
+    "arts and crafts": {
+      "importance_score": 0.0,
+      "feature_count": 2,
+      "rank": 11
+    }
+  },
+  "prediction_explanations": [
+    {
+      "sample_id": 1540,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.756696879863739,
+        "FSR": 0.2821308970451355,
+        "BIS": 0.25581344962120056,
+        "avg_PE": 0.004351567476987839,
+        "verb_ratio": 0.004159581381827593,
+        "positive_word_count": 0.003368792589753866,
+        "lexical_diversity": -0.0031328180339187384,
+        "char_count": 0.0030298284254968166,
+        "avg_word_length": 0.002383630955591798
+      }
+    },
+    {
+      "sample_id": 927,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7636992335319519,
+        "FSR": 0.29681622982025146,
+        "BIS": 0.25539669394493103,
+        "char_count": -0.005293802823871374,
+        "avg_word_length": 0.004087622277438641,
+        "lexical_diversity": -0.003472200594842434,
+        "positive_word_ratio": -0.003411071840673685,
+        "verb_ratio": 0.0034085491206496954,
+        "positive_word_count": -0.00326232286170125
+      }
+    },
+    {
+      "sample_id": 1304,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7442423701286316,
+        "FSR": 0.2836088538169861,
+        "BIS": 0.2620442807674408,
+        "verb_ratio": 0.004159581381827593,
+        "lexical_diversity": 0.0034942817874252796,
+        "positive_word_count": 0.003368792589753866,
+        "char_count": 0.0030298284254968166,
+        "avg_word_length": 0.0016834265552461147,
+        "sentiment_polarity": -0.0014511101180687547
+      }
+    },
+    {
+      "sample_id": 780,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.8738528490066528,
+        "FSR": -0.26178523898124695,
+        "BIS": -0.22301258146762848,
+        "positive_word_ratio": -0.009547052904963493,
+        "flesch_reading_ease": 0.0033248779363930225,
+        "verb_ratio": -0.003240002319216728,
+        "sentiment_polarity": -0.0028976500034332275,
+        "positive_word_count": 0.0026927234139293432,
+        "avg_PE": 0.002362441271543503
+      }
+    },
+    {
+      "sample_id": 1695,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.8558257818222046,
+        "FSR": -0.2706935405731201,
+        "BIS": -0.23896518349647522,
+        "positive_word_count": 0.0035552592016756535,
+        "flesch_reading_ease": -0.0033474306110292673,
+        "sentiment_polarity": -0.0030215249862521887,
+        "avg_PE": 0.0026990598998963833,
+        "flesch_kincaid_grade": 0.001955991378054023,
+        "word_count": 0.0017691445536911488
+      }
+    },
+    {
+      "sample_id": 1515,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.5096023678779602,
+        "FSR": 0.29711735248565674,
+        "BIS": 0.2464749813079834,
+        "avg_PE": -0.02665085718035698,
+        "verb_ratio": 0.004493814427405596,
+        "avg_word_length": 0.0037707812152802944,
+        "positive_word_ratio": -0.0035099152009934187,
+        "lexical_diversity": 0.0034942817874252796,
+        "positive_word_count": -0.00317215034738183
+      }
+    },
+    {
+      "sample_id": 1144,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.8623162508010864,
+        "FSR": -0.26821261644363403,
+        "BIS": -0.23920446634292603,
+        "verb_ratio": 0.004833774175494909,
+        "positive_word_count": 0.0034839899744838476,
+        "flesch_reading_ease": -0.0033474306110292673,
+        "flesch_kincaid_grade": 0.0030332806054502726,
+        "sentiment_polarity": -0.0030215249862521887,
+        "avg_PE": 0.0018565614009276032
+      }
+    },
+    {
+      "sample_id": 550,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.8667730093002319,
+        "FSR": -0.25836181640625,
+        "BIS": -0.22895443439483643,
+        "avg_PE": -0.008778171613812447,
+        "flesch_reading_ease": 0.003717138897627592,
+        "verb_ratio": -0.003491118550300598,
+        "sentiment_polarity": -0.003042237600311637,
+        "positive_word_count": 0.0025750845670700073,
+        "positive_word_ratio": -0.0022492532152682543
+      }
+    },
+    {
+      "sample_id": 1887,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7473333477973938,
+        "FSR": 0.28986656665802,
+        "BIS": 0.2685093581676483,
+        "avg_PE": -0.007729523349553347,
+        "char_count": 0.004289539996534586,
+        "lexical_diversity": 0.0034942817874252796,
+        "verb_ratio": -0.003315307665616274,
+        "positive_word_count": 0.0025786859914660454,
+        "avg_word_length": -0.002383376006036997
+      }
+    },
+    {
+      "sample_id": 923,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7368885278701782,
+        "FSR": 0.29103025794029236,
+        "BIS": 0.2700901925563812,
+        "char_count": 0.004190754145383835,
+        "positive_word_ratio": -0.004179004114121199,
+        "avg_PE": 0.0036176471039652824,
+        "avg_word_length": 0.003569061402231455,
+        "lexical_diversity": 0.0034942817874252796,
+        "positive_word_count": -0.002774096094071865
+      }
+    },
+    {
+      "sample_id": 599,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.8507306575775146,
+        "BIS": -0.23209506273269653,
+        "FSR": -0.23179426789283752,
+        "avg_PE": 0.03685205802321434,
+        "positive_word_ratio": -0.006110695190727711,
+        "flesch_reading_ease": -0.004069773480296135,
+        "verb_ratio": 0.0019404266495257616,
+        "char_count": -0.001712546800263226,
+        "positive_word_count": -0.0014917325461283326
+      }
+    },
+    {
+      "sample_id": 376,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7362366318702698,
+        "FSR": 0.2837384343147278,
+        "BIS": 0.268886536359787,
+        "verb_ratio": 0.004159581381827593,
+        "positive_word_ratio": -0.003953044768422842,
+        "avg_PE": 0.003749258816242218,
+        "lexical_diversity": 0.0034942817874252796,
+        "flesch_reading_ease": 0.0031538992188870907,
+        "char_count": 0.002931042807176709
+      }
+    },
+    {
+      "sample_id": 1212,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7373752593994141,
+        "FSR": 0.2872655391693115,
+        "BIS": 0.2668052613735199,
+        "avg_PE": 0.004963613580912352,
+        "char_count": 0.004289539996534586,
+        "lexical_diversity": 0.0034942817874252796,
+        "verb_ratio": -0.0027120227459818125,
+        "positive_word_count": 0.0025465183425694704,
+        "adv_ratio": 0.0024162244517356157
+      }
+    },
+    {
+      "sample_id": 1465,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7589396238327026,
+        "FSR": 0.3124319314956665,
+        "BIS": 0.25786322355270386,
+        "char_count": -0.007494807243347168,
+        "positive_word_count": -0.0053129675798118114,
+        "verb_ratio": -0.004347310401499271,
+        "lexical_diversity": -0.0031328180339187384,
+        "adv_ratio": 0.0030718250200152397,
+        "avg_word_length": -0.0023252861574292183
+      }
+    },
+    {
+      "sample_id": 32,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.8715399503707886,
+        "FSR": -0.2682415843009949,
+        "BIS": -0.2254384458065033,
+        "avg_PE": -0.007783039938658476,
+        "verb_ratio": 0.004582664929330349,
+        "flesch_reading_ease": 0.0033248779363930225,
+        "sentiment_polarity": -0.002718814881518483,
+        "positive_word_count": 0.002535984618589282,
+        "word_count": 0.0017691445536911488
+      }
+    },
+    {
+      "sample_id": 663,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.6943268179893494,
+        "positive_word_count": -0.06428060680627823,
+        "avg_PE": 0.03739875555038452,
+        "avg_word_length": -0.018298374488949776,
+        "BIS": 0.01739060878753662,
+        "positive_word_ratio": 0.015645725652575493,
+        "negative_word_count": 0.00714878411963582,
+        "sports_mentioned": -0.004455969203263521,
+        "FSR": 0.004018979147076607
+      }
+    },
+    {
+      "sample_id": 334,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.861513614654541,
+        "FSR": -0.25504380464553833,
+        "BIS": -0.21578064560890198,
+        "avg_PE": -0.008210971020162106,
+        "positive_word_ratio": -0.005531309172511101,
+        "verb_ratio": -0.003971393220126629,
+        "avg_word_length": -0.003912854939699173,
+        "positive_word_count": -0.003884328994899988,
+        "flesch_reading_ease": 0.003512326627969742
+      }
+    },
+    {
+      "sample_id": 700,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.8748973608016968,
+        "FSR": -0.2672604024410248,
+        "BIS": -0.2188318371772766,
+        "positive_word_count": -0.004930421244353056,
+        "flesch_reading_ease": 0.0033248779363930225,
+        "sentiment_polarity": -0.002640125574544072,
+        "negative_word_ratio": 0.0022554947063326836,
+        "positive_word_ratio": -0.0019056391902267933,
+        "char_count": -0.001712546800263226
+      }
+    },
+    {
+      "sample_id": 997,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": -0.5962954759597778,
+        "BIS": -0.2128307819366455,
+        "FSR": -0.113178551197052,
+        "sentiment_polarity": 0.043875180184841156,
+        "negative_word_count": 0.021484561264514923,
+        "lexical_diversity": -0.019157521426677704,
+        "negative_word_ratio": 0.015293831937015057,
+        "positive_word_ratio": -0.010200157761573792,
+        "verb_ratio": -0.005325499922037125
+      }
+    },
+    {
+      "sample_id": 1951,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "BIS": 0.31456148624420166,
+        "FSR": -0.1041991114616394,
+        "SRS.Raw": 0.07014858722686768,
+        "verb_ratio": 0.050653643906116486,
+        "sentiment_polarity": 0.04134809225797653,
+        "food_mentioned": 0.0389835499227047,
+        "lexical_diversity": -0.02215639501810074,
+        "sentiment_subjectivity": -0.019946295768022537,
+        "music_mentioned": -0.013048918917775154
+      }
+    },
+    {
+      "sample_id": 288,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.8666383028030396,
+        "FSR": -0.26112043857574463,
+        "BIS": -0.22005940973758698,
+        "avg_PE": -0.013557719066739082,
+        "sentiment_polarity": 0.004400082863867283,
+        "positive_word_ratio": -0.003233578521758318,
+        "flesch_reading_ease": 0.003103154245764017,
+        "char_count": -0.002637132303789258,
+        "verb_ratio": -0.002022496424615383
+      }
+    },
+    {
+      "sample_id": 1385,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "FSR": -0.2539031505584717,
+        "BIS": -0.2313223034143448,
+        "SRS.Raw": 0.11026017367839813,
+        "verb_ratio": -0.056220103055238724,
+        "avg_PE": 0.03315133601427078,
+        "positive_word_count": -0.019272487610578537,
+        "music_mentioned": 0.009099948219954967,
+        "flesch_reading_ease": 0.008265631273388863,
+        "positive_word_ratio": -0.004780059680342674
+      }
+    },
+    {
+      "sample_id": 506,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7634356021881104,
+        "FSR": 0.2873174548149109,
+        "BIS": 0.24782110750675201,
+        "sentence_count": -0.05581485107541084,
+        "char_count": -0.007494807243347168,
+        "avg_word_length": 0.0042893425561487675,
+        "lexical_diversity": -0.003472200594842434,
+        "avg_PE": 0.0034456546418368816,
+        "positive_word_count": -0.00317215034738183
+      }
+    },
+    {
+      "sample_id": 2116,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": -0.6816431879997253,
+        "BIS": 0.5077834129333496,
+        "FSR": 0.4232907295227051,
+        "lexical_diversity": 0.017835566774010658,
+        "adv_ratio": 0.015922093763947487,
+        "positive_word_ratio": -0.006237358786165714,
+        "char_count": 0.004190754145383835,
+        "positive_word_count": -0.004152871668338776,
+        "avg_PE": 0.0029916116036474705
+      }
+    },
+    {
+      "sample_id": 1656,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.8900222182273865,
+        "FSR": -0.15324856340885162,
+        "BIS": 0.13908861577510834,
+        "positive_word_ratio": -0.04861588031053543,
+        "avg_word_length": -0.025061579421162605,
+        "positive_word_count": 0.015335551463067532,
+        "sentiment_polarity": -0.010943187400698662,
+        "avg_PE": 0.00921973492950201,
+        "char_count": 0.007769304793328047
+      }
+    },
+    {
+      "sample_id": 2060,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7444736361503601,
+        "FSR": 0.2821308970451355,
+        "BIS": 0.2620442807674408,
+        "verb_ratio": 0.004159581381827593,
+        "lexical_diversity": 0.0034942817874252796,
+        "positive_word_count": 0.003368792589753866,
+        "char_count": 0.0030298284254968166,
+        "avg_word_length": 0.002383630955591798,
+        "sentiment_polarity": -0.0014360506320372224
+      }
+    },
+    {
+      "sample_id": 827,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.745663583278656,
+        "FSR": 0.2731209695339203,
+        "BIS": 0.26558318734169006,
+        "verb_ratio": 0.004579388536512852,
+        "lexical_diversity": 0.0034942817874252796,
+        "flesch_kincaid_grade": 0.0030332806054502726,
+        "char_count": 0.0030298284254968166,
+        "positive_word_count": 0.0021763751283288,
+        "avg_PE": 0.002107086358591914
+      }
+    },
+    {
+      "sample_id": 472,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7585514783859253,
+        "FSR": 0.2797430157661438,
+        "BIS": 0.25450724363327026,
+        "verb_ratio": 0.00378275103867054,
+        "positive_word_count": 0.0035552592016756535,
+        "lexical_diversity": -0.003472200594842434,
+        "char_count": 0.0030298284254968166,
+        "positive_word_ratio": 0.0025395930279046297,
+        "word_count": 0.0017691445536911488
+      }
+    },
+    {
+      "sample_id": 1411,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7418479323387146,
+        "FSR": 0.2712661623954773,
+        "BIS": 0.2617604732513428,
+        "positive_word_ratio": 0.01773553341627121,
+        "char_count": 0.004190754145383835,
+        "lexical_diversity": 0.0034942817874252796,
+        "avg_PE": 0.003042291384190321,
+        "avg_word_length": 0.0024128586519509554,
+        "music_mentioned": -0.0012964692432433367
+      }
+    },
+    {
+      "sample_id": 902,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7398756146430969,
+        "FSR": 0.2854278087615967,
+        "BIS": 0.2677140533924103,
+        "positive_word_ratio": -0.00523392716422677,
+        "verb_ratio": 0.004159581381827593,
+        "lexical_diversity": 0.0034942817874252796,
+        "flesch_reading_ease": 0.0031538992188870907,
+        "char_count": 0.002931042807176709,
+        "positive_word_count": 0.0026927234139293432
+      }
+    },
+    {
+      "sample_id": 654,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7459604144096375,
+        "FSR": 0.27869555354118347,
+        "BIS": 0.26843178272247314,
+        "avg_PE": -0.007284209597855806,
+        "sentiment_polarity": 0.006896422244608402,
+        "lexical_diversity": 0.004053380340337753,
+        "flesch_kincaid_grade": 0.0030332806054502726,
+        "char_count": 0.0030298284254968166,
+        "positive_word_ratio": -0.0024441054556518793
+      }
+    },
+    {
+      "sample_id": 2114,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": -0.8732081055641174,
+        "BIS": 0.17757168412208557,
+        "FSR": -0.0845198780298233,
+        "negative_word_ratio": 0.0422479584813118,
+        "positive_word_ratio": 0.03679856285452843,
+        "avg_word_length": 0.028426604345440865,
+        "verb_ratio": 0.015429952181875706,
+        "char_count": -0.013395360670983791,
+        "adv_ratio": 0.012081649154424667
+      }
+    },
+    {
+      "sample_id": 55,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.7146512269973755,
+        "BIS": -0.16342109441757202,
+        "FSR": -0.14452333748340607,
+        "verb_ratio": 0.0425114743411541,
+        "sentiment_polarity": -0.018374603241682053,
+        "avg_word_length": -0.012462800368666649,
+        "avg_PE": -0.011071253567934036,
+        "negative_word_count": -0.010431816801428795,
+        "negative_word_ratio": -0.008016159757971764
+      }
+    },
+    {
+      "sample_id": 394,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.8773925304412842,
+        "FSR": -0.2696237564086914,
+        "BIS": -0.22072002291679382,
+        "verb_ratio": -0.0036672218702733517,
+        "negative_word_ratio": 0.0036661820486187935,
+        "positive_word_count": 0.003368792589753866,
+        "flesch_reading_ease": 0.0033248779363930225,
+        "sentiment_polarity": -0.0027278794441372156,
+        "char_count": -0.002637132303789258
+      }
+    },
+    {
+      "sample_id": 872,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7424696087837219,
+        "FSR": 0.27422958612442017,
+        "BIS": 0.26011720299720764,
+        "avg_PE": 0.0173715241253376,
+        "char_count": 0.004289539996534586,
+        "lexical_diversity": 0.0034942817874252796,
+        "positive_word_ratio": -0.0021541679743677378,
+        "positive_word_count": 0.0019864034838974476,
+        "flesch_kincaid_grade": 0.001955991378054023
+      }
+    },
+    {
+      "sample_id": 1470,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7502908110618591,
+        "FSR": 0.2764589488506317,
+        "BIS": 0.2664155662059784,
+        "char_count": 0.004289539996534586,
+        "lexical_diversity": 0.0034942817874252796,
+        "avg_PE": 0.0022023359779268503,
+        "flesch_reading_ease": 0.0018093567341566086,
+        "avg_word_length": 0.0016192655311897397,
+        "positive_word_count": 0.0013932003639638424
+      }
+    },
+    {
+      "sample_id": 593,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": -0.21872460842132568,
+        "BIS": 0.21427729725837708,
+        "FSR": -0.07561863213777542,
+        "negative_word_ratio": 0.05326438695192337,
+        "avg_PE": -0.05232229456305504,
+        "positive_word_ratio": 0.03695942834019661,
+        "verb_ratio": 0.02643786370754242,
+        "negative_word_count": 0.020910071209073067,
+        "avg_word_length": 0.0070027196779847145
+      }
+    },
+    {
+      "sample_id": 23,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.8564313650131226,
+        "FSR": -0.2583731412887573,
+        "BIS": -0.2263149917125702,
+        "positive_word_count": -0.005821984726935625,
+        "positive_word_ratio": -0.004884778521955013,
+        "avg_word_length": -0.0041777603328228,
+        "flesch_reading_ease": -0.003660601330921054,
+        "sentiment_polarity": -0.0032622956205159426,
+        "music_mentioned": -0.002268983982503414
+      }
+    },
+    {
+      "sample_id": 532,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.6980594992637634,
+        "BIS": -0.22926989197731018,
+        "FSR": -0.13720692694187164,
+        "verb_ratio": 0.028671957552433014,
+        "negative_word_ratio": -0.027456607669591904,
+        "sentiment_polarity": -0.01914065331220627,
+        "noun_ratio": 0.015752417966723442,
+        "cohesiveness_score": -0.011673588305711746,
+        "avg_PE": -0.011068712919950485
+      }
+    },
+    {
+      "sample_id": 1140,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7493120431900024,
+        "FSR": 0.2841816246509552,
+        "BIS": 0.26155224442481995,
+        "avg_PE": 0.004256018437445164,
+        "verb_ratio": 0.0035381391644477844,
+        "positive_word_count": 0.0034839899744838476,
+        "lexical_diversity": -0.0031328180339187384,
+        "char_count": 0.0030298284254968166,
+        "positive_word_ratio": 0.002054699696600437
+      }
+    },
+    {
+      "sample_id": 630,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.8574422597885132,
+        "FSR": -0.23850806057453156,
+        "BIS": -0.2269953489303589,
+        "sentence_count": -0.017130060121417046,
+        "positive_word_count": -0.005821984726935625,
+        "positive_word_ratio": -0.005342256743460894,
+        "avg_word_length": -0.003976040054112673,
+        "char_count": -0.002637132303789258,
+        "flesch_reading_ease": -0.0019161012023687363
+      }
+    },
+    {
+      "sample_id": 565,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.8781788349151611,
+        "FSR": -0.26998427510261536,
+        "BIS": -0.22784686088562012,
+        "verb_ratio": 0.0038942189421504736,
+        "positive_word_count": 0.0035552592016756535,
+        "flesch_reading_ease": 0.0033248779363930225,
+        "sentiment_polarity": -0.002718814881518483,
+        "avg_PE": 0.0026350170373916626,
+        "word_count": 0.0017691445536911488
+      }
+    },
+    {
+      "sample_id": 1579,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7457389831542969,
+        "FSR": 0.2860451340675354,
+        "BIS": 0.26075389981269836,
+        "avg_PE": 0.005368248093873262,
+        "char_count": 0.004289539996534586,
+        "lexical_diversity": 0.0034942817874252796,
+        "positive_word_count": 0.0034400620497763157,
+        "verb_ratio": -0.0032570569310337305,
+        "sentiment_polarity": -0.0013540572253987193
+      }
+    },
+    {
+      "sample_id": 608,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": -0.8734607100486755,
+        "BIS": 0.1532897800207138,
+        "FSR": -0.09084023535251617,
+        "sentiment_polarity": 0.07089701294898987,
+        "char_count": -0.026786144822835922,
+        "avg_word_length": 0.020602069795131683,
+        "adv_ratio": 0.014653533697128296,
+        "lexical_diversity": 0.013037933968007565,
+        "verb_ratio": -0.011606593616306782
+      }
+    },
+    {
+      "sample_id": 262,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7382680177688599,
+        "FSR": 0.30309587717056274,
+        "BIS": 0.25911277532577515,
+        "char_count": -0.007494807243347168,
+        "sentiment_polarity": 0.0064972443506121635,
+        "positive_word_count": -0.0053129675798118114,
+        "lexical_diversity": 0.004053380340337753,
+        "avg_PE": 0.00342548917979002,
+        "adv_ratio": 0.003331494517624378
+      }
+    },
+    {
+      "sample_id": 137,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7993156313896179,
+        "FSR": 0.2950621247291565,
+        "BIS": 0.13432766497135162,
+        "positive_word_ratio": -0.020368801429867744,
+        "positive_word_count": 0.010408050380647182,
+        "avg_word_length": -0.002748120343312621,
+        "avg_PE": 0.002528236713260412,
+        "flesch_kincaid_grade": 0.001955991378054023,
+        "char_count": 0.0018941087182611227
+      }
+    },
+    {
+      "sample_id": 1981,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": -0.86323082447052,
+        "FSR": -0.2648363411426544,
+        "BIS": -0.22108978033065796,
+        "avg_PE": -0.007776026614010334,
+        "positive_word_ratio": -0.004991172347217798,
+        "avg_word_length": 0.0037677844520658255,
+        "verb_ratio": -0.0032334933057427406,
+        "flesch_reading_ease": 0.0031200656667351723,
+        "char_count": -0.002637132303789258
+      }
+    },
+    {
+      "sample_id": 1659,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7304720282554626,
+        "FSR": 0.27805060148239136,
+        "BIS": 0.26245951652526855,
+        "positive_word_ratio": 0.016123546287417412,
+        "avg_PE": 0.005330714862793684,
+        "char_count": 0.004190754145383835,
+        "lexical_diversity": 0.0034942817874252796,
+        "avg_word_length": 0.00242070690728724,
+        "positive_word_count": 0.0018704487010836601
+      }
+    },
+    {
+      "sample_id": 909,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.754460871219635,
+        "FSR": 0.3100004196166992,
+        "BIS": 0.2533918619155884,
+        "char_count": -0.007494807243347168,
+        "positive_word_count": -0.0038900524377822876,
+        "avg_word_length": 0.003569061402231455,
+        "lexical_diversity": -0.003472200594842434,
+        "avg_PE": 0.002819482237100601,
+        "adv_ratio": 0.0024162244517356157
+      }
+    },
+    {
+      "sample_id": 225,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7555243372917175,
+        "FSR": 0.2848479151725769,
+        "BIS": 0.26472488045692444,
+        "avg_PE": -0.00893271341919899,
+        "verb_ratio": 0.0032549172174185514,
+        "lexical_diversity": -0.0031328180339187384,
+        "char_count": 0.0030298284254968166,
+        "avg_word_length": 0.0021245668176561594,
+        "flesch_reading_ease": 0.0018093567341566086
+      }
+    },
+    {
+      "sample_id": 217,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7694644331932068,
+        "FSR": 0.29300445318222046,
+        "BIS": 0.2539272904396057,
+        "avg_PE": -0.011261528357863426,
+        "char_count": -0.005293802823871374,
+        "verb_ratio": 0.003713698359206319,
+        "lexical_diversity": -0.0031328180339187384,
+        "negative_word_ratio": 0.003023108234629035,
+        "positive_word_count": 0.0022154750768095255
+      }
+    },
+    {
+      "sample_id": 1836,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.8337746262550354,
+        "FSR": 0.3087170124053955,
+        "BIS": 0.0923115611076355,
+        "avg_PE": -0.024264641106128693,
+        "positive_word_count": 0.011409331113100052,
+        "punctuation_ratio": 0.006055269856005907,
+        "verb_ratio": -0.004458616022020578,
+        "char_count": -0.0033094401005655527,
+        "negative_word_ratio": 0.003023108234629035
+      }
+    },
+    {
+      "sample_id": 1545,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.6465633511543274,
+        "BIS": 0.1628628373146057,
+        "FSR": -0.12271173298358917,
+        "avg_PE": -0.0481058694422245,
+        "verb_ratio": -0.020510725677013397,
+        "negative_word_count": -0.019970688968896866,
+        "positive_word_count": -0.01842266321182251,
+        "avg_word_length": -0.017850583419203758,
+        "char_count": -0.01371153537184
+      }
+    },
+    {
+      "sample_id": 1777,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.8729816675186157,
+        "BIS": -0.22008459270000458,
+        "FSR": -0.1804373860359192,
+        "verb_ratio": 0.04632322117686272,
+        "positive_word_ratio": -0.007067658938467503,
+        "sentiment_polarity": 0.005341606680303812,
+        "positive_word_count": -0.004302691668272018,
+        "flesch_reading_ease": 0.003717138897627592,
+        "avg_PE": 0.0036103040911257267
+      }
+    },
+    {
+      "sample_id": 573,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.5453717708587646,
+        "FSR": 0.29077035188674927,
+        "BIS": 0.24527204036712646,
+        "avg_PE": 0.02230534702539444,
+        "lexical_diversity": 0.0034942817874252796,
+        "positive_word_ratio": 0.003192327916622162,
+        "negative_word_ratio": 0.003023108234629035,
+        "adv_ratio": 0.003019997850060463,
+        "positive_word_count": 0.0025465183425694704
+      }
+    },
+    {
+      "sample_id": 1030,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.8748390674591064,
+        "FSR": -0.20142319798469543,
+        "BIS": -0.14211663603782654,
+        "sentiment_polarity": 0.0327468141913414,
+        "verb_ratio": -0.005373619496822357,
+        "positive_word_count": -0.0038900524377822876,
+        "flesch_kincaid_grade": -0.0035776167642325163,
+        "flesch_reading_ease": 0.0031200656667351723,
+        "positive_word_ratio": -0.0027104634791612625
+      }
+    },
+    {
+      "sample_id": 1323,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7666171789169312,
+        "FSR": 0.28378719091415405,
+        "BIS": 0.25623852014541626,
+        "avg_PE": -0.009325310587882996,
+        "verb_ratio": 0.004471196793019772,
+        "lexical_diversity": -0.003472200594842434,
+        "char_count": 0.0030298284254968166,
+        "positive_word_count": 0.0021763751283288,
+        "positive_word_ratio": 0.00193013995885849
+      }
+    },
+    {
+      "sample_id": 574,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7433314919471741,
+        "FSR": 0.28653520345687866,
+        "BIS": 0.26333266496658325,
+        "positive_word_ratio": 0.015084265731275082,
+        "positive_word_count": -0.004197011236101389,
+        "lexical_diversity": -0.0031328180339187384,
+        "char_count": 0.002931042807176709,
+        "flesch_reading_ease": 0.0019498775945976377,
+        "sentiment_polarity": -0.001711823046207428
+      }
+    },
+    {
+      "sample_id": 1992,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.8781788349151611,
+        "FSR": -0.26998427510261536,
+        "BIS": -0.22784686088562012,
+        "verb_ratio": 0.0038942189421504736,
+        "positive_word_count": 0.0035552592016756535,
+        "flesch_reading_ease": 0.0033248779363930225,
+        "sentiment_polarity": -0.002718814881518483,
+        "avg_PE": 0.0026350170373916626,
+        "word_count": 0.0017691445536911488
+      }
+    },
+    {
+      "sample_id": 1509,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.8790608644485474,
+        "FSR": -0.2658206522464752,
+        "BIS": -0.2291204035282135,
+        "verb_ratio": 0.004725581966340542,
+        "positive_word_count": 0.0034400620497763157,
+        "flesch_reading_ease": 0.0033248779363930225,
+        "sentiment_polarity": -0.00291270948946476,
+        "avg_PE": 0.002730648498982191,
+        "positive_word_ratio": -0.0024134707637131214
+      }
+    },
+    {
+      "sample_id": 2014,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.8721942901611328,
+        "FSR": -0.2615211308002472,
+        "BIS": -0.22147415578365326,
+        "positive_word_ratio": -0.005812421441078186,
+        "positive_word_count": -0.004302691668272018,
+        "flesch_reading_ease": 0.0031200656667351723,
+        "sentiment_polarity": -0.002994702896103263,
+        "music_mentioned": -0.002268983982503414,
+        "avg_word_length": 0.002209185156971216
+      }
+    },
+    {
+      "sample_id": 733,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.8884356021881104,
+        "FSR": -0.1980237066745758,
+        "BIS": -0.12575167417526245,
+        "avg_word_length": 0.01279373373836279,
+        "verb_ratio": -0.009871785528957844,
+        "sentiment_polarity": -0.005384845193475485,
+        "positive_word_count": -0.005020593758672476,
+        "positive_word_ratio": -0.004796462133526802,
+        "flesch_kincaid_grade": -0.0035776167642325163
+      }
+    },
+    {
+      "sample_id": 533,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.8350549340248108,
+        "FSR": 0.3033095598220825,
+        "BIS": 0.10040213912725449,
+        "positive_word_count": 0.02418569289147854,
+        "avg_PE": 0.016040414571762085,
+        "avg_word_length": -0.005725428462028503,
+        "positive_word_ratio": 0.005141149275004864,
+        "adv_ratio": 0.0030718250200152397,
+        "char_count": 0.0018941087182611227
+      }
+    },
+    {
+      "sample_id": 123,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.739652693271637,
+        "BIS": 0.2673856019973755,
+        "FSR": 0.26636871695518494,
+        "noun_ratio": 0.015752417966723442,
+        "verb_ratio": 0.004956219345331192,
+        "avg_PE": -0.004173649474978447,
+        "lexical_diversity": 0.0034942817874252796,
+        "flesch_kincaid_grade": 0.0030332806054502726,
+        "char_count": 0.0030298284254968166
+      }
+    },
+    {
+      "sample_id": 1937,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "BIS": 0.16443854570388794,
+        "SRS.Raw": 0.1610042154788971,
+        "avg_PE": 0.06894876807928085,
+        "FSR": 0.04602523520588875,
+        "positive_word_count": 0.04035663977265358,
+        "positive_word_ratio": 0.024197222664952278,
+        "sentiment_subjectivity": -0.019946295768022537,
+        "verb_ratio": -0.014881843701004982,
+        "flesch_reading_ease": 0.010586208663880825
+      }
+    },
+    {
+      "sample_id": 878,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.46817871928215027,
+        "BIS": 0.169658824801445,
+        "FSR": -0.12085168063640594,
+        "avg_PE": 0.06872865557670593,
+        "positive_word_count": 0.02042718604207039,
+        "negative_word_ratio": -0.02009010501205921,
+        "verb_ratio": 0.011893702670931816,
+        "cohesiveness_score": -0.011673588305711746,
+        "avg_word_length": 0.010627374053001404
+      }
+    },
+    {
+      "sample_id": 624,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.748735249042511,
+        "FSR": 0.2860114276409149,
+        "BIS": 0.2687548100948334,
+        "avg_PE": -0.005381495226174593,
+        "lexical_diversity": 0.0034942817874252796,
+        "char_count": 0.0030298284254968166,
+        "positive_word_count": 0.002283130306750536,
+        "music_mentioned": -0.002268983982503414,
+        "avg_word_length": 0.0022452978882938623
+      }
+    },
+    {
+      "sample_id": 317,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7553384900093079,
+        "FSR": 0.29659056663513184,
+        "BIS": 0.2579311728477478,
+        "char_count": -0.005293802823871374,
+        "avg_word_length": 0.004087622277438641,
+        "positive_word_ratio": -0.0035162814892828465,
+        "lexical_diversity": -0.003472200594842434,
+        "positive_word_count": -0.00317215034738183,
+        "verb_ratio": 0.00316393724642694
+      }
+    },
+    {
+      "sample_id": 398,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7479760646820068,
+        "FSR": 0.2753782868385315,
+        "BIS": 0.26650986075401306,
+        "char_count": 0.004289539996534586,
+        "lexical_diversity": 0.0034942817874252796,
+        "positive_word_count": 0.0021763751283288,
+        "flesch_kincaid_grade": 0.001955991378054023,
+        "adv_ratio": 0.0015972770052030683,
+        "avg_PE": 0.0015240681823343039
+      }
+    },
+    {
+      "sample_id": 1930,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.7472205758094788,
+        "FSR": 0.4050607681274414,
+        "BIS": 0.22607101500034332,
+        "positive_word_count": -0.012997988611459732,
+        "flesch_reading_ease": 0.012175164185464382,
+        "positive_word_ratio": -0.009405705146491528,
+        "avg_PE": 0.004266806878149509,
+        "avg_word_length": -0.0033043960575014353,
+        "flesch_kincaid_grade": 0.0030332806054502726
+      }
+    },
+    {
+      "sample_id": 257,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.8657504320144653,
+        "FSR": -0.2478255331516266,
+        "BIS": -0.22106069326400757,
+        "sentence_count": -0.017130060121417046,
+        "positive_word_count": -0.0038900524377822876,
+        "avg_word_length": 0.003250892972573638,
+        "flesch_reading_ease": 0.0031200656667351723,
+        "avg_PE": -0.0029461788944900036,
+        "sentiment_polarity": -0.0028430602978914976
+      }
+    },
+    {
+      "sample_id": 2041,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7446525692939758,
+        "FSR": 0.26978200674057007,
+        "BIS": 0.2642717659473419,
+        "noun_ratio": 0.015752417966723442,
+        "verb_ratio": 0.004848027136176825,
+        "avg_PE": -0.0038811496924608946,
+        "lexical_diversity": 0.0034942817874252796,
+        "char_count": 0.0030298284254968166,
+        "word_count": 0.0017691445536911488
+      }
+    },
+    {
+      "sample_id": 450,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.874626636505127,
+        "BIS": -0.21947704255580902,
+        "FSR": -0.1912894994020462,
+        "avg_PE": -0.015333286486566067,
+        "flesch_reading_ease": 0.0033248779363930225,
+        "sentiment_polarity": -0.0031957642640918493,
+        "char_count": -0.002637132303789258,
+        "positive_word_count": 0.0025465183425694704,
+        "positive_word_ratio": -0.001923777861520648
+      }
+    },
+    {
+      "sample_id": 859,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7457340359687805,
+        "FSR": 0.28696179389953613,
+        "BIS": 0.2633674144744873,
+        "avg_PE": 0.003925444092601538,
+        "verb_ratio": 0.003914969507604837,
+        "lexical_diversity": 0.0034942817874252796,
+        "char_count": 0.0030298284254968166,
+        "positive_word_count": 0.0025465183425694704,
+        "music_mentioned": -0.002268983982503414
+      }
+    },
+    {
+      "sample_id": 1729,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.4709426164627075,
+        "BIS": -0.1263142079114914,
+        "FSR": -0.08966022729873657,
+        "avg_PE": 0.07569098472595215,
+        "verb_ratio": 0.02359214797616005,
+        "positive_word_ratio": 0.02295105531811714,
+        "positive_word_count": 0.013933712616562843,
+        "noun_ratio": 0.010391294956207275,
+        "word_count": 0.009707188233733177
+      }
+    },
+    {
+      "sample_id": 1970,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.8049468994140625,
+        "FSR": 0.3027324676513672,
+        "BIS": 0.1099405288696289,
+        "positive_word_count": -0.026205729693174362,
+        "avg_word_length": -0.006188276223838329,
+        "avg_PE": 0.0055440738797187805,
+        "sentiment_polarity": 0.004724989179521799,
+        "char_count": -0.0033094401005655527,
+        "verb_ratio": -0.0023984138388186693
+      }
+    },
+    {
+      "sample_id": 201,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7338047623634338,
+        "FSR": 0.280276358127594,
+        "BIS": 0.2647874653339386,
+        "positive_word_ratio": 0.015569767914712429,
+        "char_count": 0.004190754145383835,
+        "avg_PE": -0.0039036336820572615,
+        "lexical_diversity": 0.0034942817874252796,
+        "avg_word_length": 0.0023292989935725927,
+        "flesch_kincaid_grade": 0.001955991378054023
+      }
+    },
+    {
+      "sample_id": 2036,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.8587261438369751,
+        "BIS": -0.23257383704185486,
+        "FSR": -0.1918940544128418,
+        "avg_PE": -0.01580399088561535,
+        "positive_word_ratio": -0.00881196465343237,
+        "sentiment_polarity": -0.003298804396763444,
+        "positive_word_count": 0.0020503802224993706,
+        "flesch_reading_ease": -0.0019161012023687363,
+        "char_count": 0.001225080108270049
+      }
+    },
+    {
+      "sample_id": 545,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7345996499061584,
+        "FSR": 0.28564929962158203,
+        "BIS": 0.26637402176856995,
+        "avg_PE": 0.0049248249270021915,
+        "lexical_diversity": 0.0034942817874252796,
+        "positive_word_count": 0.003368792589753866,
+        "char_count": 0.0030298284254968166,
+        "adv_ratio": 0.0024162244517356157,
+        "avg_word_length": 0.0018181444611400366
+      }
+    },
+    {
+      "sample_id": 448,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": 0.30539098381996155,
+        "FSR": -0.14181311428546906,
+        "BIS": 0.10097511857748032,
+        "avg_PE": -0.09933260828256607,
+        "noun_ratio": 0.02589612454175949,
+        "negative_word_ratio": -0.02009010501205921,
+        "verb_ratio": 0.019484838470816612,
+        "punctuation_ratio": -0.018494796007871628,
+        "food_mentioned": -0.01441212184727192
+      }
+    },
+    {
+      "sample_id": 720,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.87508225440979,
+        "FSR": -0.2658337652683258,
+        "BIS": -0.22786331176757812,
+        "sentiment_polarity": 0.005854405462741852,
+        "avg_word_length": 0.004605531692504883,
+        "positive_word_ratio": -0.004563916474580765,
+        "positive_word_count": -0.0038900524377822876,
+        "flesch_reading_ease": 0.0033248779363930225,
+        "noun_ratio": -0.0017244359478354454
+      }
+    },
+    {
+      "sample_id": 1696,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.5240808725357056,
+        "FSR": 0.30036771297454834,
+        "BIS": 0.2548309564590454,
+        "avg_PE": -0.024957597255706787,
+        "sports_mentioned": 0.00585299264639616,
+        "lexical_diversity": 0.0034942817874252796,
+        "verb_ratio": -0.0033433404751122,
+        "flesch_kincaid_grade": 0.0030332806054502726,
+        "char_count": 0.0018941087182611227
+      }
+    },
+    {
+      "sample_id": 82,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.8620967864990234,
+        "FSR": -0.2635312080383301,
+        "BIS": -0.21533173322677612,
+        "avg_PE": -0.01121029257774353,
+        "avg_word_length": -0.0037560677155852318,
+        "positive_word_count": -0.0033721490763127804,
+        "flesch_reading_ease": 0.003103154245764017,
+        "sentiment_polarity": -0.002893054159358144,
+        "verb_ratio": 0.0019404266495257616
+      }
+    },
+    {
+      "sample_id": 1209,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.741284191608429,
+        "FSR": 0.2844507694244385,
+        "BIS": 0.2678477466106415,
+        "positive_word_ratio": -0.00523392716422677,
+        "avg_PE": 0.004350997973233461,
+        "char_count": 0.004190754145383835,
+        "lexical_diversity": 0.0034942817874252796,
+        "flesch_kincaid_grade": 0.0030332806054502726,
+        "positive_word_count": 0.0026927234139293432
+      }
+    },
+    {
+      "sample_id": 1521,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7384243607521057,
+        "FSR": 0.28087639808654785,
+        "BIS": 0.2644816040992737,
+        "avg_PE": 0.004980116616934538,
+        "char_count": 0.004289539996534586,
+        "positive_word_count": 0.0035552592016756535,
+        "lexical_diversity": 0.0034942817874252796,
+        "positive_word_ratio": 0.002054699696600437,
+        "flesch_kincaid_grade": 0.001955991378054023
+      }
+    },
+    {
+      "sample_id": 1142,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7356764078140259,
+        "FSR": 0.3081672787666321,
+        "BIS": 0.2568911015987396,
+        "char_count": -0.007494807243347168,
+        "avg_PE": 0.005996913183480501,
+        "verb_ratio": -0.004400365054607391,
+        "positive_word_count": 0.0035552592016756535,
+        "lexical_diversity": 0.0034942817874252796,
+        "positive_word_ratio": 0.0019568325951695442
+      }
+    },
+    {
+      "sample_id": 1382,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7715588212013245,
+        "FSR": 0.29167479276657104,
+        "BIS": 0.26092472672462463,
+        "avg_PE": -0.011661715805530548,
+        "char_count": 0.004289539996534586,
+        "lexical_diversity": -0.003472200594842434,
+        "verb_ratio": -0.0029631389770656824,
+        "avg_word_length": 0.0014243624173104763,
+        "sentiment_polarity": -0.0014174266252666712
+      }
+    },
+    {
+      "sample_id": 1876,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.8544554710388184,
+        "BIS": -0.2309146225452423,
+        "FSR": -0.1418829709291458,
+        "verb_ratio": -0.004326038993895054,
+        "flesch_reading_ease": -0.004229391925036907,
+        "flesch_kincaid_grade": -0.0035776167642325163,
+        "positive_word_ratio": -0.0032706516794860363,
+        "positive_word_count": 0.0025465183425694704,
+        "sentiment_polarity": -0.002011201810091734
+      }
+    },
+    {
+      "sample_id": 1391,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7609137296676636,
+        "FSR": 0.3045530915260315,
+        "BIS": 0.2453252524137497,
+        "char_count": -0.007494807243347168,
+        "sentiment_polarity": 0.005800528451800346,
+        "avg_PE": 0.0051588756032288074,
+        "lexical_diversity": -0.004265276715159416,
+        "positive_word_count": 0.0025465183425694704,
+        "verb_ratio": -0.002451468724757433
+      }
+    },
+    {
+      "sample_id": 153,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7429893612861633,
+        "FSR": 0.29204878211021423,
+        "BIS": 0.2700901925563812,
+        "char_count": 0.004190754145383835,
+        "positive_word_ratio": -0.0037587368860840797,
+        "lexical_diversity": 0.0034942817874252796,
+        "verb_ratio": -0.0032570569310337305,
+        "positive_word_count": -0.00317215034738183,
+        "adv_ratio": 0.0030718250200152397
+      }
+    },
+    {
+      "sample_id": 1010,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": -0.6619133353233337,
+        "BIS": 0.29466164112091064,
+        "avg_word_length": 0.0460372120141983,
+        "positive_word_ratio": -0.029411105439066887,
+        "avg_PE": 0.027715805917978287,
+        "FSR": -0.017046010121703148,
+        "negative_word_count": -0.011645111255347729,
+        "positive_word_count": -0.006177445873618126,
+        "flesch_reading_ease": -0.005877362564206123
+      }
+    },
+    {
+      "sample_id": 941,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "BIS": 0.3250425457954407,
+        "FSR": 0.27570071816444397,
+        "SRS.Raw": -0.13368403911590576,
+        "avg_PE": -0.0785827711224556,
+        "verb_ratio": -0.028911953791975975,
+        "punctuation_ratio": -0.02487841807305813,
+        "food_mentioned": -0.01441212184727192,
+        "flesch_reading_ease": 0.005947820842266083,
+        "sentiment_subjectivity": -0.005518801975995302
+      }
+    },
+    {
+      "sample_id": 555,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.8622554540634155,
+        "FSR": -0.27090388536453247,
+        "BIS": -0.23672831058502197,
+        "negative_word_ratio": 0.0036661820486187935,
+        "flesch_reading_ease": -0.0035237229894846678,
+        "positive_word_count": 0.0034839899744838476,
+        "sentiment_polarity": -0.0027575050480663776,
+        "verb_ratio": 0.0021228757686913013,
+        "avg_PE": 0.0017282175831496716
+      }
+    },
+    {
+      "sample_id": 62,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.8563708066940308,
+        "FSR": -0.264468789100647,
+        "BIS": -0.23643073439598083,
+        "positive_word_count": 0.0035552592016756535,
+        "positive_word_ratio": -0.0034724571742117405,
+        "flesch_reading_ease": -0.0033474306110292673,
+        "avg_PE": 0.0033125565387308598,
+        "sentiment_polarity": -0.003270474961027503,
+        "verb_ratio": -0.003131810575723648
+      }
+    },
+    {
+      "sample_id": 579,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.9033297300338745,
+        "FSR": 0.038776036351919174,
+        "avg_PE": 0.030726410448551178,
+        "positive_word_ratio": -0.029608966782689095,
+        "positive_word_count": 0.020445438101887703,
+        "BIS": 0.019022196531295776,
+        "verb_ratio": 0.004552736412733793,
+        "avg_word_length": 0.0032738386653363705,
+        "sentiment_polarity": -0.0017790914280340075
+      }
+    },
+    {
+      "sample_id": 1412,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7453929781913757,
+        "FSR": 0.2678010165691376,
+        "BIS": 0.25563204288482666,
+        "avg_PE": 0.012305807322263718,
+        "noun_ratio": 0.01219418179243803,
+        "verb_ratio": 0.004848027136176825,
+        "lexical_diversity": 0.0034942817874252796,
+        "char_count": 0.0030298284254968166,
+        "positive_word_count": 0.0022154750768095255
+      }
+    },
+    {
+      "sample_id": 239,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "FSR": 0.2909570336341858,
+        "BIS": 0.27195706963539124,
+        "SRS.Raw": 0.14823326468467712,
+        "food_mentioned": 0.0389835499227047,
+        "avg_PE": -0.02268071472644806,
+        "sentiment_subjectivity": -0.019946295768022537,
+        "punctuation_ratio": -0.014264727011322975,
+        "noun_ratio": -0.010811280459165573,
+        "positive_word_count": -0.007555714342743158
+      }
+    },
+    {
+      "sample_id": 524,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.8710440397262573,
+        "BIS": -0.22115206718444824,
+        "FSR": -0.14411354064941406,
+        "avg_PE": 0.03031381033360958,
+        "positive_word_count": -0.004930421244353056,
+        "positive_word_ratio": -0.004033369477838278,
+        "flesch_reading_ease": 0.003717138897627592,
+        "char_count": -0.002637132303789258,
+        "verb_ratio": -0.0017713801935315132
+      }
+    },
+    {
+      "sample_id": 1077,
+      "true_label": 1,
+      "predicted_label": 1,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": 5.165543556213379,
+        "SRS.Raw": 0.7069833874702454,
+        "BIS": 0.0775102898478508,
+        "avg_PE": 0.029465163126587868,
+        "positive_word_ratio": -0.029019031673669815,
+        "positive_word_count": -0.020769860595464706,
+        "avg_word_length": 0.013565754517912865,
+        "negative_word_count": 0.00714878411963582,
+        "sentiment_polarity": 0.005006873048841953,
+        "FSR": -0.0047544389963150024
+      }
+    },
+    {
+      "sample_id": 1283,
+      "true_label": 0,
+      "predicted_label": 0,
+      "top_contributing_features": {
+        "LPA_Profile_ASD_only": -5.781370639801025,
+        "SRS.Raw": -0.8613171577453613,
+        "FSR": -0.2627496123313904,
+        "BIS": -0.22832436859607697,
+        "positive_word_ratio": -0.005401588045060635,
+        "positive_word_count": -0.0053129675798118114,
+        "flesch_reading_ease": -0.0034557890612632036,
+        "sentiment_polarity": -0.0032242070883512497,
+        "adv_ratio": 0.001737601007334888,
+        "noun_ratio": -0.0017244359478354454
+      }
+    }
+  ]
+}
