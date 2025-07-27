@@ -1,52 +1,52 @@
 {
   "test_metrics": {
-    "accuracy": 1.0,
+    "accuracy": 0.8905660377358491,
     "confusion_matrix": [
       [
-        196,
-        0
+        167,
+        29
       ],
       [
-        0,
-        334
+        29,
+        305
       ]
     ],
     "classification_report": {
       "0": {
-        "precision": 1.0,
-        "recall": 1.0,
-        "f1-score": 1.0,
+        "precision": 0.8520408163265306,
+        "recall": 0.8520408163265306,
+        "f1-score": 0.8520408163265306,
         "support": 196.0
       },
       "1": {
-        "precision": 1.0,
-        "recall": 1.0,
-        "f1-score": 1.0,
+        "precision": 0.9131736526946108,
+        "recall": 0.9131736526946108,
+        "f1-score": 0.9131736526946108,
         "support": 334.0
       },
-      "accuracy": 1.0,
+      "accuracy": 0.8905660377358491,
       "macro avg": {
-        "precision": 1.0,
-        "recall": 1.0,
-        "f1-score": 1.0,
+        "precision": 0.8826072345105707,
+        "recall": 0.8826072345105707,
+        "f1-score": 0.8826072345105707,
         "support": 530.0
       },
       "weighted avg": {
-        "precision": 1.0,
-        "recall": 1.0,
-        "f1-score": 1.0,
+        "precision": 0.8905660377358491,
+        "recall": 0.8905660377358491,
+        "f1-score": 0.8905660377358491,
         "support": 530.0
       }
     },
-    "roc_auc": 1.0
+    "roc_auc": 0.9616277648784065
   },
   "prediction_summary": {
     "total_samples": 530,
     "td_predictions": 196,
     "asd_predictions": 334,
-    "average_confidence": 0.9982622265815735,
-    "high_confidence_predictions": 530,
-    "low_confidence_predictions": 0,
+    "average_confidence": 0.8996832370758057,
+    "high_confidence_predictions": 423,
+    "low_confidence_predictions": 34,
     "prediction_summary": {
       "td_percentage": 36.9811320754717,
       "asd_percentage": 63.0188679245283
@@ -55,79 +55,79 @@
   "explainability_summary": {
     "top_characteristics": [
       [
-        "music",
+        "sweets",
         {
-          "importance_score": 0.008293739520013332,
+          "importance_score": 0.04204985871911049,
           "feature_count": 2,
           "rank": 1
         }
       ],
       [
-        "food",
+        "Fruits and vegetables",
         {
-          "importance_score": 0.007564781699329615,
+          "importance_score": 0.031070338562130928,
           "feature_count": 2,
           "rank": 2
         }
       ],
       [
-        "sports",
+        "toys, gadgets and games",
         {
-          "importance_score": 0.002664668019860983,
+          "importance_score": 0.030636195093393326,
           "feature_count": 2,
           "rank": 3
         }
       ],
       [
-        "personality inference",
+        "food",
         {
-          "importance_score": 0.0,
+          "importance_score": 0.02433801908046007,
           "feature_count": 2,
           "rank": 4
         }
       ],
       [
-        "sweets",
+        "sports",
         {
-          "importance_score": 0.0,
+          "importance_score": 0.024280680809170008,
           "feature_count": 2,
           "rank": 5
         }
       ],
       [
-        "Fruits and vegetables",
+        "arts and crafts",
         {
-          "importance_score": 0.0,
+          "importance_score": 0.021634437143802643,
           "feature_count": 2,
           "rank": 6
         }
       ],
       [
-        "healthy savory food",
+        "personality inference",
         {
-          "importance_score": 0.0,
+          "importance_score": 0.021574989892542362,
           "feature_count": 2,
           "rank": 7
         }
       ],
       [
-        "cosmetics",
+        "healthy savory food",
         {
-          "importance_score": 0.0,
+          "importance_score": 0.01648458046838641,
           "feature_count": 2,
           "rank": 8
         }
       ],
       [
-        "fashion",
+        "music",
         {
-          "importance_score": 0.0,
+          "importance_score": 0.0067575774155557156,
           "feature_count": 2,
           "rank": 9
         }
       ],
       [
-        "toys, gadgets and games",
+        "cosmetics",
         {
           "importance_score": 0.0,
           "feature_count": 2,

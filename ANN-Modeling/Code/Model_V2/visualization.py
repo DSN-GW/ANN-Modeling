@@ -139,60 +139,104 @@ class ModelVisualizer:
         plt.close()
     
     def create_model_performance_plot(self, training_results):
-        metrics = training_results['classification_report']
-        
-        classes = ['0', '1']
-        precision = [metrics[cls]['precision'] for cls in classes]
-        recall = [metrics[cls]['recall'] for cls in classes]
-        f1_score = [metrics[cls]['f1-score'] for cls in classes]
-        
-        x = np.arange(len(classes))
-        width = 0.25
-        
-        fig, ax = plt.subplots(figsize=(10, 6))
-        
-        bars1 = ax.bar(x - width, precision, width, label='Precision', alpha=0.8)
-        bars2 = ax.bar(x, recall, width, label='Recall', alpha=0.8)
-        bars3 = ax.bar(x + width, f1_score, width, label='F1-Score', alpha=0.8)
-        
-        ax.set_ylabel('Score')
-        ax.set_title('Model Performance Metrics by Class - XGBoost V2')
-        ax.set_xticks(x)
-        ax.set_xticklabels(['TD (Class 0)', 'ASD (Class 1)'])
-        ax.legend()
-        ax.set_ylim(0, 1.1)
-        
-        for bars in [bars1, bars2, bars3]:
-            for bar in bars:
-                height = bar.get_height()
-                ax.text(bar.get_x() + bar.get_width()/2., height + 0.01,
-                       f'{height:.3f}', ha='center', va='bottom')
-        
-        accuracy = training_results['accuracy']
-        cv_mean = training_results['cv_mean']
-        cv_std = training_results['cv_std']
-        
-        ax.text(0.02, 0.98, f'Overall Accuracy: {accuracy:.3f}\nCV Mean: {cv_mean:.3f} ± {cv_std:.3f}',
-                transform=ax.transAxes, verticalalignment='top',
-                bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.8))
-        
-        plt.tight_layout()
-        plt.savefig(os.path.join(self.viz_dir, 'model_performance_v2.png'), dpi=300, bbox_inches='tight')
-        plt.close()
+        # Check if classification_report is available (from test results)
+        if 'classification_report' in training_results:
+            metrics = training_results['classification_report']
+            
+            classes = ['0', '1']
+            precision = [metrics[cls]['precision'] for cls in classes]
+            recall = [metrics[cls]['recall'] for cls in classes]
+            f1_score = [metrics[cls]['f1-score'] for cls in classes]
+            
+            x = np.arange(len(classes))
+            width = 0.25
+            
+            fig, ax = plt.subplots(figsize=(10, 6))
+            
+            bars1 = ax.bar(x - width, precision, width, label='Precision', alpha=0.8)
+            bars2 = ax.bar(x, recall, width, label='Recall', alpha=0.8)
+            bars3 = ax.bar(x + width, f1_score, width, label='F1-Score', alpha=0.8)
+            
+            ax.set_ylabel('Score')
+            ax.set_title('Model Performance Metrics by Class - XGBoost V2')
+            ax.set_xticks(x)
+            ax.set_xticklabels(['TD (Class 0)', 'ASD (Class 1)'])
+            ax.legend()
+            ax.set_ylim(0, 1.1)
+            
+            for bars in [bars1, bars2, bars3]:
+                for bar in bars:
+                    height = bar.get_height()
+                    ax.text(bar.get_x() + bar.get_width()/2., height + 0.01,
+                           f'{height:.3f}', ha='center', va='bottom')
+            
+            accuracy = training_results.get('accuracy', 0)
+            cv_mean = training_results.get('cv_mean', 0)
+            cv_std = training_results.get('cv_std', 0)
+            
+            ax.text(0.02, 0.98, f'Overall Accuracy: {accuracy:.3f}\nCV Mean: {cv_mean:.3f} ± {cv_std:.3f}',
+                    transform=ax.transAxes, verticalalignment='top',
+                    bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.8))
+            
+            plt.tight_layout()
+            plt.savefig(os.path.join(self.viz_dir, 'model_performance_v2.png'), dpi=300, bbox_inches='tight')
+            plt.close()
+        else:
+            # Use cross-validation metrics instead
+            cv_mean = training_results.get('cv_mean', 0)
+            cv_std = training_results.get('cv_std', 0)
+            cv_scores = training_results.get('cv_scores', [])
+            
+            fig, ax = plt.subplots(figsize=(10, 6))
+            
+            # Create a simple bar plot showing CV scores
+            if cv_scores:
+                x = range(len(cv_scores))
+                bars = ax.bar(x, cv_scores, alpha=0.7, color='skyblue')
+                
+                # Add mean line
+                ax.axhline(y=cv_mean, color='red', linestyle='--', label=f'Mean: {cv_mean:.3f}')
+                ax.fill_between(x, cv_mean - cv_std, cv_mean + cv_std, alpha=0.3, color='red', label=f'±1 Std: {cv_std:.3f}')
+                
+                ax.set_xlabel('Cross-validation Fold')
+                ax.set_ylabel('Accuracy Score')
+                ax.set_title('Cross-validation Performance - XGBoost V2')
+                ax.set_xticks(x)
+                ax.set_xticklabels([f'Fold {i+1}' for i in x])
+                ax.legend()
+                ax.set_ylim(0, 1.1)
+                
+                for bar, score in zip(bars, cv_scores):
+                    height = bar.get_height()
+                    ax.text(bar.get_x() + bar.get_width()/2., height + 0.01,
+                           f'{score:.3f}', ha='center', va='bottom')
+                
+                ax.text(0.02, 0.98, f'CV Mean: {cv_mean:.3f} ± {cv_std:.3f}',
+                        transform=ax.transAxes, verticalalignment='top',
+                        bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.8))
+                
+                plt.tight_layout()
+                plt.savefig(os.path.join(self.viz_dir, 'model_performance_v2.png'), dpi=300, bbox_inches='tight')
+                plt.close()
+            else:
+                print("Warning: No cross-validation scores available for performance plot")
     
     def create_confusion_matrix_plot(self, training_results):
-        cm = np.array(training_results['confusion_matrix'])
-        
-        plt.figure(figsize=(8, 6))
-        sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', 
-                   xticklabels=['TD', 'ASD'], yticklabels=['TD', 'ASD'])
-        plt.title('Confusion Matrix - XGBoost Model V2')
-        plt.ylabel('True Label')
-        plt.xlabel('Predicted Label')
-        
-        plt.tight_layout()
-        plt.savefig(os.path.join(self.viz_dir, 'confusion_matrix_v2.png'), dpi=300, bbox_inches='tight')
-        plt.close()
+        if 'confusion_matrix' in training_results:
+            cm = np.array(training_results['confusion_matrix'])
+            
+            plt.figure(figsize=(8, 6))
+            sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', 
+                       xticklabels=['TD', 'ASD'], yticklabels=['TD', 'ASD'])
+            plt.title('Confusion Matrix - XGBoost Model V2')
+            plt.ylabel('True Label')
+            plt.xlabel('Predicted Label')
+            
+            plt.tight_layout()
+            plt.savefig(os.path.join(self.viz_dir, 'confusion_matrix_v2.png'), dpi=300, bbox_inches='tight')
+            plt.close()
+        else:
+            print("Warning: No confusion matrix available for plotting")
     
     def create_characteristic_ranking_plot(self, explainability_data):
         char_summary = explainability_data['characteristic_summary']
