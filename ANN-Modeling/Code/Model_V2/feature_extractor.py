@@ -8,7 +8,7 @@ import logging
 from datetime import datetime
 
 class FeatureExtractor:
-    def __init__(self, batch_size=10):
+    def __init__(self, batch_size=1):
         self.characteristics = self.load_characteristics()
         self.agent = None
         self.use_agent = self.initialize_agent()
