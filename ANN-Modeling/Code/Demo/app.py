@@ -30,12 +30,20 @@ class DemoApp:
         try:
             explainability_path = os.path.join(self.results_dir, 'explainability_analysis_v2.json')
             training_results_path = os.path.join(self.results_dir, 'training_results_v2.json')
+            test_results_path = os.path.join(self.results_dir, 'comprehensive_test_results_v2.json')
             
             with open(explainability_path, 'r') as f:
                 self.explainability_data = json.load(f)
             
             with open(training_results_path, 'r') as f:
                 self.training_results = json.load(f)
+            
+            # Try to load test results if available
+            try:
+                with open(test_results_path, 'r') as f:
+                    self.test_results = json.load(f)
+            except:
+                self.test_results = None
             
             return True
         except:
@@ -58,14 +66,28 @@ class DemoApp:
         col1, col2, col3 = st.columns(3)
         
         with col1:
-            st.metric("Model Accuracy", f"{self.training_results['accuracy']:.3f}")
+            # Use test accuracy if available, otherwise use CV mean
+            if self.test_results and 'test_metrics' in self.test_results:
+                accuracy = self.test_results['test_metrics']['accuracy']
+                st.metric("Test Accuracy", f"{accuracy:.3f}")
+            else:
+                cv_mean = self.training_results.get('cv_mean', 0)
+                st.metric("CV Mean Accuracy", f"{cv_mean:.3f}")
         
         with col2:
-            st.metric("Cross-Validation Score", f"{self.training_results['cv_mean']:.3f}")
+            cv_mean = self.training_results.get('cv_mean', 0)
+            st.metric("Cross-Validation Score", f"{cv_mean:.3f}")
         
         with col3:
-            if 'roc_auc' in self.training_results:
-                st.metric("ROC AUC", f"{self.training_results['roc_auc']:.3f}")
+            # Use test ROC AUC if available
+            if self.test_results and 'test_metrics' in self.test_results:
+                roc_auc = self.test_results['test_metrics'].get('roc_auc', 0)
+                if roc_auc:
+                    st.metric("Test ROC AUC", f"{roc_auc:.3f}")
+                else:
+                    st.metric("CV Std", f"{self.training_results.get('cv_std', 0):.3f}")
+            else:
+                st.metric("CV Std", f"{self.training_results.get('cv_std', 0):.3f}")
         
         st.markdown("---")
         
@@ -103,10 +125,22 @@ class DemoApp:
             col1, col2 = st.columns(2)
             
             with col1:
-                st.json(self.training_results['classification_report'])
+                # Use test classification report if available
+                if self.test_results and 'test_metrics' in self.test_results:
+                    st.json(self.test_results['test_metrics']['classification_report'])
+                else:
+                    st.info("Classification report not available. Run predict.py to generate test metrics.")
             
             with col2:
-                cm = np.array(self.training_results['confusion_matrix'])
+                # Use test confusion matrix if available
+                if self.test_results and 'test_metrics' in self.test_results:
+                    cm = np.array(self.test_results['test_metrics']['confusion_matrix'])
+                elif 'confusion_matrix' in self.training_results:
+                    cm = np.array(self.training_results['confusion_matrix'])
+                else:
+                    st.info("Confusion matrix not available. Run predict.py to generate test metrics.")
+                    return
+                
                 fig, ax = plt.subplots(figsize=(6, 4))
                 sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', 
                            xticklabels=['TD', 'ASD'], yticklabels=['TD', 'ASD'], ax=ax)
