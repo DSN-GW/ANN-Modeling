@@ -17,7 +17,6 @@ class FeatureExtractor:
         self.batch_size = batch_size  # Process samples in batches
     
     def setup_logging(self):
-        """Setup logging for failed samples"""
         log_dir = os.path.join('..', '..', 'Results', 'V2', 'logs')
         os.makedirs(log_dir, exist_ok=True)
         
@@ -50,7 +49,6 @@ class FeatureExtractor:
             self.logger.error(f"Failed to initialize agent: {str(e)}")
             return False
 
-    
     def setup_agent(self):
         system_prompt = f"""You are an expert text analyzer. Your task is to analyze free response text and extract features related to specific characteristics.
 
@@ -76,7 +74,6 @@ IMPORTANT: Always return valid JSON format."""
         self.agent.set_parameters(max_tokens=4000, temperature=0.1)  # Increased max_tokens for batch processing
     
     def create_batch_prompt(self, texts_with_indices):
-        """Create a batch prompt for multiple texts"""
         prompt = "Analyze the following texts and extract features for the given characteristics. Return a JSON array with results for each text:\n\n"
         
         for idx, text in texts_with_indices:
@@ -96,13 +93,11 @@ IMPORTANT: Always return valid JSON format."""
         prompt += "  }\n"
         prompt += "]\n\n"
         prompt += "IMPORTANT: Return exactly one result object per text, maintaining the same order."
-        
         return prompt
     
     def extract_features_from_text(self, text):
         if pd.isna(text) or text == "":
             return self.get_empty_features()
-        
         try:
             return self.extract_features_with_agent(text)
         except Exception as e:
@@ -110,15 +105,11 @@ IMPORTANT: Always return valid JSON format."""
             self.logger.error(f"Text content: {text[:200]}...")  # Log first 200 chars
             return self.get_empty_features()
 
-    
     def extract_json_from_response(self, response):
-        """Extract JSON from agent response that may contain explanatory text"""
         import re
-        
         if not response or response.strip() == "":
             raise ValueError("Empty response from agent")
         
-        # Look for JSON object in the response
         json_pattern = r'\{.*\}'
         json_match = re.search(json_pattern, response, re.DOTALL)
         
@@ -126,21 +117,15 @@ IMPORTANT: Always return valid JSON format."""
             json_str = json_match.group(0)
             return json_str
         else:
-            # If no JSON found, try to parse the entire response
             return response
     
     def extract_features_with_agent(self, text):
         try:
             prompt = f"Analyze this text and extract features for the given characteristics: '{text}'"
-            
             response = self.agent.ask(prompt)
-            
             if not response:
                 raise ValueError("Empty response from agent")
-            
             json_response = self.extract_json_from_response(response)
-            
-            # Validate JSON before parsing
             if not json_response.strip():
                 raise ValueError("Empty JSON response")
             
@@ -156,7 +141,6 @@ IMPORTANT: Always return valid JSON format."""
             raise
 
     def extract_features_batch(self, texts_with_indices):
-        """Extract features for a batch of texts"""
         try:
             batch_prompt = self.create_batch_prompt(texts_with_indices)
             
@@ -165,7 +149,6 @@ IMPORTANT: Always return valid JSON format."""
             if not response:
                 raise ValueError("Empty response from agent")
             
-            # Try to parse as JSON array first
             try:
                 batch_results = json.loads(response)
                 if isinstance(batch_results, list):
@@ -173,7 +156,6 @@ IMPORTANT: Always return valid JSON format."""
             except json.JSONDecodeError:
                 pass
             
-            # If not a valid JSON array, try to extract individual JSON objects
             import re
             json_objects = re.findall(r'\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}', response)
             
@@ -198,12 +180,10 @@ IMPORTANT: Always return valid JSON format."""
                 
         except Exception as e:
             self.logger.error(f"Error in extract_features_batch: {str(e)}")
-            # Return empty features for all texts in batch
-            return [{"text_index": i+1, "features": self.get_empty_features_dict()} 
+            return [{"text_index": i+1, "features": self.get_empty_features_dict()}
                    for i in range(len(texts_with_indices))]
 
     def get_empty_features_dict(self):
-        """Get empty features as a dictionary (for batch processing)"""
         features = {}
         for char in self.characteristics:
             features[char] = {
@@ -221,12 +201,9 @@ IMPORTANT: Always return valid JSON format."""
     
     def process_features(self, raw_features):
         processed = {}
-        
         for char in self.characteristics:
             char_data = raw_features.get(char, {})
-            
             processed[f"{char}_mentioned"] = 1 if char_data.get("mentioned", False) else 0
-            
             sentiment = char_data.get("sentiment", "neutral")
             if sentiment == "positive":
                 processed[f"{char}_sentiment"] = 1
@@ -234,11 +211,9 @@ IMPORTANT: Always return valid JSON format."""
                 processed[f"{char}_sentiment"] = -1
             else:
                 processed[f"{char}_sentiment"] = 0
-        
         return processed
     
     def save_failed_samples(self):
-        """Save failed samples to a CSV file for analysis"""
         if self.failed_samples:
             failed_df = pd.DataFrame(self.failed_samples)
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -249,11 +224,8 @@ IMPORTANT: Always return valid JSON format."""
     def process_dataset(self, df):
         feature_list = []
         df = df.reset_index(drop=True)
-        
-        # Process in batches
         total_samples = len(df)
         num_batches = (total_samples + self.batch_size - 1) // self.batch_size
-        
         print(f"Processing {total_samples} samples in {num_batches} batches of size {self.batch_size}")
         
         for batch_idx in range(num_batches):
@@ -261,18 +233,14 @@ IMPORTANT: Always return valid JSON format."""
             end_idx = min((batch_idx + 1) * self.batch_size, total_samples)
             
             print(f"Processing batch {batch_idx + 1}/{num_batches} (samples {start_idx + 1}-{end_idx})")
-            
-            # Get texts for this batch
             batch_texts = []
             for idx in range(start_idx, end_idx):
                 text = df.iloc[idx]['free_response']
                 batch_texts.append((idx, text))
             
             try:
-                # Process batch
                 batch_results = self.extract_features_batch(batch_texts)
                 
-                # Process results for this batch
                 for result in batch_results:
                     text_index = result["text_index"]
                     actual_idx = start_idx + text_index - 1
@@ -290,12 +258,8 @@ IMPORTANT: Always return valid JSON format."""
                 
             except Exception as e:
                 self.logger.error(f"Failed to process batch {batch_idx + 1}: {str(e)}")
-                
-                # Use empty features for all samples in this batch
                 for idx in range(start_idx, end_idx):
                     feature_list.append(self.get_empty_features())
-                    
-                    # Record failed samples
                     failed_sample = {
                         'row_index': idx,
                         'sub': df.iloc[idx].get('sub', 'unknown'),
@@ -304,13 +268,9 @@ IMPORTANT: Always return valid JSON format."""
                         'timestamp': datetime.now().isoformat()
                     }
                     self.failed_samples.append(failed_sample)
-        
-        # Save failed samples if any
         if self.failed_samples:
             self.save_failed_samples()
             self.logger.warning(f"Total failed samples: {len(self.failed_samples)} out of {len(df)}")
-        
         feature_df = pd.DataFrame(feature_list)
         result_df = pd.concat([df.reset_index(drop=True), feature_df], axis=1)
-        
         return result_df
