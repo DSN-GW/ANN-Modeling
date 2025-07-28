@@ -68,7 +68,7 @@ def preprocess_training_data(batch_size=10):
     train_extractor = CharacteristicFeatureExtractor()
     train_extractor.batch_size = batch_size
     
-    train_processed = train_extractor.extract_features_batch(train_df)
+    train_processed = train_extractor.process_dataset(train_df)
     
     # Add NLP features to training data
     nlp_extractor = NLPFeatureExtractor()
@@ -84,7 +84,7 @@ def preprocess_training_data(batch_size=10):
     test_extractor = CharacteristicFeatureExtractor()
     test_extractor.batch_size = batch_size
     
-    test_processed = test_extractor.extract_features_batch(test_df)
+    test_processed = test_extractor.process_dataset(test_df)
     
     # Add NLP features to test data
     test_nlp_extractor = NLPFeatureExtractor()
@@ -132,7 +132,7 @@ def preprocess_prediction_data(df, is_test_data=False):
     print("This ensures no information leaks from training to prediction data")
     
     extractor = CharacteristicFeatureExtractor()
-    processed_df = extractor.extract_features_batch(df)
+    processed_df = extractor.process_dataset(df)
     
     # Add NLP features
     nlp_extractor = NLPFeatureExtractor()

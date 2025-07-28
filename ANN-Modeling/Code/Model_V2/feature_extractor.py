@@ -50,7 +50,8 @@ class CharacteristicFeatureExtractor:
         
         # Initialize feature storage
         self.feature_data = {}
-        
+        self.failed_samples = []
+    
     def load_characteristics(self, char_path):
         """Load characteristics from file."""
         try:
@@ -163,9 +164,9 @@ IMPORTANT: Always return valid JSON format."""
             self.logger.error(f"Error in extract_features_with_agent: {str(e)}")
             raise
 
-    def extract_features_batch(self, texts_with_indices):
+    def extract_features_batch(self, texts):
         try:
-            batch_prompt = self.create_batch_prompt(texts_with_indices)
+            batch_prompt = self.create_batch_prompt([(i, text) for i, text in enumerate(texts)])
             
             response = self.agent.ask(batch_prompt)
             
@@ -182,7 +183,7 @@ IMPORTANT: Always return valid JSON format."""
             import re
             json_objects = re.findall(r'\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}', response)
             
-            if len(json_objects) == len(texts_with_indices):
+            if len(json_objects) == len(texts):
                 batch_results = []
                 for i, json_str in enumerate(json_objects):
                     try:
@@ -199,12 +200,12 @@ IMPORTANT: Always return valid JSON format."""
                         })
                 return batch_results
             else:
-                raise ValueError(f"Expected {len(texts_with_indices)} results, got {len(json_objects)}")
+                raise ValueError(f"Expected {len(texts)} results, got {len(json_objects)}")
                 
         except Exception as e:
             self.logger.error(f"Error in extract_features_batch: {str(e)}")
             return [{"text_index": i+1, "features": self.get_empty_features_dict()}
-                   for i in range(len(texts_with_indices))]
+                   for i in range(len(texts))]
 
     def get_empty_features_dict(self):
         features = {}
@@ -267,9 +268,11 @@ IMPORTANT: Always return valid JSON format."""
                 batch_texts.append((idx, text))
             
             try:
-                batch_results = self.extract_features_batch(batch_texts)
+                # Extract just the texts for the batch processing
+                texts_only = [text for idx, text in batch_texts]
+                batch_results = self.extract_features_batch(texts_only)
                 
-                for result in batch_results:
+                for i, result in enumerate(batch_results):
                     text_index = result["text_index"]
                     actual_idx = start_idx + text_index - 1
                     

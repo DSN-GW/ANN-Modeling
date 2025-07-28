@@ -4,9 +4,11 @@ import re
 import nltk
 from textblob import TextBlob
 import textstat
+from textstat import flesch_reading_ease, flesch_kincaid_grade
 import logging
 from datetime import datetime
 from pathlib import Path
+from collections import Counter
 
 # Download required NLTK data
 try:
@@ -50,8 +52,21 @@ class NLPFeatureExtractor:
         self.stop_words = set(stopwords.words('english'))
         self.lemmatizer = WordNetLemmatizer()
         
+        # Define positive and negative word lists
+        self.positive_words = {
+            'like', 'likes', 'love', 'loves', 'enjoy', 'enjoys', 'good', 'great', 
+            'awesome', 'amazing', 'wonderful', 'fantastic', 'excellent', 'perfect',
+            'happy', 'fun', 'cool', 'nice', 'best', 'favorite', 'prefer', 'prefers'
+        }
+        self.negative_words = {
+            'dislike', 'dislikes', 'hate', 'hates', 'bad', 'terrible', 'awful',
+            'horrible', 'worst', 'not', 'never', 'no', 'dont', "don't", 'doesnt',
+            "doesn't", 'cannot', "can't", 'wont', "won't"
+        }
+        
         # Initialize feature storage
         self.feature_data = {}
+        self.failed_samples = []
     
     def setup_logging(self):
         """Setup logging for failed samples"""
@@ -264,6 +279,13 @@ class NLPFeatureExtractor:
             
             failed_df.to_csv(failed_file, index=False)
             self.logger.info(f"Saved {len(self.failed_samples)} failed NLP samples to {failed_file}")
+    
+    def add_nlp_features(self, df, text_column='free_response'):
+        """
+        Add NLP features to the dataframe.
+        This is a wrapper around process_dataset for consistency with the new API.
+        """
+        return self.process_dataset(df, text_column)
     
     def process_dataset(self, df, text_column='free_response'):
         feature_list = []
