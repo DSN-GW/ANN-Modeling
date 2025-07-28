@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 import json
+from pathlib import Path
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report, roc_auc_score
 from xgboost_model import XGBoostClassifier
 from data_preprocessor import preprocess_prediction_data
@@ -13,9 +14,12 @@ from visualization import create_visualizations
 class ModelPredictor:
     def __init__(self):
         self.classifier = XGBoostClassifier()
-        self.results_dir = os.path.join('..', '..', 'Results', 'V2')
-        self.predictions_dir = os.path.join(self.results_dir, 'predictions')
-        os.makedirs(self.predictions_dir, exist_ok=True)
+        # Get the project root directory (two levels up from current file)
+        current_dir = Path(__file__).parent
+        project_root = current_dir.parent.parent
+        self.results_dir = project_root / "Results" / "V2"
+        self.predictions_dir = self.results_dir / "predictions"
+        self.predictions_dir.mkdir(parents=True, exist_ok=True)
         
     def load_model(self):
         self.classifier.load_model()
@@ -163,7 +167,7 @@ class ModelPredictor:
         return report
     
     def save_predictions(self, results_df, filename='predictions_v2.csv'):
-        output_path = os.path.join(self.predictions_dir, filename)
+        output_path = self.predictions_dir / filename
         results_df.to_csv(output_path, index=False)
         print(f"Predictions saved to: {output_path}")
         return output_path
@@ -217,7 +221,7 @@ def predict_from_file(data_path):
     viz_dir = create_visualizations()
     
     print("\nGenerating prediction-specific visualizations...")
-    viz_path = os.path.join(predictor.predictions_dir, 'test_prediction_analysis_v2.png')
+    viz_path = predictor.predictions_dir / 'test_prediction_analysis_v2.png'
     predictor.create_prediction_visualization(results_df, viz_path)
     
     if len(results_df) > 0:
@@ -242,7 +246,7 @@ def predict_from_file(data_path):
         }
     }
     
-    results_path = os.path.join(predictor.results_dir, 'comprehensive_test_results_v2.json')
+    results_path = predictor.results_dir / 'comprehensive_test_results_v2.json'
     with open(results_path, 'w') as f:
         json.dump(comprehensive_results, f, indent=2, default=str)
     
@@ -291,9 +295,13 @@ def predict_single_sample(text, subject_id="sample"):
     return result
 
 if __name__ == "__main__":
-    data_path = os.path.join('..', '..', 'data', 'Data_v1', 'LLM_data_test.csv')
-    if os.path.exists(data_path):
-        results_df, report = predict_from_file(data_path)
+    # Get the project root directory (two levels up from current file)
+    current_dir = Path(__file__).parent
+    project_root = current_dir.parent.parent
+    data_path = project_root / "data" / "Data_v1" / "LLM_data_test.csv"
+    
+    if data_path.exists():
+        results_df, report = predict_from_file(str(data_path))
     else:
         print(f"Test data file not found: {data_path}")
         print("Please run train.py first to create the test data split.")

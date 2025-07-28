@@ -4,13 +4,19 @@ import numpy as np
 import json
 import os
 import sys
+from pathlib import Path
 import matplotlib.pyplot as plt
 import seaborn as sns
 from PIL import Image
 import plotly.express as px
 import plotly.graph_objects as go
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'Model_V2'))
+# Get the current file's directory
+current_dir = Path(__file__).parent
+# Add the Model_V2 directory to the path
+model_v2_dir = current_dir.parent / "Model_V2"
+sys.path.append(str(model_v2_dir))
+
 from predict import ModelPredictor, predict_single_sample
 
 st.set_page_config(
@@ -22,15 +28,18 @@ st.set_page_config(
 
 class DemoApp:
     def __init__(self):
-        self.results_dir = os.path.join('..', '..', 'Results', 'V2')
-        self.viz_dir = os.path.join(self.results_dir, 'visualizations')
+        # Get the project root directory (two levels up from current file)
+        current_dir = Path(__file__).parent
+        project_root = current_dir.parent.parent
+        self.results_dir = project_root / "Results" / "V2"
+        self.viz_dir = self.results_dir / "visualizations"
         self.predictor = None
         
     def load_results(self):
         try:
-            explainability_path = os.path.join(self.results_dir, 'explainability_analysis_v2.json')
-            training_results_path = os.path.join(self.results_dir, 'training_results_v2.json')
-            test_results_path = os.path.join(self.results_dir, 'comprehensive_test_results_v2.json')
+            explainability_path = self.results_dir / 'explainability_analysis_v2.json'
+            training_results_path = self.results_dir / 'training_results_v2.json'
+            test_results_path = self.results_dir / 'comprehensive_test_results_v2.json'
             
             with open(explainability_path, 'r') as f:
                 self.explainability_data = json.load(f)
@@ -117,7 +126,7 @@ class DemoApp:
     def show_results_page(self):
         st.title("📊 Model Results & Analysis")
         
-        tab1, tab2, tab3, tab4 = st.tabs(["Model Performance", "Feature Importance", "Characteristic Analysis", "Visualizations"])
+        tab1, tab2, tab3, tab4, tab5 = st.tabs(["Model Performance", "Feature Importance", "Characteristic Analysis", "Visualizations", "Prediction Analysis"])
         
         with tab1:
             st.subheader("Model Performance Metrics")
@@ -195,13 +204,126 @@ class DemoApp:
             ]
             
             for filename, title in viz_files:
-                viz_path = os.path.join(self.viz_dir, filename)
-                if os.path.exists(viz_path):
+                viz_path = self.viz_dir / filename
+                if viz_path.exists():
                     st.subheader(title)
                     image = Image.open(viz_path)
-                    st.image(image, use_column_width=True)
+                    st.image(image, use_container_width=True)
                 else:
                     st.warning(f"Visualization not found: {filename}")
+        
+        with tab5:
+            st.subheader("Prediction Analysis Visualizations")
+            
+            # Path to prediction visualizations
+            predictions_dir = self.results_dir / 'predictions'
+            
+            # Test prediction analysis visualization
+            test_pred_path = predictions_dir / 'test_prediction_analysis_v2.png'
+            if test_pred_path.exists():
+                st.subheader("Test Data Prediction Analysis")
+                st.markdown("""
+                This visualization shows the comprehensive analysis of predictions on the test dataset, 
+                including prediction distributions, confidence scores, and performance metrics.
+                """)
+                image = Image.open(test_pred_path)
+                st.image(image, use_container_width=True)
+            else:
+                st.warning("Test prediction analysis visualization not found. Run predict.py to generate.")
+            
+            # Sample feature contributions visualization
+            sample_contrib_path = predictions_dir / 'sample_feature_contributions_v2.png'
+            if sample_contrib_path.exists():
+                st.subheader("Sample Feature Contributions")
+                st.markdown("""
+                This visualization shows the feature contribution analysis for the highest confidence prediction, 
+                demonstrating how individual features influence the model's decision.
+                """)
+                image = Image.open(sample_contrib_path)
+                st.image(image, use_container_width=True)
+            else:
+                st.warning("Sample feature contributions visualization not found. Run predict.py to generate.")
+            
+            # Show prediction summary if available
+            if self.test_results and 'prediction_summary' in self.test_results:
+                st.subheader("Test Prediction Summary")
+                summary = self.test_results['prediction_summary']
+                
+                col1, col2, col3, col4 = st.columns(4)
+                with col1:
+                    st.metric("Total Samples", summary['total_samples'])
+                with col2:
+                    st.metric("TD Predictions", summary['td_predictions'])
+                with col3:
+                    st.metric("ASD Predictions", summary['asd_predictions'])
+                with col4:
+                    st.metric("Avg Confidence", f"{summary['average_confidence']:.3f}")
+                
+                # Show prediction distribution
+                pred_data = pd.DataFrame({
+                    'Class': ['TD', 'ASD'],
+                    'Count': [summary['td_predictions'], summary['asd_predictions']],
+                    'Percentage': [
+                        summary['prediction_summary']['td_percentage'],
+                        summary['prediction_summary']['asd_percentage']
+                    ]
+                })
+                
+                fig = px.pie(pred_data, values='Count', names='Class', 
+                           title='Test Prediction Distribution')
+                st.plotly_chart(fig, use_container_width=True)
+            
+            # Display test predictions CSV data
+            test_predictions_path = predictions_dir / 'test_predictions_v2.csv'
+            if test_predictions_path.exists():
+                st.subheader("Test Predictions Data")
+                st.markdown("""
+                Below is a sample of the test predictions with confidence scores and probabilities.
+                """)
+                
+                # Load and display the predictions data
+                try:
+                    predictions_df = pd.read_csv(test_predictions_path)
+                    
+                    # Show summary statistics
+                    st.markdown("**Prediction Statistics:**")
+                    col1, col2, col3 = st.columns(3)
+                    with col1:
+                        st.metric("Total Predictions", len(predictions_df))
+                    with col2:
+                        avg_conf = predictions_df['prediction_confidence'].mean()
+                        st.metric("Average Confidence", f"{avg_conf:.3f}")
+                    with col3:
+                        high_conf = (predictions_df['prediction_confidence'] > 0.9).sum()
+                        st.metric("High Confidence (>0.9)", high_conf)
+                    
+                    # Show sample of predictions
+                    st.markdown("**Sample Predictions (first 10 rows):**")
+                    display_cols = ['sub', 'free_response', 'predicted_td_or_asd', 
+                                  'prediction_confidence', 'prediction_probability_class_0', 
+                                  'prediction_probability_class_1']
+                    available_cols = [col for col in display_cols if col in predictions_df.columns]
+                    
+                    if available_cols:
+                        sample_df = predictions_df[available_cols].head(10)
+                        # Format the predicted_td_or_asd column
+                        if 'predicted_td_or_asd' in sample_df.columns:
+                            sample_df['predicted_td_or_asd'] = sample_df['predicted_td_or_asd'].map({0: 'TD', 1: 'ASD'})
+                        st.dataframe(sample_df, use_container_width=True)
+                    
+                    # Download button for the full predictions file
+                    csv = predictions_df.to_csv(index=False)
+                    st.download_button(
+                        label="📥 Download Full Test Predictions",
+                        data=csv,
+                        file_name="test_predictions_v2.csv",
+                        mime="text/csv"
+                    )
+                    
+                except Exception as e:
+                    st.error(f"Error loading predictions data: {str(e)}")
+            else:
+                st.warning("Test predictions CSV file not found. Run predict.py to generate.")
     
     def show_prediction_page(self):
         st.title("🔮 Make Predictions")
