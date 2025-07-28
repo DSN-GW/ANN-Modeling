@@ -1,27 +1,38 @@
 import sys
 import os
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'Agent'))
-
 import pandas as pd
+import numpy as np
 import json
+import boto3
+import time
 import logging
 from datetime import datetime
+from pathlib import Path
+from botocore.exceptions import ClientError
+import re
 
-class FeatureExtractor:
-    def __init__(self, batch_size=1):
-        self.characteristics = self.load_characteristics()
-        self.agent = None
-        self.use_agent = self.initialize_agent()
-        self.setup_logging()
-        self.failed_samples = []
-        self.batch_size = batch_size  # Process samples in batches
-    
-    def setup_logging(self):
-        log_dir = os.path.join('..', '..', 'Results', 'V2', 'logs')
-        os.makedirs(log_dir, exist_ok=True)
+# Add the Agent directory to the path
+current_dir = Path(__file__).parent
+agent_dir = current_dir.parent / "Agent"
+sys.path.append(str(agent_dir))
+
+from sonnet_agent import SonnetAgent
+
+class CharacteristicFeatureExtractor:
+    def __init__(self, batch_size=10):
+        self.batch_size = batch_size
+        self.agent = SonnetAgent()
+        
+        # Get the project root directory (two levels up from current file)
+        current_dir = Path(__file__).parent
+        project_root = current_dir.parent.parent
+        
+        # Setup logging
+        log_dir = project_root / "Results" / "V2" / "logs"
+        log_dir.mkdir(parents=True, exist_ok=True)
         
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        log_file = os.path.join(log_dir, f'feature_extraction_errors_{timestamp}.log')
+        log_file = log_dir / f'feature_extraction_errors_{timestamp}.log'
         
         logging.basicConfig(
             level=logging.INFO,
@@ -32,12 +43,24 @@ class FeatureExtractor:
             ]
         )
         self.logger = logging.getLogger(__name__)
-    
-    def load_characteristics(self):
-        char_path = os.path.join('..', '..', 'data', 'Data_v1', 'charactristic.txt')
-        with open(char_path, 'r') as f:
-            characteristics = [line.strip() for line in f.readlines() if line.strip()]
-        return characteristics
+        
+        # Load characteristics
+        char_path = project_root / "data" / "Data_v1" / "charactristic.txt"
+        self.characteristics = self.load_characteristics(char_path)
+        
+        # Initialize feature storage
+        self.feature_data = {}
+        
+    def load_characteristics(self, char_path):
+        """Load characteristics from file."""
+        try:
+            with open(char_path, 'r', encoding='utf-8') as f:
+                characteristics = [line.strip() for line in f if line.strip()]
+            print(f"Loaded {len(characteristics)} characteristics")
+            return characteristics
+        except FileNotFoundError:
+            print(f"Warning: Characteristics file not found at {char_path}")
+            return []
     
     def initialize_agent(self):
         try:
@@ -217,7 +240,12 @@ IMPORTANT: Always return valid JSON format."""
         if self.failed_samples:
             failed_df = pd.DataFrame(self.failed_samples)
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            failed_file = os.path.join('..', '..', 'Results', 'V2', 'logs', f'failed_samples_{timestamp}.csv')
+            
+            # Get the project root directory (two levels up from current file)
+            current_dir = Path(__file__).parent
+            project_root = current_dir.parent.parent
+            failed_file = project_root / "Results" / "V2" / "logs" / f'failed_samples_{timestamp}.csv'
+            
             failed_df.to_csv(failed_file, index=False)
             self.logger.info(f"Saved {len(self.failed_samples)} failed samples to {failed_file}")
     

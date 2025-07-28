@@ -1,143 +1,149 @@
 import pandas as pd
+import numpy as np
 import os
-from sklearn.model_selection import train_test_split
-from feature_extractor import FeatureExtractor
+import json
+from pathlib import Path
+from feature_extractor import CharacteristicFeatureExtractor
 from nlp_features import NLPFeatureExtractor
 
-def load_data():
-    data_path = os.path.join('..', '..', 'data', 'Data_v1', 'LLM data.csv')
+def preprocess_training_data(batch_size=10):
+    """
+    Preprocess training data with stratified train-test split.
+    """
+    # Get the project root directory (two levels up from current file)
+    current_dir = Path(__file__).parent
+    project_root = current_dir.parent.parent
+    data_path = project_root / "data" / "Data_v1" / "LLM data.csv"
+    
+    print(f"Loading data from: {data_path}")
     df = pd.read_csv(data_path)
-    return df
-
-def split_data_stratified(df, test_size=0.2, random_state=42):
-    print(f"Splitting data with stratification (test_size={test_size})...")
-    if 'td_or_asd' not in df.columns:
-        raise ValueError("Target column 'td_or_asd' not found in data")
-    train_df, test_df = train_test_split(df, test_size=test_size, random_state=random_state, stratify=df['td_or_asd'])
-    print(f"Train set size: {len(train_df)} samples")
-    print(f"Test set size: {len(test_df)} samples")
-    print(f"Train target distribution: {train_df['td_or_asd'].value_counts().to_dict()}")
-    print(f"Test target distribution: {test_df['td_or_asd'].value_counts().to_dict()}")
-    return train_df, test_df
-
-def save_preprocessing_artifacts(artifacts_dir='../../Results/V2/preprocessing'):
-    os.makedirs(artifacts_dir, exist_ok=True)
-    preprocessing_info = {'preprocessing_completed': True}
-    import json
-    with open(os.path.join(artifacts_dir, 'preprocessing_info.json'), 'w') as f:
-        json.dump(preprocessing_info, f)
-    print(f"Preprocessing info saved to: {artifacts_dir}")
-
-def load_preprocessing_artifacts(artifacts_dir='../../Results/V2/preprocessing'):
-    info_path = os.path.join(artifacts_dir, 'preprocessing_info.json')
-    if not os.path.exists(info_path):
-        raise FileNotFoundError(f"Preprocessing info not found in {artifacts_dir}")
-    print(f"Preprocessing info loaded from: {artifacts_dir}")
-    return True
-
-def preprocess_training_data(test_size=0.2, random_state=42, batch_size=10):
-    print("=" * 60)
-    print("PREPROCESSING TRAINING DATA WITH STRATIFICATION")
-    print("=" * 60)
-    print("Loading data...")
-    df = load_data()
-    print("Splitting data with stratification...")
-    train_df, test_df = split_data_stratified(df, test_size=test_size, random_state=random_state)
-    train_path = os.path.join('..', '..', 'data', 'Data_v1', 'LLM_data_train.csv')
-    test_path = os.path.join('..', '..', 'data', 'Data_v1', 'LLM_data_test.csv')
+    print(f"Original data shape: {df.shape}")
+    
+    # Create artifacts directory
+    artifacts_dir = project_root / "Results" / "V2" / "preprocessing"
+    artifacts_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Save preprocessing info
+    preprocessing_info = {
+        'original_shape': df.shape,
+        'columns': list(df.columns),
+        'target_distribution': df['td_or_asd'].value_counts().to_dict()
+    }
+    
+    with open(artifacts_dir / 'preprocessing_info.json', 'w') as f:
+        json.dump(preprocessing_info, f, indent=2)
+    
+    # Load preprocessing info for feature extraction
+    info_path = artifacts_dir / 'preprocessing_info.json'
+    with open(info_path, 'r') as f:
+        preprocessing_info = json.load(f)
+    
+    print("Preprocessing info loaded successfully.")
+    
+    # Perform stratified train-test split
+    from sklearn.model_selection import train_test_split
+    
+    train_df, test_df = train_test_split(
+        df, 
+        test_size=0.2, 
+        random_state=42, 
+        stratify=df['td_or_asd']
+    )
+    
+    print(f"Train set shape: {train_df.shape}")
+    print(f"Test set shape: {test_df.shape}")
+    
+    # Save train and test splits
+    train_path = project_root / "data" / "Data_v1" / "LLM_data_train.csv"
+    test_path = project_root / "data" / "Data_v1" / "LLM_data_test.csv"
+    
     train_df.to_csv(train_path, index=False)
     test_df.to_csv(test_path, index=False)
+    
     print(f"Train data saved to: {train_path}")
     print(f"Test data saved to: {test_path}")
     
-    # IMPORTANT: Process train and test data separately to prevent leakage
+    # Process training data
     print("\nProcessing training data...")
-    print("Initializing characteristic feature extractor for training data...")
-    train_char_extractor = FeatureExtractor(batch_size=batch_size)  # Use batched processing
-    print("Extracting characteristic features from training data...")
-    train_processed = train_char_extractor.process_dataset(train_df)
-    print("Initializing NLP feature extractor for training data...")
-    train_nlp_extractor = NLPFeatureExtractor()
-    print("Extracting NLP features from training data...")
-    train_final = train_nlp_extractor.process_dataset(train_processed)
-    train_output_path = os.path.join('..', '..', 'data', 'Data_v1', 'LLM_data_train_preprocessed.csv')
-    train_final.to_csv(train_output_path, index=False)
+    train_extractor = CharacteristicFeatureExtractor()
+    train_extractor.batch_size = batch_size
     
-    # Process test data with fresh extractors to prevent any leakage
-    print("\nProcessing test data...")
-    print("Initializing characteristic feature extractor for test data...")
-    test_char_extractor = FeatureExtractor(batch_size=batch_size)  # Use batched processing
-    print("Extracting characteristic features from test data...")
-    test_processed = test_char_extractor.process_dataset(test_df)
-    print("Initializing NLP feature extractor for test data...")
-    test_nlp_extractor = NLPFeatureExtractor()  # Create a new instance for test data
-    print("Extracting NLP features from test data...")
-    test_final = test_nlp_extractor.process_dataset(test_processed)
-    test_output_path = os.path.join('..', '..', 'data', 'Data_v1', 'LLM_data_test_preprocessed.csv')
-    test_final.to_csv(test_output_path, index=False)
+    train_processed = train_extractor.extract_features_batch(train_df)
+    
+    # Add NLP features to training data
+    nlp_extractor = NLPFeatureExtractor()
+    train_processed = nlp_extractor.add_nlp_features(train_processed)
+    
+    # Save preprocessed training data
+    train_output_path = project_root / "data" / "Data_v1" / "LLM_data_train_preprocessed.csv"
+    train_processed.to_csv(train_output_path, index=False)
+    print(f"Preprocessed training data saved to: {train_output_path}")
+    
+    # Process test data with separate extractors (to prevent data leakage)
+    print("\nProcessing test data with separate extractors...")
+    test_extractor = CharacteristicFeatureExtractor()
+    test_extractor.batch_size = batch_size
+    
+    test_processed = test_extractor.extract_features_batch(test_df)
+    
+    # Add NLP features to test data
+    test_nlp_extractor = NLPFeatureExtractor()
+    test_processed = test_nlp_extractor.add_nlp_features(test_processed)
+    
+    # Save preprocessed test data
+    test_output_path = project_root / "data" / "Data_v1" / "LLM_data_test_preprocessed.csv"
+    test_processed.to_csv(test_output_path, index=False)
     print(f"Preprocessed test data saved to: {test_output_path}")
     
-    print("\nNote: Train and test data were processed with separate feature extractors to prevent leakage")
-    
-    save_preprocessing_artifacts()
-    print(f"Preprocessed training data saved to: {train_output_path}")
-    print(f"Original columns: {len(train_df.columns)}")
-    print(f"Final columns: {len(train_final.columns)}")
-    print(f"Total added features: {len(train_final.columns) - len(train_df.columns)}")
-    return train_final, test_final
+    return train_processed, test_processed
 
-def load_preprocessed_test_data():
+def preprocess_prediction_data(df, is_test_data=False):
     """
-    Load preprocessed test data if it exists
+    Preprocess new data for prediction using saved preprocessing artifacts.
     """
-    test_preprocessed_path = os.path.join('..', '..', 'data', 'Data_v1', 'LLM_data_test_preprocessed.csv')
-    if os.path.exists(test_preprocessed_path):
-        print(f"Loading preprocessed test data from: {test_preprocessed_path}")
-        return pd.read_csv(test_preprocessed_path)
-    return None
-
-def preprocess_prediction_data(df, is_test_data=False, batch_size=10):
-
-    print("=" * 60)
-    print("PREPROCESSING PREDICTION DATA")
-    print("=" * 60)
+    # Get the project root directory (two levels up from current file)
+    current_dir = Path(__file__).parent
+    project_root = current_dir.parent.parent
     
     if is_test_data:
-        preprocessed_test = load_preprocessed_test_data()
-        if preprocessed_test is not None:
-            print("Using preprocessed test data (no feature extraction needed)")
-            print("Note: This test data was processed with separate extractors from training data")
-            return preprocessed_test
+        # Try to load preprocessed test data first
+        test_preprocessed_path = project_root / "data" / "Data_v1" / "LLM_data_test_preprocessed.csv"
+        
+        if test_preprocessed_path.exists():
+            print(f"Loading preprocessed test data from: {test_preprocessed_path}")
+            return pd.read_csv(test_preprocessed_path)
         else:
-            print("Preprocessed test data not found, performing live preprocessing...")
+            print("Preprocessed test data not found. Processing test data...")
     
-
-    print("Loading preprocessing info...")
-    load_preprocessing_artifacts()
-
-    # IMPORTANT: Always use fresh extractors for prediction data to prevent leakage
+    # Load preprocessing info
+    artifacts_dir = project_root / "Results" / "V2" / "preprocessing"
+    info_path = artifacts_dir / 'preprocessing_info.json'
+    
+    if not info_path.exists():
+        raise FileNotFoundError(f"Preprocessing info not found at {info_path}. Please run training first.")
+    
+    with open(info_path, 'r') as f:
+        preprocessing_info = json.load(f)
+    
+    print("Preprocessing info loaded successfully.")
+    
+    # Extract features using fresh extractors
     print("Creating fresh extractors for prediction data...")
     print("This ensures no information leaks from training to prediction data")
-
-    pred_char_extractor = FeatureExtractor(batch_size=batch_size)  # Use batched processing
-    pred_nlp_extractor = NLPFeatureExtractor()
-
-    print("Extracting characteristic features...")
-    processed_df = pred_char_extractor.process_dataset(df)
-
-    print("Extracting NLP features...")
-    final_df = pred_nlp_extractor.process_dataset(processed_df)
-
+    
+    extractor = CharacteristicFeatureExtractor()
+    processed_df = extractor.extract_features_batch(df)
+    
+    # Add NLP features
+    nlp_extractor = NLPFeatureExtractor()
+    processed_df = nlp_extractor.add_nlp_features(processed_df)
+    
     print(f"Preprocessing completed")
     print(f"Original columns: {len(df.columns)}")
-    print(f"Final columns: {len(final_df.columns)}")
-    print(f"Total added features: {len(final_df.columns) - len(df.columns)}")
-
-    return final_df
-def preprocess_data():
-    print("Warning: preprocess_data() is deprecated. Use preprocess_training_data() instead.")
-    train_data, test_data = preprocess_training_data()
-    return train_data
+    print(f"Final columns: {len(processed_df.columns)}")
+    print(f"Total added features: {len(processed_df.columns) - len(df.columns)}")
+    
+    return processed_df
 
 if __name__ == "__main__":
-    processed_data = preprocess_data()
+    processed_data = preprocess_training_data()

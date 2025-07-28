@@ -11,13 +11,35 @@ from PIL import Image
 import plotly.express as px
 import plotly.graph_objects as go
 
-# Get the current file's directory
-current_dir = Path(__file__).parent
-# Add the Model_V2 directory to the path
+# Get the current file's directory and ensure it's absolute
+current_dir = Path(__file__).resolve().parent
 model_v2_dir = current_dir.parent / "Model_V2"
-sys.path.append(str(model_v2_dir))
 
-from predict import ModelPredictor, predict_single_sample
+# Add the Model_V2 directory to the path
+if str(model_v2_dir) not in sys.path:
+    sys.path.insert(0, str(model_v2_dir))
+
+# Try to import with better error handling
+try:
+    from predict import ModelPredictor, predict_single_sample
+except ImportError as e:
+    # Try alternative import method
+    try:
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("predict", model_v2_dir / "predict.py")
+        predict_module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(predict_module)
+        ModelPredictor = predict_module.ModelPredictor
+        predict_single_sample = predict_module.predict_single_sample
+    except Exception as e2:
+        st.error(f"Failed to import predict module: {e}")
+        st.error(f"Alternative import also failed: {e2}")
+        st.error(f"Current directory: {current_dir}")
+        st.error(f"Model_V2 directory path: {model_v2_dir}")
+        st.error(f"Model_V2 exists: {model_v2_dir.exists()}")
+        st.error(f"Current sys.path: {sys.path[:3]}")
+        st.error(f"Files in Model_V2: {list(model_v2_dir.glob('*.py'))}")
+        st.stop()
 
 st.set_page_config(
     page_title="TD/ASD Classification Model V2 - Demo",
@@ -28,8 +50,8 @@ st.set_page_config(
 
 class DemoApp:
     def __init__(self):
-        # Get the project root directory (two levels up from current file)
-        current_dir = Path(__file__).parent
+        # Get the absolute path to the results directory
+        current_dir = Path(__file__).resolve().parent
         project_root = current_dir.parent.parent
         self.results_dir = project_root / "Results" / "V2"
         self.viz_dir = self.results_dir / "visualizations"
@@ -55,7 +77,12 @@ class DemoApp:
                 self.test_results = None
             
             return True
-        except:
+        except Exception as e:
+            st.error(f"Error loading results: {str(e)}")
+            st.error(f"Results directory: {self.results_dir}")
+            st.error(f"Directory exists: {self.results_dir.exists()}")
+            if self.results_dir.exists():
+                st.error(f"Files in directory: {list(self.results_dir.glob('*.json'))}")
             return False
     
     def initialize_predictor(self):

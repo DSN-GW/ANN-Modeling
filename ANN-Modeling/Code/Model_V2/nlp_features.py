@@ -1,14 +1,14 @@
 import pandas as pd
 import numpy as np
 import re
-from textstat import flesch_reading_ease, flesch_kincaid_grade
-from textblob import TextBlob
 import nltk
-from collections import Counter
+from textblob import TextBlob
+import textstat
 import logging
 from datetime import datetime
-import os
+from pathlib import Path
 
+# Download required NLTK data
 try:
     nltk.data.find('tokenizers/punkt')
 except LookupError:
@@ -19,29 +19,39 @@ try:
 except LookupError:
     nltk.download('stopwords')
 
-try:
-    nltk.data.find('taggers/averaged_perceptron_tagger')
-except LookupError:
-    nltk.download('averaged_perceptron_tagger')
-
-from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize, sent_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
 
 class NLPFeatureExtractor:
     def __init__(self):
+        # Get the project root directory (two levels up from current file)
+        current_dir = Path(__file__).parent
+        project_root = current_dir.parent.parent
+        
+        # Setup logging
+        log_dir = project_root / "Results" / "V2" / "logs"
+        log_dir.mkdir(parents=True, exist_ok=True)
+        
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        log_file = log_dir / f'nlp_feature_extraction_errors_{timestamp}.log'
+        
+        logging.basicConfig(
+            level=logging.INFO,
+            format='%(asctime)s - %(levelname)s - %(message)s',
+            handlers=[
+                logging.FileHandler(log_file),
+                logging.StreamHandler()
+            ]
+        )
+        self.logger = logging.getLogger(__name__)
+        
+        # Initialize NLTK components
         self.stop_words = set(stopwords.words('english'))
-        self.positive_words = {
-            'like', 'likes', 'love', 'loves', 'enjoy', 'enjoys', 'good', 'great', 
-            'awesome', 'amazing', 'wonderful', 'fantastic', 'excellent', 'perfect',
-            'happy', 'fun', 'cool', 'nice', 'best', 'favorite', 'prefer', 'prefers'
-        }
-        self.negative_words = {
-            'dislike', 'dislikes', 'hate', 'hates', 'bad', 'terrible', 'awful',
-            'horrible', 'worst', 'not', 'never', 'no', 'dont', "don't", 'doesnt',
-            "doesn't", 'cannot', "can't", 'wont', "won't"
-        }
-        self.setup_logging()
-        self.failed_samples = []
+        self.lemmatizer = WordNetLemmatizer()
+        
+        # Initialize feature storage
+        self.feature_data = {}
     
     def setup_logging(self):
         """Setup logging for failed samples"""
@@ -246,7 +256,12 @@ class NLPFeatureExtractor:
         if self.failed_samples:
             failed_df = pd.DataFrame(self.failed_samples)
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            failed_file = os.path.join('..', '..', 'Results', 'V2', 'logs', f'nlp_failed_samples_{timestamp}.csv')
+            
+            # Get the project root directory (two levels up from current file)
+            current_dir = Path(__file__).parent
+            project_root = current_dir.parent.parent
+            failed_file = project_root / "Results" / "V2" / "logs" / f'nlp_failed_samples_{timestamp}.csv'
+            
             failed_df.to_csv(failed_file, index=False)
             self.logger.info(f"Saved {len(self.failed_samples)} failed NLP samples to {failed_file}")
     

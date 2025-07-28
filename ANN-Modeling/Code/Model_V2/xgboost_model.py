@@ -7,6 +7,7 @@ from sklearn.metrics import classification_report, confusion_matrix, accuracy_sc
 import pickle
 import os
 import json
+from pathlib import Path
 
 def convert_numpy_types(obj):
     """
@@ -35,8 +36,10 @@ class XGBoostClassifier:
         
     def load_data(self, data_path=None):
         if data_path is None:
-            # Use the new training data path with stratified split
-            data_path = os.path.join('..', '..', 'data', 'Data_v1', 'LLM_data_train_preprocessed.csv')
+            # Get the project root directory (two levels up from current file)
+            current_dir = Path(__file__).parent
+            project_root = current_dir.parent.parent
+            data_path = project_root / "data" / "Data_v1" / "LLM_data_train_preprocessed.csv"
         
         df = pd.read_csv(data_path)
         return df
@@ -167,13 +170,20 @@ class XGBoostClassifier:
         sorted_features = sorted(self.feature_importance.items(), key=lambda x: x[1], reverse=True)
         return sorted_features[:top_n]
     
-    def save_model(self, model_dir='../../Results/V2'):
-        os.makedirs(model_dir, exist_ok=True)
+    def save_model(self, model_dir=None):
+        if model_dir is None:
+            # Get the project root directory (two levels up from current file)
+            current_dir = Path(__file__).parent
+            project_root = current_dir.parent.parent
+            model_dir = project_root / "Results" / "V2"
         
-        model_path = os.path.join(model_dir, 'xgboost_model_v2.pkl')
-        scaler_path = os.path.join(model_dir, 'scaler_v2.pkl')
-        features_path = os.path.join(model_dir, 'feature_names_v2.pkl')
-        importance_path = os.path.join(model_dir, 'feature_importance_v2.json')
+        model_dir = Path(model_dir)
+        model_dir.mkdir(parents=True, exist_ok=True)
+        
+        model_path = model_dir / 'xgboost_model_v2.pkl'
+        scaler_path = model_dir / 'scaler_v2.pkl'
+        features_path = model_dir / 'feature_names_v2.pkl'
+        importance_path = model_dir / 'feature_importance_v2.json'
         
         with open(model_path, 'wb') as f:
             pickle.dump(self.model, f)
@@ -189,11 +199,18 @@ class XGBoostClassifier:
         
         print(f"Model saved to {model_dir}")
     
-    def load_model(self, model_dir='../../Results/V2'):
-        model_path = os.path.join(model_dir, 'xgboost_model_v2.pkl')
-        scaler_path = os.path.join(model_dir, 'scaler_v2.pkl')
-        features_path = os.path.join(model_dir, 'feature_names_v2.pkl')
-        importance_path = os.path.join(model_dir, 'feature_importance_v2.json')
+    def load_model(self, model_dir=None):
+        if model_dir is None:
+            # Get the project root directory (two levels up from current file)
+            current_dir = Path(__file__).parent
+            project_root = current_dir.parent.parent
+            model_dir = project_root / "Results" / "V2"
+        
+        model_dir = Path(model_dir)
+        model_path = model_dir / 'xgboost_model_v2.pkl'
+        scaler_path = model_dir / 'scaler_v2.pkl'
+        features_path = model_dir / 'feature_names_v2.pkl'
+        importance_path = model_dir / 'feature_importance_v2.json'
         
         with open(model_path, 'rb') as f:
             self.model = pickle.load(f)
@@ -254,8 +271,12 @@ def train_xgboost_model():
     print("Saving model...")
     classifier.save_model()
     
-    results_path = os.path.join('..', '..', 'Results', 'V2', 'training_results_v2.json')
-    os.makedirs(os.path.dirname(results_path), exist_ok=True)
+    # Get the project root directory (two levels up from current file)
+    current_dir = Path(__file__).parent
+    project_root = current_dir.parent.parent
+    results_path = project_root / "Results" / "V2" / "training_results_v2.json"
+    results_path.parent.mkdir(parents=True, exist_ok=True)
+    
     with open(results_path, 'w') as f:
         json.dump(convert_numpy_types(results), f, indent=2)
     

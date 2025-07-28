@@ -144,7 +144,7 @@ class ModelPredictor:
         plt.axvline(x=0, color='black', linestyle='-', alpha=0.3)
         plt.tight_layout()
         
-        save_path = os.path.join(self.predictions_dir, 'sample_feature_contributions_v2.png')
+        save_path = self.predictions_dir / 'sample_feature_contributions_v2.png'
         plt.savefig(save_path, dpi=300, bbox_inches='tight')
         plt.close()
         
