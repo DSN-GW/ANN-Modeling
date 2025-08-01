@@ -50,7 +50,9 @@ class CharacteristicFeatureExtractor:
         
         # Initialize feature storage
         self.feature_data = {}
-        self.failed_samples = []
+        # Always ensure failed_samples is initialized
+        if not hasattr(self, 'failed_samples'):
+            self.failed_samples = []
     
     def load_characteristics(self, char_path):
         """Load characteristics from file."""
@@ -238,6 +240,10 @@ IMPORTANT: Always return valid JSON format."""
         return processed
     
     def save_failed_samples(self):
+        # Ensure failed_samples exists
+        if not hasattr(self, 'failed_samples'):
+            self.failed_samples = []
+            
         if self.failed_samples:
             failed_df = pd.DataFrame(self.failed_samples)
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -251,6 +257,10 @@ IMPORTANT: Always return valid JSON format."""
             self.logger.info(f"Saved {len(self.failed_samples)} failed samples to {failed_file}")
     
     def process_dataset(self, df):
+        # Ensure failed_samples exists
+        if not hasattr(self, 'failed_samples'):
+            self.failed_samples = []
+            
         feature_list = []
         df = df.reset_index(drop=True)
         total_samples = len(df)
@@ -299,9 +309,12 @@ IMPORTANT: Always return valid JSON format."""
                         'timestamp': datetime.now().isoformat()
                     }
                     self.failed_samples.append(failed_sample)
-        if self.failed_samples:
+        
+        # Check failed_samples again before using it
+        if hasattr(self, 'failed_samples') and self.failed_samples:
             self.save_failed_samples()
             self.logger.warning(f"Total failed samples: {len(self.failed_samples)} out of {len(df)}")
+            
         feature_df = pd.DataFrame(feature_list)
         result_df = pd.concat([df.reset_index(drop=True), feature_df], axis=1)
         return result_df
