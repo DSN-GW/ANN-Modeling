@@ -1,0 +1,19 @@
+{
+  "original_shape": [
+    2647,
+    11
+  ],
+  "filtered_shape": [
+    2457,
+    3
+  ],
+  "selected_columns": [
+    "FSR",
+    "free_response",
+    "td_or_asd"
+  ],
+  "target_distribution": {
+    "1": 1552,
+    "0": 905
+  }
+}
