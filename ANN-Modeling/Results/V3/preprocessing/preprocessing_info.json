@@ -5,10 +5,11 @@
   ],
   "filtered_shape": [
     2457,
-    3
+    4
   ],
   "selected_columns": [
     "FSR",
+    "avg_PE",
     "free_response",
     "td_or_asd"
   ],

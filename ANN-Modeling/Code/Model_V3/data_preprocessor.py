@@ -51,10 +51,10 @@ def preprocess_training_data():
     artifacts_dir = project_root / "Results" / "V3" / "preprocessing"
     artifacts_dir.mkdir(parents=True, exist_ok=True)
     
-    selected_columns = ['FSR', 'free_response', 'td_or_asd']
+    selected_columns = ['FSR', 'avg_PE', 'free_response', 'td_or_asd']
     df_filtered = df[selected_columns].copy()
     
-    df_filtered = df_filtered.dropna(subset=['FSR', 'free_response'])
+    df_filtered = df_filtered.dropna(subset=['FSR', 'avg_PE', 'free_response'])
     
     preprocessing_info = {
         'original_shape': df.shape,
@@ -311,6 +311,7 @@ def process_features(df):
     
     scaler = StandardScaler()
     processed_df['FSR_scaled'] = scaler.fit_transform(processed_df[['FSR']])
+    processed_df['avg_PE_scaled'] = scaler.fit_transform(processed_df[['avg_PE']])
     
     char_extractor = CharacteristicFeatureExtractor()
     nlp_extractor = NLPFeatureExtractor()
@@ -353,9 +354,9 @@ def preprocess_prediction_data(df, is_test_data=False):
     
     print("Preprocessing info loaded successfully.")
     
-    selected_columns = ['FSR', 'free_response', 'td_or_asd']
+    selected_columns = ['FSR', 'avg_PE', 'free_response', 'td_or_asd']
     df_filtered = df[selected_columns].copy()
-    df_filtered = df_filtered.dropna(subset=['FSR', 'free_response'])
+    df_filtered = df_filtered.dropna(subset=['FSR', 'avg_PE', 'free_response'])
     
     processed_df = process_features(df_filtered)
     

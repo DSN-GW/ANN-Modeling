@@ -91,11 +91,13 @@ class ModelVisualizer:
     def create_td_vs_asd_comparison_plot(self, explainability_data):
         td_patterns, asd_patterns = explainability_data['td_vs_asd_patterns']
         
+        # Get characteristics and add FSR and PE
         characteristics = list(td_patterns.keys())
         
         td_mentioned = []
         asd_mentioned = []
         
+        # Process characteristic features
         for char in characteristics:
             char_clean = char.replace(' ', '_').replace(',', '').replace('(', '').replace(')', '')
             td_char_data = td_patterns[char]
@@ -104,10 +106,41 @@ class ModelVisualizer:
             td_mentioned.append(td_char_data.get(f'{char_clean}_mentioned', 0))
             asd_mentioned.append(asd_char_data.get(f'{char_clean}_mentioned', 0))
         
+        # Load preprocessed data to calculate FSR and PE averages by group
+        train_data_path = self.results_dir.parent.parent / "data" / "Data_v1" / "LLM_data_train_preprocessed_v3.csv"
+        if train_data_path.exists():
+            train_df = pd.read_csv(train_data_path)
+            
+            # Calculate FSR averages
+            td_fsr_avg = train_df[train_df['td_or_asd'] == 1]['FSR'].mean()
+            asd_fsr_avg = train_df[train_df['td_or_asd'] == 0]['FSR'].mean()
+            
+            # Calculate PE averages
+            td_pe_avg = train_df[train_df['td_or_asd'] == 1]['avg_PE'].mean()
+            asd_pe_avg = train_df[train_df['td_or_asd'] == 0]['avg_PE'].mean()
+            
+            # Normalize FSR and PE to match the scale of mention rates (0-1)
+            # FSR normalization - scale to 0-1 range based on data range
+            fsr_min = train_df['FSR'].min()
+            fsr_max = train_df['FSR'].max()
+            td_fsr_norm = (td_fsr_avg - fsr_min) / (fsr_max - fsr_min) if fsr_max > fsr_min else 0
+            asd_fsr_norm = (asd_fsr_avg - fsr_min) / (fsr_max - fsr_min) if fsr_max > fsr_min else 0
+            
+            # PE normalization - scale to 0-1 range based on data range  
+            pe_min = train_df['avg_PE'].min()
+            pe_max = train_df['avg_PE'].max()
+            td_pe_norm = (td_pe_avg - pe_min) / (pe_max - pe_min) if pe_max > pe_min else 0
+            asd_pe_norm = (asd_pe_avg - pe_min) / (pe_max - pe_min) if pe_max > pe_min else 0
+            
+            # Add FSR and PE to the data
+            characteristics.extend(['FSR', 'PE'])
+            td_mentioned.extend([td_fsr_norm, td_pe_norm])
+            asd_mentioned.extend([asd_fsr_norm, asd_pe_norm])
+        
         x = np.arange(len(characteristics))
         width = 0.35
         
-        fig, ax = plt.subplots(figsize=(15, 8))
+        fig, ax = plt.subplots(figsize=(17, 8))
         bars1 = ax.bar(x - width/2, td_mentioned, width, label='TD', alpha=0.7, color='lightblue')
         bars2 = ax.bar(x + width/2, asd_mentioned, width, label='ASD', alpha=0.7, color='lightcoral')
         
