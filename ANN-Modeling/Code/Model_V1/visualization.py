@@ -21,8 +21,8 @@ class ModelVisualizer:
         sns.set_palette("husl")
         
     def load_results(self):
-        explainability_path = self.results_dir / 'explainability_analysis_v2.json'
-        training_results_path = self.results_dir / 'training_results_v2.json'
+        explainability_path = self.results_dir / 'explainability_analysis_v1.json'
+        training_results_path = self.results_dir / 'training_results_v1.json'
         
         with open(explainability_path, 'r') as f:
             explainability_data = json.load(f)
@@ -50,7 +50,7 @@ class ModelVisualizer:
                     f'{importances[i]:.3f}', va='center', fontsize=8)
         
         plt.tight_layout()
-        plt.savefig(self.viz_dir / 'feature_importance_v2.png', dpi=300, bbox_inches='tight')
+        plt.savefig(self.viz_dir / 'feature_importance_v1.png', dpi=300, bbox_inches='tight')
         plt.close()
     
     def create_characteristic_importance_stacked_bar(self, explainability_data):
@@ -88,7 +88,7 @@ class ModelVisualizer:
                     f'{count}', ha='center', va='bottom', fontsize=8)
         
         plt.tight_layout()
-        plt.savefig(self.viz_dir / 'characteristic_importance_v2.png', dpi=300, bbox_inches='tight')
+        plt.savefig(self.viz_dir / 'characteristic_importance_v1.png', dpi=300, bbox_inches='tight')
         plt.close()
     
     def create_td_vs_asd_comparison_plot(self, explainability_data):
@@ -181,7 +181,7 @@ class ModelVisualizer:
         ax2.axhline(y=0, color='black', linestyle='-', alpha=0.5)
         
         plt.tight_layout()
-        plt.savefig(self.viz_dir / 'td_vs_asd_comparison_v2.png', dpi=300, bbox_inches='tight')
+        plt.savefig(self.viz_dir / 'td_vs_asd_comparison_v1.png', dpi=300, bbox_inches='tight')
         plt.close()
     
     def create_model_performance_plot(self, training_results):
@@ -225,7 +225,7 @@ class ModelVisualizer:
                     bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.8))
             
             plt.tight_layout()
-            plt.savefig(self.viz_dir / 'model_performance_v2.png', dpi=300, bbox_inches='tight')
+            plt.savefig(self.viz_dir / 'model_performance_v1.png', dpi=300, bbox_inches='tight')
             plt.close()
         else:
             # Use cross-validation metrics instead
@@ -262,7 +262,7 @@ class ModelVisualizer:
                         bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.8))
                 
                 plt.tight_layout()
-                plt.savefig(self.viz_dir / 'model_performance_v2.png', dpi=300, bbox_inches='tight')
+                plt.savefig(self.viz_dir / 'model_performance_v1.png', dpi=300, bbox_inches='tight')
                 plt.close()
             else:
                 print("Warning: No cross-validation scores available for performance plot")
@@ -279,7 +279,7 @@ class ModelVisualizer:
             plt.xlabel('Predicted Label')
             
             plt.tight_layout()
-            plt.savefig(self.viz_dir / 'confusion_matrix_v2.png', dpi=300, bbox_inches='tight')
+            plt.savefig(self.viz_dir / 'confusion_matrix_v1.png', dpi=300, bbox_inches='tight')
             plt.close()
         else:
             print("Warning: No confusion matrix available for plotting")
@@ -309,7 +309,7 @@ class ModelVisualizer:
                    f'#{rank} ({score:.3f})', va='center', fontsize=9)
         
         plt.tight_layout()
-        plt.savefig(self.viz_dir / 'characteristic_ranking_v2.png', dpi=300, bbox_inches='tight')
+        plt.savefig(self.viz_dir / 'characteristic_ranking_v1.png', dpi=300, bbox_inches='tight')
         plt.close()
     
     def generate_all_visualizations(self):

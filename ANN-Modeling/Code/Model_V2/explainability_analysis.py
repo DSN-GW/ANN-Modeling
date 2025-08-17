@@ -125,7 +125,7 @@ class ExplainabilityAnalyzer:
         
         return report
     
-    def save_analysis_results(self, analysis_results, filename='explainability_analysis_v3.json'):
+    def save_analysis_results(self, analysis_results, filename='explainability_analysis_v2.json'):
         current_dir = Path(__file__).parent
         project_root = current_dir.parent.parent
         results_dir = project_root / "Results" / "V2"

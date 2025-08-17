@@ -180,10 +180,10 @@ class XGBoostClassifier:
         model_dir = Path(model_dir)
         model_dir.mkdir(parents=True, exist_ok=True)
         
-        model_path = model_dir / 'xgboost_model_v2.pkl'
-        scaler_path = model_dir / 'scaler_v2.pkl'
-        features_path = model_dir / 'feature_names_v2.pkl'
-        importance_path = model_dir / 'feature_importance_v2.json'
+        model_path = model_dir / 'xgboost_model_v1.pkl'
+        scaler_path = model_dir / 'scaler_v1.pkl'
+        features_path = model_dir / 'feature_names_v1.pkl'
+        importance_path = model_dir / 'feature_importance_v1.json'
         
         with open(model_path, 'wb') as f:
             pickle.dump(self.model, f)
@@ -207,10 +207,10 @@ class XGBoostClassifier:
             model_dir = project_root / "Results" / "V1"
         
         model_dir = Path(model_dir)
-        model_path = model_dir / 'xgboost_model_v2.pkl'
-        scaler_path = model_dir / 'scaler_v2.pkl'
-        features_path = model_dir / 'feature_names_v2.pkl'
-        importance_path = model_dir / 'feature_importance_v2.json'
+        model_path = model_dir / 'xgboost_model_v1.pkl'
+        scaler_path = model_dir / 'scaler_v1.pkl'
+        features_path = model_dir / 'feature_names_v1.pkl'
+        importance_path = model_dir / 'feature_importance_v1.json'
         
         with open(model_path, 'rb') as f:
             self.model = pickle.load(f)
@@ -274,7 +274,7 @@ def train_xgboost_model():
     # Get the project root directory (two levels up from current file)
     current_dir = Path(__file__).parent
     project_root = current_dir.parent.parent
-    results_path = project_root / "Results" / "V1" / "training_results_v2.json"
+    results_path = project_root / "Results" / "V1" / "training_results_v1.json"
     results_path.parent.mkdir(parents=True, exist_ok=True)
     
     with open(results_path, 'w') as f:

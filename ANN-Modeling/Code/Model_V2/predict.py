@@ -8,6 +8,8 @@ from pathlib import Path
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report, roc_auc_score
 from xgboost_model import XGBoostClassifier
 from data_preprocessor import preprocess_prediction_data
+from explainability_analysis import run_explainability_analysis
+from visualization import create_visualizations
 
 class ModelPredictor:
     def __init__(self):
@@ -42,7 +44,7 @@ class ModelPredictor:
     
     def create_prediction_visualization(self, results_df, save_path=None):
         if save_path is None:
-            save_path = self.results_dir / "predictions" / "test_prediction_analysis_v3.png"
+            save_path = self.results_dir / "predictions" / "test_prediction_analysis_v2.png"
         
         save_path.parent.mkdir(parents=True, exist_ok=True)
         
@@ -79,7 +81,7 @@ class ModelPredictor:
         
         print(f"Prediction visualization saved to: {save_path}")
     
-    def save_predictions(self, results_df, filename='test_predictions_v3.csv'):
+    def save_predictions(self, results_df, filename='test_predictions_v2.csv'):
         predictions_dir = self.results_dir / "predictions"
         predictions_dir.mkdir(parents=True, exist_ok=True)
         
@@ -100,7 +102,13 @@ def predict_from_file(data_path):
     print("Making predictions...")
     results_df = predictor.predict_batch(test_df, is_test_data=True)
     
-    print("Creating visualizations...")
+    print("Running explainability analysis...")
+    run_explainability_analysis()
+    
+    print("Creating comprehensive visualizations...")
+    create_visualizations()
+    
+    print("Creating prediction visualizations...")
     predictor.create_prediction_visualization(results_df)
     
     print("Saving predictions...")
@@ -119,7 +127,7 @@ def predict_from_file(data_path):
             'confusion_matrix': confusion_matrix(results_df['td_or_asd'], results_df['predicted_td_or_asd']).tolist()
         }
         
-        results_path = predictor.results_dir / 'test_results_v3.json'
+        results_path = predictor.results_dir / 'test_results_v2.json'
         with open(results_path, 'w') as f:
             json.dump(test_results, f, indent=2)
         
@@ -130,7 +138,7 @@ def predict_from_file(data_path):
 def main():
     current_dir = Path(__file__).parent
     project_root = current_dir.parent.parent
-    test_data_path = project_root / "data" / "Data_v1" / "LLM_data_test_v3.csv"
+    test_data_path = project_root / "data" / "Data_v1" / "LLM_data_test_v2.csv"
     
     if not test_data_path.exists():
         print(f"Test data not found at {test_data_path}")

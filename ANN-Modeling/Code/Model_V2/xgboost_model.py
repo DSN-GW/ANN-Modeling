@@ -105,18 +105,18 @@ class XGBoostClassifier:
         model_dir = Path(model_dir)
         model_dir.mkdir(parents=True, exist_ok=True)
         
-        with open(model_dir / 'xgboost_model_v3.pkl', 'wb') as f:
+        with open(model_dir / 'xgboost_model_v2.pkl', 'wb') as f:
             pickle.dump(self.model, f)
         
-        with open(model_dir / 'scaler_v3.pkl', 'wb') as f:
+        with open(model_dir / 'scaler_v2.pkl', 'wb') as f:
             pickle.dump(self.scaler, f)
         
-        with open(model_dir / 'feature_names_v3.pkl', 'wb') as f:
+        with open(model_dir / 'feature_names_v2.pkl', 'wb') as f:
             pickle.dump(self.feature_names, f)
         
         if self.feature_importance:
             feature_importance_serializable = convert_numpy_types(self.feature_importance)
-            with open(model_dir / 'feature_importance_v3.json', 'w') as f:
+            with open(model_dir / 'feature_importance_v2.json', 'w') as f:
                 json.dump(feature_importance_serializable, f, indent=2)
         
         print(f"Model artifacts saved to: {model_dir}")
@@ -129,16 +129,16 @@ class XGBoostClassifier:
         
         model_dir = Path(model_dir)
         
-        with open(model_dir / 'xgboost_model_v3.pkl', 'rb') as f:
+        with open(model_dir / 'xgboost_model_v2.pkl', 'rb') as f:
             self.model = pickle.load(f)
         
-        with open(model_dir / 'scaler_v3.pkl', 'rb') as f:
+        with open(model_dir / 'scaler_v2.pkl', 'rb') as f:
             self.scaler = pickle.load(f)
         
-        with open(model_dir / 'feature_names_v3.pkl', 'rb') as f:
+        with open(model_dir / 'feature_names_v2.pkl', 'rb') as f:
             self.feature_names = pickle.load(f)
         
-        feature_importance_path = model_dir / 'feature_importance_v3.json'
+        feature_importance_path = model_dir / 'feature_importance_v2.json'
         if feature_importance_path.exists():
             with open(feature_importance_path, 'r') as f:
                 self.feature_importance = json.load(f)
@@ -174,7 +174,7 @@ def train_xgboost_model():
     results_dir = project_root / "Results" / "V2"
     
     training_results_serializable = convert_numpy_types(training_results)
-    with open(results_dir / 'training_results_v3.json', 'w') as f:
+    with open(results_dir / 'training_results_v2.json', 'w') as f:
         json.dump(training_results_serializable, f, indent=2)
     
     print(f"Training completed successfully!")

@@ -20,8 +20,8 @@ class ModelVisualizer:
         sns.set_palette("husl")
         
     def load_results(self):
-        explainability_path = self.results_dir / 'explainability_analysis_v3.json'
-        training_results_path = self.results_dir / 'training_results_v3.json'
+        explainability_path = self.results_dir / 'explainability_analysis_v2.json'
+        training_results_path = self.results_dir / 'training_results_v2.json'
         
         with open(explainability_path, 'r') as f:
             explainability_data = json.load(f)
@@ -48,7 +48,7 @@ class ModelVisualizer:
                     f'{importances[i]:.3f}', va='center', fontsize=8)
         
         plt.tight_layout()
-        plt.savefig(self.viz_dir / 'feature_importance_v3.png', dpi=300, bbox_inches='tight')
+        plt.savefig(self.viz_dir / 'feature_importance_v2.png', dpi=300, bbox_inches='tight')
         plt.close()
     
     def create_characteristic_importance_plot(self, explainability_data):
@@ -85,7 +85,7 @@ class ModelVisualizer:
                     f'{count}', ha='center', va='bottom', fontsize=8)
         
         plt.tight_layout()
-        plt.savefig(self.viz_dir / 'characteristic_importance_v3.png', dpi=300, bbox_inches='tight')
+        plt.savefig(self.viz_dir / 'characteristic_importance_v2.png', dpi=300, bbox_inches='tight')
         plt.close()
     
     def create_td_vs_asd_comparison_plot(self, explainability_data):
@@ -162,7 +162,7 @@ class ModelVisualizer:
                    f'{height:.2f}', ha='center', va='bottom', fontsize=8)
         
         plt.tight_layout()
-        plt.savefig(self.viz_dir / 'td_vs_asd_comparison_v3.png', dpi=300, bbox_inches='tight')
+        plt.savefig(self.viz_dir / 'td_vs_asd_comparison_v2.png', dpi=300, bbox_inches='tight')
         plt.close()
     
     def create_model_performance_plot(self, training_results):
@@ -193,12 +193,12 @@ class ModelVisualizer:
                 ha='center', va='bottom', fontweight='bold')
         
         plt.tight_layout()
-        plt.savefig(self.viz_dir / 'model_performance_v3.png', dpi=300, bbox_inches='tight')
+        plt.savefig(self.viz_dir / 'model_performance_v2.png', dpi=300, bbox_inches='tight')
         plt.close()
     
     def create_confusion_matrix_plot(self, test_results_path=None):
         if test_results_path is None:
-            test_results_path = self.results_dir / 'test_results_v3.json'
+            test_results_path = self.results_dir / 'test_results_v2.json'
         
         if not test_results_path.exists():
             print("Test results not found. Skipping confusion matrix plot.")
@@ -217,7 +217,7 @@ class ModelVisualizer:
         plt.ylabel('Actual')
         
         plt.tight_layout()
-        plt.savefig(self.viz_dir / 'confusion_matrix_v3.png', dpi=300, bbox_inches='tight')
+        plt.savefig(self.viz_dir / 'confusion_matrix_v2.png', dpi=300, bbox_inches='tight')
         plt.close()
     
     def create_feature_importance_by_target_plot(self, explainability_data):
@@ -291,10 +291,10 @@ class ModelVisualizer:
                         f'{val:.2f}', ha='center', va='bottom', fontsize=8)
         
         plt.tight_layout()
-        plt.savefig(self.viz_dir / 'feature_importance_by_target_v3.png', dpi=300, bbox_inches='tight')
+        plt.savefig(self.viz_dir / 'feature_importance_by_target_v2.png', dpi=300, bbox_inches='tight')
         plt.close()
         
-        print(f"Feature importance by target plot saved to: {self.viz_dir / 'feature_importance_by_target_v3.png'}")
+        print(f"Feature importance by target plot saved to: {self.viz_dir / 'feature_importance_by_target_v2.png'}")
 
 def create_visualizations():
     visualizer = ModelVisualizer()

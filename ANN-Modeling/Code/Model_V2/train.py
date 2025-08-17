@@ -15,11 +15,9 @@ def run_complete_training_pipeline():
         
         train_preprocessed_path = os.path.join('..', '..', 'data', 'Data_v1', 'LLM_data_train_preprocessed_v2.csv')
         test_preprocessed_path = os.path.join('..', '..', 'data', 'Data_v1', 'LLM_data_test_preprocessed_v2.csv')
-        artifacts_dir = os.path.join('..', '..', 'Results', 'V2', 'preprocessing')
         
         if (not os.path.exists(train_preprocessed_path) or 
-            not os.path.exists(test_preprocessed_path) or 
-            not os.path.exists(artifacts_dir)):
+            not os.path.exists(test_preprocessed_path)):
             print("Preprocessed data not found. Running preprocessing...")
             train_data, test_data = preprocess_training_data()
             print(f"Training data preprocessing completed. Shape: {train_data.shape}")

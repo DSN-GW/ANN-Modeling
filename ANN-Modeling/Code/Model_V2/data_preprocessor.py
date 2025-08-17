@@ -76,8 +76,8 @@ def preprocess_training_data():
     print(f"Train set shape: {train_df.shape}")
     print(f"Test set shape: {test_df.shape}")
     
-    train_path = project_root / "data" / "Data_v1" / "LLM_data_train_v3.csv"
-    test_path = project_root / "data" / "Data_v1" / "LLM_data_test_v3.csv"
+    train_path = project_root / "data" / "Data_v1" / "LLM_data_train_v2.csv"
+    test_path = project_root / "data" / "Data_v1" / "LLM_data_test_v2.csv"
     
     train_df.to_csv(train_path, index=False)
     test_df.to_csv(test_path, index=False)

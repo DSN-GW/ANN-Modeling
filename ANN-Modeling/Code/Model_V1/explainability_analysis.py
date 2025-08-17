@@ -127,8 +127,8 @@ class ExplainabilityAnalyzer:
         results_dir = os.path.join('..', '..', 'Results', 'V1')
         os.makedirs(results_dir, exist_ok=True)
         
-        explainability_path = os.path.join(results_dir, 'explainability_analysis_v2.json')
-        text_analysis_path = os.path.join(results_dir, 'text_patterns_analysis_v2.json')
+        explainability_path = os.path.join(results_dir, 'explainability_analysis_v1.json')
+        text_analysis_path = os.path.join(results_dir, 'text_patterns_analysis_v1.json')
         
         with open(explainability_path, 'w') as f:
             json.dump(report, f, indent=2)
