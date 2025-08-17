@@ -9,10 +9,27 @@ from nlp_features import NLPFeatureExtractor
 def preprocess_training_data(batch_size=10):
     """
     Preprocess training data with stratified train-test split.
+    Only run feature extraction if preprocessed files don't exist.
     """
     # Get the project root directory (two levels up from current file)
     current_dir = Path(__file__).parent
     project_root = current_dir.parent.parent
+    
+    # Check if preprocessed files already exist
+    train_output_path = project_root / "data" / "Data_v1" / "LLM_data_train_preprocessed_v1.csv"
+    test_output_path = project_root / "data" / "Data_v1" / "LLM_data_test_preprocessed_v1.csv"
+    
+    if train_output_path.exists() and test_output_path.exists():
+        print("Preprocessed training and test data already exist. Loading existing files...")
+        print("Skipping feature extraction to avoid unnecessary agent sonnet calls.")
+        train_processed = pd.read_csv(train_output_path)
+        test_processed = pd.read_csv(test_output_path)
+        print(f"Loaded preprocessed training data. Shape: {train_processed.shape}")
+        print(f"Loaded preprocessed test data. Shape: {test_processed.shape}")
+        return train_processed, test_processed
+    
+    print("Preprocessed data not found. Running feature extraction...")
+    
     data_path = project_root / "data" / "Data_v1" / "LLM data.csv"
     
     print(f"Loading data from: {data_path}")
@@ -75,7 +92,6 @@ def preprocess_training_data(batch_size=10):
     train_processed = nlp_extractor.add_nlp_features(train_processed)
     
     # Save preprocessed training data
-    train_output_path = project_root / "data" / "Data_v1" / "LLM_data_train_preprocessed.csv"
     train_processed.to_csv(train_output_path, index=False)
     print(f"Preprocessed training data saved to: {train_output_path}")
     
@@ -91,7 +107,6 @@ def preprocess_training_data(batch_size=10):
     test_processed = test_nlp_extractor.add_nlp_features(test_processed)
     
     # Save preprocessed test data
-    test_output_path = project_root / "data" / "Data_v1" / "LLM_data_test_preprocessed.csv"
     test_processed.to_csv(test_output_path, index=False)
     print(f"Preprocessed test data saved to: {test_output_path}")
     
@@ -107,7 +122,7 @@ def preprocess_prediction_data(df, is_test_data=False):
     
     if is_test_data:
         # Try to load preprocessed test data first
-        test_preprocessed_path = project_root / "data" / "Data_v1" / "LLM_data_test_preprocessed.csv"
+        test_preprocessed_path = project_root / "data" / "Data_v1" / "LLM_data_test_preprocessed_v1.csv"
         
         if test_preprocessed_path.exists():
             print(f"Loading preprocessed test data from: {test_preprocessed_path}")

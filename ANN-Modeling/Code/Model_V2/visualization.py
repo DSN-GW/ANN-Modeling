@@ -107,7 +107,7 @@ class ModelVisualizer:
             asd_mentioned.append(asd_char_data.get(f'{char_clean}_mentioned', 0))
         
         # Load preprocessed data to calculate FSR and PE averages by group
-        train_data_path = self.results_dir.parent.parent / "data" / "Data_v1" / "LLM_data_train_preprocessed_v3.csv"
+        train_data_path = self.results_dir.parent.parent / "data" / "Data_v1" / "LLM_data_train_preprocessed_v2.csv"
         if train_data_path.exists():
             train_df = pd.read_csv(train_data_path)
             

@@ -105,8 +105,8 @@ def add_pe_features_to_preprocessed_data():
         return None, None
     
     # Save the updated files with V2 suffix
-    train_output_path = project_root / "data" / "Data_v1" / "LLM_data_train_preprocessed_v3.csv"
-    test_output_path = project_root / "data" / "Data_v1" / "LLM_data_test_preprocessed_v3.csv"
+    train_output_path = project_root / "data" / "Data_v1" / "LLM_data_train_preprocessed_v2.csv"
+    test_output_path = project_root / "data" / "Data_v1" / "LLM_data_test_preprocessed_v2.csv"
     
     train_with_pe.to_csv(train_output_path, index=False)
     test_with_pe.to_csv(test_output_path, index=False)

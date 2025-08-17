@@ -88,8 +88,8 @@ def preprocess_training_data():
     train_processed = process_features(train_df)
     test_processed = process_features(test_df)
     
-    train_output_path = project_root / "data" / "Data_v1" / "LLM_data_train_preprocessed_v3.csv"
-    test_output_path = project_root / "data" / "Data_v1" / "LLM_data_test_preprocessed_v3.csv"
+    train_output_path = project_root / "data" / "Data_v1" / "LLM_data_train_preprocessed_v2.csv"
+    test_output_path = project_root / "data" / "Data_v1" / "LLM_data_test_preprocessed_v2.csv"
     
     train_processed.to_csv(train_output_path, index=False)
     test_processed.to_csv(test_output_path, index=False)
@@ -335,7 +335,7 @@ def preprocess_prediction_data(df, is_test_data=False):
     project_root = current_dir.parent.parent
     
     if is_test_data:
-        test_preprocessed_path = project_root / "data" / "Data_v1" / "LLM_data_test_preprocessed_v3.csv"
+        test_preprocessed_path = project_root / "data" / "Data_v1" / "LLM_data_test_preprocessed_v2.csv"
         
         if test_preprocessed_path.exists():
             print(f"Loading preprocessed test data from: {test_preprocessed_path}")

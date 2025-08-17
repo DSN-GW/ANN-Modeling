@@ -13,8 +13,8 @@ def run_complete_training_pipeline():
         print("\nSTEP 1: Data Preprocessing")
         print("-" * 30)
         
-        train_preprocessed_path = os.path.join('..', '..', 'data', 'Data_v1', 'LLM_data_train_preprocessed_v3.csv')
-        test_preprocessed_path = os.path.join('..', '..', 'data', 'Data_v1', 'LLM_data_test_preprocessed_v3.csv')
+        train_preprocessed_path = os.path.join('..', '..', 'data', 'Data_v1', 'LLM_data_train_preprocessed_v2.csv')
+        test_preprocessed_path = os.path.join('..', '..', 'data', 'Data_v1', 'LLM_data_test_preprocessed_v2.csv')
         artifacts_dir = os.path.join('..', '..', 'Results', 'V2', 'preprocessing')
         
         if (not os.path.exists(train_preprocessed_path) or 

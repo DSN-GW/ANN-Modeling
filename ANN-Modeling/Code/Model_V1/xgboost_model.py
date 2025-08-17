@@ -39,7 +39,7 @@ class XGBoostClassifier:
             # Get the project root directory (two levels up from current file)
             current_dir = Path(__file__).parent
             project_root = current_dir.parent.parent
-            data_path = project_root / "data" / "Data_v1" / "LLM_data_train_preprocessed.csv"
+            data_path = project_root / "data" / "Data_v1" / "LLM_data_train_preprocessed_v1.csv"
         
         df = pd.read_csv(data_path)
         return df

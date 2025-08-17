@@ -144,7 +144,7 @@ class ModelPredictor:
         plt.axvline(x=0, color='black', linestyle='-', alpha=0.3)
         plt.tight_layout()
         
-        save_path = self.predictions_dir / 'sample_feature_contributions_v2.png'
+        save_path = self.predictions_dir / 'sample_feature_contributions_v1.png'
         plt.savefig(save_path, dpi=300, bbox_inches='tight')
         plt.close()
         
@@ -166,7 +166,7 @@ class ModelPredictor:
         
         return report
     
-    def save_predictions(self, results_df, filename='predictions_v2.csv'):
+    def save_predictions(self, results_df, filename='predictions_v1.csv'):
         output_path = self.predictions_dir / filename
         results_df.to_csv(output_path, index=False)
         print(f"Predictions saved to: {output_path}")
@@ -221,7 +221,7 @@ def predict_from_file(data_path):
     viz_dir = create_visualizations()
     
     print("\nGenerating prediction-specific visualizations...")
-    viz_path = predictor.predictions_dir / 'test_prediction_analysis_v2.png'
+    viz_path = predictor.predictions_dir / 'test_prediction_analysis_v1.png'
     predictor.create_prediction_visualization(results_df, viz_path)
     
     if len(results_df) > 0:
@@ -231,7 +231,7 @@ def predict_from_file(data_path):
         contrib_path = predictor.create_feature_contribution_plot(sample_result)
     
     print("\nSaving comprehensive results...")
-    pred_path = predictor.save_predictions(results_df, 'test_predictions_v2.csv')
+    pred_path = predictor.save_predictions(results_df, 'test_predictions_v1.csv')
     
     # Save comprehensive test results for app.py
     comprehensive_results = {
@@ -246,7 +246,7 @@ def predict_from_file(data_path):
         }
     }
     
-    results_path = predictor.results_dir / 'comprehensive_test_results_v2.json'
+    results_path = predictor.results_dir / 'comprehensive_test_results_v1.json'
     with open(results_path, 'w') as f:
         json.dump(comprehensive_results, f, indent=2, default=str)
     

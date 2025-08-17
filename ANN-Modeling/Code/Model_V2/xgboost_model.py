@@ -34,7 +34,7 @@ class XGBoostClassifier:
         if data_path is None:
             current_dir = Path(__file__).parent
             project_root = current_dir.parent.parent
-            data_path = project_root / "data" / "Data_v1" / "LLM_data_train_preprocessed_v3.csv"
+            data_path = project_root / "data" / "Data_v1" / "LLM_data_train_preprocessed_v2.csv"
         
         df = pd.read_csv(data_path)
         return df

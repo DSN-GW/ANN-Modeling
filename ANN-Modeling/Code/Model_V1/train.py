@@ -1,5 +1,4 @@
 import os
-import sys
 import pandas as pd
 from data_preprocessor import preprocess_training_data
 from xgboost_model import train_xgboost_model
@@ -13,9 +12,9 @@ def run_complete_training_pipeline(batch_size=10):
     try:
         print("\nSTEP 1: Data Preprocessing with Stratification")
         print("-" * 30)
-        # Check if preprocessed training and test data exist
-        train_preprocessed_path = os.path.join('..', '..', 'data', 'Data_v1', 'LLM_data_train_preprocessed.csv')
-        test_preprocessed_path = os.path.join('..', '..', 'data', 'Data_v1', 'LLM_data_test_preprocessed.csv')
+        # Check if preprocessed training and test data exist (using _v1 files for Model V1)
+        train_preprocessed_path = os.path.join('..', '..', 'data', 'Data_v1', 'LLM_data_train_preprocessed_v1.csv')
+        test_preprocessed_path = os.path.join('..', '..', 'data', 'Data_v1', 'LLM_data_test_preprocessed_v1.csv')
         artifacts_dir = os.path.join('..', '..', 'Results', 'V1', 'preprocessing')
         
         if (not os.path.exists(train_preprocessed_path) or 
