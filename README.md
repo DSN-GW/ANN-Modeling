@@ -19,7 +19,7 @@ pip install -r requirements.txt
 
 3. **Train the model:**
 ```bash
-cd ANN-Modeling/Code/Model_V2
+cd ANN-Modeling/Code/Model_V1
 python train.py
 ```
 
@@ -104,7 +104,7 @@ All paths now use the `pathlib.Path` package for cross-platform compatibility an
 
 ### Training the Model
 ```bash
-cd ANN-Modeling/Code/Model_V2
+cd ANN-Modeling/Code/Model_V1
 python train.py
 ```
 

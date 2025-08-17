@@ -4,30 +4,28 @@ import pandas as pd
 from data_preprocessor import preprocess_training_data
 from xgboost_model import train_xgboost_model
 
-
-def run_complete_training_pipeline(batch_size=10):
+def run_complete_training_pipeline():
     print("=" * 60)
     print("STARTING MODEL V2 TRAINING PIPELINE")
     print("=" * 60)
 
     try:
-        print("\nSTEP 1: Data Preprocessing with Stratification")
+        print("\nSTEP 1: Data Preprocessing")
         print("-" * 30)
-        # Check if preprocessed training and test data exist
-        train_preprocessed_path = os.path.join('..', '..', 'data', 'Data_v1', 'LLM_data_train_preprocessed.csv')
-        test_preprocessed_path = os.path.join('..', '..', 'data', 'Data_v1', 'LLM_data_test_preprocessed.csv')
+        
+        train_preprocessed_path = os.path.join('..', '..', 'data', 'Data_v1', 'LLM_data_train_preprocessed_v3.csv')
+        test_preprocessed_path = os.path.join('..', '..', 'data', 'Data_v1', 'LLM_data_test_preprocessed_v3.csv')
         artifacts_dir = os.path.join('..', '..', 'Results', 'V2', 'preprocessing')
         
         if (not os.path.exists(train_preprocessed_path) or 
             not os.path.exists(test_preprocessed_path) or 
             not os.path.exists(artifacts_dir)):
-            print("Preprocessed data or artifacts not found. Running stratified preprocessing...")
-            print(f"Using batch size: {batch_size} for faster processing")
-            train_data, test_data = preprocess_training_data(batch_size=batch_size)
+            print("Preprocessed data not found. Running preprocessing...")
+            train_data, test_data = preprocess_training_data()
             print(f"Training data preprocessing completed. Shape: {train_data.shape}")
             print(f"Test data preprocessing completed. Shape: {test_data.shape}")
         else:
-            print("Preprocessed training and test data already exist. Loading existing data...")
+            print("Preprocessed data already exists. Loading existing data...")
             train_data = pd.read_csv(train_preprocessed_path)
             test_data = pd.read_csv(test_preprocessed_path)
             print(f"Loaded preprocessed training data. Shape: {train_data.shape}")
@@ -55,10 +53,5 @@ def run_complete_training_pipeline(batch_size=10):
         print("Training pipeline failed.")
         return None
 
-
 if __name__ == "__main__":
-    # You can adjust batch_size based on your needs
-    # Larger batch_size = faster processing but more memory usage
-    # Smaller batch_size = slower processing but less memory usage
-    batch_size = 10  # Process 10 samples at a time
-    results = run_complete_training_pipeline(batch_size=batch_size)
+    results = run_complete_training_pipeline()

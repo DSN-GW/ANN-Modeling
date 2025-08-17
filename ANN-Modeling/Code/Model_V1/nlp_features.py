@@ -32,7 +32,7 @@ class NLPFeatureExtractor:
         project_root = current_dir.parent.parent
         
         # Setup logging
-        log_dir = project_root / "Results" / "V2" / "logs"
+        log_dir = project_root / "Results" / "V1" / "logs"
         log_dir.mkdir(parents=True, exist_ok=True)
         
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -70,7 +70,7 @@ class NLPFeatureExtractor:
     
     def setup_logging(self):
         """Setup logging for failed samples"""
-        log_dir = os.path.join('..', '..', 'Results', 'V2', 'logs')
+        log_dir = os.path.join('..', '..', 'Results', 'V1', 'logs')
         os.makedirs(log_dir, exist_ok=True)
         
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -275,7 +275,7 @@ class NLPFeatureExtractor:
             # Get the project root directory (two levels up from current file)
             current_dir = Path(__file__).parent
             project_root = current_dir.parent.parent
-            failed_file = project_root / "Results" / "V2" / "logs" / f'nlp_failed_samples_{timestamp}.csv'
+            failed_file = project_root / "Results" / "V1" / "logs" / f'nlp_failed_samples_{timestamp}.csv'
             
             failed_df.to_csv(failed_file, index=False)
             self.logger.info(f"Saved {len(self.failed_samples)} failed NLP samples to {failed_file}")

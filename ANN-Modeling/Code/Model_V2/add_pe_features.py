@@ -17,7 +17,7 @@ def add_pe_features_to_preprocessed_data():
     original_df = pd.read_csv(original_data_path)
     print(f"Loaded original data with shape: {original_df.shape}")
     
-    # Instead of using mismatched files, recreate the proper V3 split with PE features
+    # Instead of using mismatched files, recreate the proper V2 split with PE features
     # Filter the original data to include PE
     selected_columns = ['FSR', 'avg_PE', 'free_response', 'td_or_asd']
     df_filtered = original_df[selected_columns].copy()
@@ -104,7 +104,7 @@ def add_pe_features_to_preprocessed_data():
         print("ERROR: Original preprocessed files not found!")
         return None, None
     
-    # Save the updated files with V3 suffix
+    # Save the updated files with V2 suffix
     train_output_path = project_root / "data" / "Data_v1" / "LLM_data_train_preprocessed_v3.csv"
     test_output_path = project_root / "data" / "Data_v1" / "LLM_data_test_preprocessed_v3.csv"
     

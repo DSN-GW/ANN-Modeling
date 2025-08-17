@@ -13,9 +13,9 @@ import plotly.graph_objects as go
 
 # Get the current file's directory and ensure it's absolute
 current_dir = Path(__file__).resolve().parent
-model_v2_dir = current_dir.parent / "Model_V2"
+model_v2_dir = current_dir.parent / "Model_V1"
 
-# Add the Model_V2 directory to the path
+# Add the Model_V1 directory to the path
 if str(model_v2_dir) not in sys.path:
     sys.path.insert(0, str(model_v2_dir))
 
@@ -35,14 +35,14 @@ except ImportError as e:
         st.error(f"Failed to import predict module: {e}")
         st.error(f"Alternative import also failed: {e2}")
         st.error(f"Current directory: {current_dir}")
-        st.error(f"Model_V2 directory path: {model_v2_dir}")
-        st.error(f"Model_V2 exists: {model_v2_dir.exists()}")
+        st.error(f"Model_V1 directory path: {model_v2_dir}")
+        st.error(f"Model_V1 exists: {model_v2_dir.exists()}")
         st.error(f"Current sys.path: {sys.path[:3]}")
-        st.error(f"Files in Model_V2: {list(model_v2_dir.glob('*.py'))}")
+        st.error(f"Files in Model_V1: {list(model_v2_dir.glob('*.py'))}")
         st.stop()
 
 st.set_page_config(
-    page_title="TD/ASD Classification Model V2 - Demo",
+    page_title="TD/ASD Classification Model V1 - Demo",
     page_icon="🧠",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -53,7 +53,7 @@ class DemoApp:
         # Get the absolute path to the results directory
         current_dir = Path(__file__).resolve().parent
         project_root = current_dir.parent.parent
-        self.results_dir = project_root / "Results" / "V2"
+        self.results_dir = project_root / "Results" / "V1"
         self.viz_dir = self.results_dir / "visualizations"
         self.predictor = None
         
@@ -96,7 +96,7 @@ class DemoApp:
         return True
     
     def show_home_page(self):
-        st.title("🧠 TD/ASD Classification Model V2")
+        st.title("🧠 TD/ASD Classification Model V1")
         st.markdown("### Advanced Text Analysis for Autism Spectrum Disorder Classification")
         
         col1, col2, col3 = st.columns(3)
@@ -577,7 +577,7 @@ def main():
             st.session_state.page = page_key
     
     st.sidebar.markdown("---")
-    st.sidebar.markdown("### Model V2 Info")
+    st.sidebar.markdown("### Model V1 Info")
     st.sidebar.info("Advanced TD/ASD Classification using XGBoost and NLP features")
     
     if not app.load_results():
