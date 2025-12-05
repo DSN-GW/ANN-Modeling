@@ -1,0 +1,25 @@
+{
+  "cv_accuracy_mean": 1.0,
+  "cv_accuracy_std": 0.0,
+  "cv_scores": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ],
+  "n_features": 11,
+  "feature_names": [
+    "FSR_scaled",
+    "TDNorm_avg_PE_scaled",
+    "overall_avg_PE_scaled",
+    "TDnorm_concept_learning",
+    "overall_concept_learning",
+    "shortness_score",
+    "lexical_diversity",
+    "sentiment_polarity",
+    "sentiment_subjectivity",
+    "flesch_reading_ease",
+    "flesch_kincaid_grade"
+  ]
+}

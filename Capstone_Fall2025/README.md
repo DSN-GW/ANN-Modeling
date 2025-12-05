@@ -1,0 +1,206 @@
+# TD/ASD Classification Model V7/V8
+
+Advanced machine learning system for classifying Typically Developing (TD) vs Autism Spectrum Disorder (ASD) individuals based on free response text analysis using XGBoost and comprehensive NLP features.
+
+## 🚀 Quick Start
+
+### Installation
+
+1. **Clone the repository:**
+```bash
+git clone <repository-url>
+cd fall-2025-group7
+```
+
+2. **Install dependencies (root):**
+Create a virtual env and activate it ot just install dependencies in base python
+```bash
+pip install -r requirements.txt
+```
+
+3. **Train the model:**
+```bash
+python -m src.Model_V7-1.train
+```
+
+4. **Run predictions:**
+```bash
+python -m src.Model_V7-1.predict
+```
+
+5. **Launch the web application:**
+```bash
+streamlit run demo/app.py
+```
+
+## 📁 Project Structure
+
+```
+DSN-GW/
+├── ANN-Modeling/
+│   ├── Code/
+│   │   ├── Agent/                 # Optional Claude Sonnet agent utilities (.env-driven)
+│   │   │   ├── sonnet_agent.py
+│   │   │   ├── run_sonnet_agent.py
+│   │   │   └── demo_multiple_agents.py
+│   │   ├── Model_V2/              # Main model implementation (current)
+│   │   │   ├── train.py           # Training pipeline
+│   │   │   ├── predict.py         # Prediction pipeline (batch/file)
+│   │   │   ├── visualization.py   # Visualization generation
+│   │   │   ├── data_preprocessor.py
+│   │   │   ├── xgboost_model.py
+│   │   │   └── explainability_analysis.py
+│   │   ├── Model_V1/              # Legacy model (kept for reference)
+│   │   │   ├── train.py
+│   │   │   ├── predict.py
+│   │   │   ├── visualization.py
+│   │   │   ├── data_preprocessor.py
+│   │   │   ├── xgboost_model.py
+│   │   │   ├── feature_extractor.py
+│   │   │   ├── nlp_features.py
+│   │   │   └── explainability_analysis.py
+│   │   └── Demo/                  # Streamlit web application
+│   │       ├── app.py             # Main web app
+│   │       └── requirements.txt   # App dependencies
+│   ├── Results/
+│   │   ├── V1/                    # Legacy results (for Model V1)
+│   │   └── V2/                    # Model V2 results and visualizations
+│   │       ├── training_results_v2.json
+│   │       ├── test_results_v2.json
+│   │       ├── feature_importance_v2.json
+│   │       ├── explainability_analysis_v2.json
+│   │       ├── feature_names_v2.pkl
+│   │       ├── scaler_v2.pkl
+│   │       ├── xgboost_model_v2.pkl
+│   │       ├── predictions/
+│   │       │   └── test_predictions_v2.csv
+│   │       └── visualizations/
+│   │           ├── model_performance_v2.png
+│   │           ├── confusion_matrix_v2.png
+│   │           ├── feature_importance_v2.png
+│   │           ├── feature_importance_by_target_v2.png
+│   │           ├── characteristic_importance_v2.png
+│   │           └── td_vs_asd_comparison_v2.png
+│   ├── Paper/
+│   │   └── 1-Socail_Paper/        # Research artifacts (PDFs and summaries)
+│   ├── Scratch_Codo/              # Experimental code and artifacts (legacy)
+│   │   ├── Model_V1/
+│   │   └── V1/
+│   └── data/
+│       ├── Data_v1/               # Training and test CSVs (v1/v2 preprocessed outputs)
+│       └── Data_v2/               # Trial-level dataset (optional)
+├── requirements.txt               # Project-wide dependencies (root)
+└── README.md                      # This file
+```
+
+## 🔧 Features
+
+### Model Capabilities
+- **Characteristic-based Feature Extraction**: Uses Claude 3.5 Sonnet (via AWS Bedrock) to derive 11 characteristic-driven features - (Part of Legacy Models only, Not V7 and V8 family of models)
+- **NLP Text Analysis**: Sentiment, readability, lexical diversity, and structural features
+- **XGBoost Classification**: Gradient boosting with tuned regularization
+- **Explainable AI**: SHAP-based feature importance and contribution analysis
+- **Clustering Analysis**: Following Consensus Clustering Style by Monti et al. 2013 and 
+
+### Web Application Features
+- **Model Performance Dashboard**: Accuracy, confusion matrix, AUC-ROC
+- **Feature Importance Analysis**: Interactive visualizations of model features
+- **Explainability Insights**: Understand model decisions and feature contributions and view Local Decision explainations
+
+## 📊 Model Performance
+
+See the latest artifacts in:
+- `Results/V7-1/test_results_v7-1.json`
+- `Results/V7-1/visualizations/model_performance_v7-1.png`
+- `Results/V7-1/visualizations/confusion_matrix_v7-1.png`
+
+These are generated by the current V7-1 training and prediction pipelines and reflect the most up-to-date performance.
+
+## 🛠️ Technical Details
+
+### Dependencies
+- **Core ML**: XGBoost, scikit-learn, SHAP, LIME, consensusclustering
+- **Data Processing**: pandas, numpy
+- **Visualization**: matplotlib, seaborn, plotly
+- **Web App**: streamlit
+- **NLP**: textblob, nltk, textstat
+- **Cloud**: boto3 (for Claude 3.5 Sonnet via AWS Bedrock), transformers (for Qwen and Llama Models through huggingface) - Legacy models only
+
+### Path Management
+All critical paths use `pathlib.Path` for cross-platform compatibility.
+
+## 🚀 Usage
+
+### Training the Model (V2)
+```bash
+cd ANN-Modeling\Code\Model_V2
+python train.py
+```
+
+### Making Predictions (from preprocessed test data)
+```bash
+python predict.py
+```
+This will also run explainability analysis (on global level only) and generate visualizations and CSV predictions under `Results\V7-1`.
+For Local level explainability please use the WebApp. Navigate to the Model Results page, select the model and then navigate to the xAI - Explainability Page. Any local explainability results will get saved under  `Results\V7-1\explainability`.
+
+### Programmatic Prediction (batch or single row)
+```python
+import pandas as pd
+from predict import ModelPredictor
+
+# Example: single text (provide required columns)
+df = pd.DataFrame([
+    {
+        "FSR": 0.5,                 # numeric
+        "avg_PE": 0.2,              # numeric
+        "free_response": "Sample text here",
+        # optional during prediction, but if provided enables accuracy metrics
+        # "td_or_asd": 1             # 1 = ASD, 0 = TD
+    }
+])
+
+predictor = ModelPredictor()
+predictor.load_model()
+results_df = predictor.predict_batch(df, is_test_data=False)
+print(results_df[["predicted_td_or_asd", "prediction_probability"]])
+```
+
+## LLM AGENTS (Optional) - For Legacy Models
+
+### 🤖 Claude Sonnet Agent (Optional)
+- Location: `src\Agent`
+- Used by the feature extractor to enrich characteristic-based features via AWS Bedrock.
+- Configure environment in `ANN-Modeling\Code\Agent\.env` with:
+  - `aws_access_key_id`
+  - `aws_secret_access_key`
+  - `aws_session_token`
+
+ ### 🤖 LLAMA / Qwen HF Agents (Optional)
+- Location: `src\Agent`
+- Used by the feature extractor to enrich characteristic-based features via HuggingFace.
+- Configure environment in `src\Agent\.env` with:
+  - `hf_hub_token`
+  - `hf_model`
+
+## 📈 Results
+
+Key outputs saved to `Results/V7-1/` include:
+- `xgboost_model_v7-1.pkl`, `scaler_v7-1.pkl`, `feature_names_v7-1.pkl`
+- `training_results_v7-1.json`, `test_results_v7-1.json`
+- `feature_importance_v7-1.json`, `explainability_analysis_v7-1.json`
+- `predictions/test_predictions_v7-1.csv`
+- Visuals in `visualizations/`: model performance, confusion matrix, feature importance (overall/by target), TD vs ASD comparison
+
+## 🔍 Model Explainability
+
+The model provides comprehensive explainability through:
+- **SHAP Analysis**: Feature importance and contribution analysis along with Local Explainability
+- **LIME Analysis**: Global and Local Explainability
+- **TD vs ASD Patterns**: Differences between typically developing and ASD groups
+
+## 🛡️ Security and Best Practices
+
+- **Proper Validation**: Cross-validation and holdout test sets
+- **Regularization**: XGBoost parameters tuned to prevent overfitting
+- **Feature Selection**: Correlation-based and VIF based Filtering

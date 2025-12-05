@@ -1,0 +1,115 @@
+{
+  "model_performance": {
+    "total_features": 11,
+    "sample_size": 660
+  },
+  "characteristic_analysis": {},
+  "top_features": [
+    [
+      "FSR_scaled",
+      0.46697938442230225
+    ],
+    [
+      "shortness_score",
+      0.07131215929985046
+    ],
+    [
+      "TDNorm_avg_PE_scaled",
+      0.061822257936000824
+    ],
+    [
+      "overall_avg_PE_scaled",
+      0.05665169283747673
+    ],
+    [
+      "sentiment_polarity",
+      0.05571164935827255
+    ],
+    [
+      "TDnorm_concept_learning",
+      0.05282195657491684
+    ],
+    [
+      "flesch_kincaid_grade",
+      0.052527621388435364
+    ],
+    [
+      "flesch_reading_ease",
+      0.04823800176382065
+    ],
+    [
+      "lexical_diversity",
+      0.045361053198575974
+    ],
+    [
+      "overall_concept_learning",
+      0.04507499560713768
+    ],
+    [
+      "sentiment_subjectivity",
+      0.043499238789081573
+    ]
+  ],
+  "td_vs_asd_patterns": [
+    {},
+    {}
+  ],
+  "text_patterns": {
+    "class_0": {
+      "total_texts": 312,
+      "total_words": 4202,
+      "unique_words": 889,
+      "top_words": {
+        "likes": 264,
+        "and": 263,
+        "he": 234,
+        "like": 197,
+        "she": 124,
+        "not": 83,
+        "a": 80,
+        "is": 70,
+        "of": 69,
+        "the": 66,
+        "i": 63,
+        "to": 58,
+        "but": 58,
+        "that": 54,
+        "does": 50,
+        "they": 45,
+        "food": 41,
+        "doesn't": 38,
+        "really": 37,
+        "things": 32
+      },
+      "avg_text_length": 74.8525641025641
+    },
+    "class_1": {
+      "total_texts": 348,
+      "total_words": 3541,
+      "unique_words": 811,
+      "top_words": {
+        "likes": 240,
+        "he": 232,
+        "and": 216,
+        "like": 167,
+        "she": 88,
+        "a": 69,
+        "of": 64,
+        "not": 63,
+        "is": 56,
+        "to": 51,
+        "doesn't": 45,
+        "i": 43,
+        "food": 42,
+        "they": 41,
+        "but": 36,
+        "some": 36,
+        "does": 33,
+        "the": 31,
+        "that": 30,
+        "music": 24
+      },
+      "avg_text_length": 56.11206896551724
+    }
+  }
+}

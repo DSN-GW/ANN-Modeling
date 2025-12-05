@@ -1,0 +1,58 @@
+{
+  "class_0": {
+    "total_texts": 743,
+    "total_words": 10753,
+    "unique_words": 1524,
+    "top_words": {
+      "he": 648,
+      "and": 628,
+      "likes": 608,
+      "like": 497,
+      "she": 249,
+      "not": 249,
+      "a": 212,
+      "is": 187,
+      "of": 182,
+      "the": 166,
+      "but": 164,
+      "to": 161,
+      "doesn't": 141,
+      "does": 131,
+      "i": 124,
+      "that": 117,
+      "some": 114,
+      "they": 114,
+      "really": 87,
+      "loves": 81
+    },
+    "avg_text_length": 80.55585464333782
+  },
+  "class_1": {
+    "total_texts": 1256,
+    "total_words": 13048,
+    "unique_words": 1783,
+    "top_words": {
+      "and": 834,
+      "likes": 830,
+      "he": 807,
+      "like": 651,
+      "she": 336,
+      "not": 276,
+      "a": 248,
+      "is": 193,
+      "of": 191,
+      "to": 184,
+      "doesn't": 180,
+      "but": 177,
+      "i": 159,
+      "some": 150,
+      "the": 147,
+      "they": 146,
+      "does": 134,
+      "food": 126,
+      "music": 113,
+      "that": 98
+    },
+    "avg_text_length": 56.76035031847134
+  }
+}

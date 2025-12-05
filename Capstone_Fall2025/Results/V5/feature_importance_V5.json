@@ -1,0 +1,12 @@
+{
+  "mean_slope_subcat": 0.03675054758787155,
+  "FSR_scaled": 0.6384010910987854,
+  "avg_PE_scaled": 0.03661534935235977,
+  "avg_word_length": 0.036215316504240036,
+  "shortness_score": 0.04498928785324097,
+  "lexical_diversity": 0.05497347563505173,
+  "sentiment_polarity": 0.04132913798093796,
+  "sentiment_subjectivity": 0.039375320076942444,
+  "flesch_reading_ease": 0.03576275333762169,
+  "flesch_kincaid_grade": 0.035587698221206665
+}

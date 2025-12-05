@@ -1,0 +1,24 @@
+{
+  "cv_accuracy_mean": 0.9051020408163266,
+  "cv_accuracy_std": 0.014996875976223543,
+  "cv_scores": [
+    0.9005102040816326,
+    0.8954081632653061,
+    0.9107142857142857,
+    0.9311224489795918,
+    0.8877551020408163
+  ],
+  "n_features": 10,
+  "feature_names": [
+    "mean_slope_subcat",
+    "FSR_scaled",
+    "avg_PE_scaled",
+    "avg_word_length",
+    "shortness_score",
+    "lexical_diversity",
+    "sentiment_polarity",
+    "sentiment_subjectivity",
+    "flesch_reading_ease",
+    "flesch_kincaid_grade"
+  ]
+}

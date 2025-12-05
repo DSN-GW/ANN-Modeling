@@ -1,0 +1,115 @@
+{
+  "model_performance": {
+    "total_features": 11,
+    "sample_size": 320
+  },
+  "characteristic_analysis": {},
+  "top_features": [
+    [
+      "FSR_scaled",
+      0.5908041596412659
+    ],
+    [
+      "shortness_score",
+      0.09017890691757202
+    ],
+    [
+      "sentiment_polarity",
+      0.07862748205661774
+    ],
+    [
+      "overall_avg_PE_scaled",
+      0.054577816277742386
+    ],
+    [
+      "TDNorm_avg_PE_scaled",
+      0.04292610287666321
+    ],
+    [
+      "overall_concept_learning",
+      0.03471704199910164
+    ],
+    [
+      "sentiment_subjectivity",
+      0.03362603113055229
+    ],
+    [
+      "lexical_diversity",
+      0.02376875840127468
+    ],
+    [
+      "flesch_reading_ease",
+      0.020370936021208763
+    ],
+    [
+      "flesch_kincaid_grade",
+      0.019928809255361557
+    ],
+    [
+      "TDnorm_concept_learning",
+      0.010473981499671936
+    ]
+  ],
+  "td_vs_asd_patterns": [
+    {},
+    {}
+  ],
+  "text_patterns": {
+    "class_0": {
+      "total_texts": 57,
+      "total_words": 940,
+      "unique_words": 344,
+      "top_words": {
+        "he": 63,
+        "and": 54,
+        "likes": 50,
+        "like": 35,
+        "she": 21,
+        "not": 20,
+        "but": 16,
+        "to": 16,
+        "of": 15,
+        "a": 15,
+        "the": 15,
+        "doesn't": 14,
+        "really": 11,
+        "is": 10,
+        "does": 9,
+        "things": 8,
+        "loves": 8,
+        "most": 7,
+        "liked": 7,
+        "they": 7
+      },
+      "avg_text_length": 94.19298245614036
+    },
+    "class_1": {
+      "total_texts": 263,
+      "total_words": 2572,
+      "unique_words": 624,
+      "top_words": {
+        "he": 196,
+        "likes": 178,
+        "and": 160,
+        "like": 138,
+        "not": 58,
+        "a": 55,
+        "but": 37,
+        "of": 35,
+        "they": 34,
+        "i": 34,
+        "she": 33,
+        "does": 32,
+        "is": 32,
+        "food": 32,
+        "doesn't": 32,
+        "to": 32,
+        "some": 26,
+        "the": 26,
+        "music": 25,
+        "or": 24
+      },
+      "avg_text_length": 52.6425855513308
+    }
+  }
+}

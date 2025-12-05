@@ -1,0 +1,24 @@
+{
+  "original_shape": [
+    2647,
+    11
+  ],
+  "filtered_shape": [
+    2451,
+    8
+  ],
+  "selected_columns": [
+    "sub",
+    "profile",
+    "FSR",
+    "avg_PE",
+    "free_response",
+    "td_or_asd",
+    "mean_slope",
+    "mean_slope_overall"
+  ],
+  "target_distribution": {
+    "1": 1552,
+    "0": 899
+  }
+}

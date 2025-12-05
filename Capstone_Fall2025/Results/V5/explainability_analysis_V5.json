@@ -1,0 +1,111 @@
+{
+  "model_performance": {
+    "total_features": 10,
+    "sample_size": 1960
+  },
+  "characteristic_analysis": {},
+  "top_features": [
+    [
+      "FSR_scaled",
+      0.6384010910987854
+    ],
+    [
+      "lexical_diversity",
+      0.05497347563505173
+    ],
+    [
+      "shortness_score",
+      0.04498928785324097
+    ],
+    [
+      "sentiment_polarity",
+      0.04132913798093796
+    ],
+    [
+      "sentiment_subjectivity",
+      0.039375320076942444
+    ],
+    [
+      "mean_slope_subcat",
+      0.03675054758787155
+    ],
+    [
+      "avg_PE_scaled",
+      0.03661534935235977
+    ],
+    [
+      "avg_word_length",
+      0.036215316504240036
+    ],
+    [
+      "flesch_reading_ease",
+      0.03576275333762169
+    ],
+    [
+      "flesch_kincaid_grade",
+      0.035587698221206665
+    ]
+  ],
+  "td_vs_asd_patterns": [
+    {},
+    {}
+  ],
+  "text_patterns": {
+    "class_1": {
+      "total_texts": 1241,
+      "total_words": 12583,
+      "unique_words": 1707,
+      "top_words": {
+        "likes": 830,
+        "and": 803,
+        "he": 802,
+        "like": 629,
+        "she": 333,
+        "not": 254,
+        "a": 232,
+        "is": 193,
+        "doesn't": 178,
+        "of": 174,
+        "but": 172,
+        "to": 164,
+        "some": 153,
+        "i": 150,
+        "they": 144,
+        "the": 141,
+        "food": 131,
+        "does": 130,
+        "music": 112,
+        "that": 92
+      },
+      "avg_text_length": 55.4464141821112
+    },
+    "class_0": {
+      "total_texts": 719,
+      "total_words": 10729,
+      "unique_words": 1572,
+      "top_words": {
+        "he": 647,
+        "and": 621,
+        "likes": 603,
+        "like": 488,
+        "she": 271,
+        "not": 251,
+        "a": 221,
+        "of": 189,
+        "to": 168,
+        "the": 168,
+        "is": 167,
+        "but": 160,
+        "i": 134,
+        "does": 130,
+        "doesn't": 126,
+        "that": 117,
+        "they": 108,
+        "some": 107,
+        "food": 77,
+        "things": 75
+      },
+      "avg_text_length": 83.28094575799722
+    }
+  }
+}

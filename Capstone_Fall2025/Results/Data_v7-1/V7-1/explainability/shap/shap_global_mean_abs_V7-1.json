@@ -1,0 +1,22 @@
+{
+  "FSR": 2.6259522438049316,
+  "TDNorm_avg_PE": 0.16557329893112183,
+  "overall_avg_PE": 0.1273544430732727,
+  "char_count": 0.11334887146949768,
+  "TDnorm_concept_learning": 0.0810428038239479,
+  "overall_concept_learning": 0.07732569426298141,
+  "word_count": 0.05741960182785988,
+  "avg_word_length": 0.05461777374148369,
+  "lexical_diversity": 0.052766114473342896,
+  "positive_word_ratio": 0.051406294107437134,
+  "avg_sentence_length": 0.04107311740517616,
+  "flesch_reading_ease": 0.038668207824230194,
+  "flesch_kincaid_grade": 0.03381411358714104,
+  "sentiment_subjectivity": 0.02904718555510044,
+  "sentiment_polarity": 0.024967875331640244,
+  "shortness_score": 0.02262859232723713,
+  "sentence_count": 0.01603969931602478,
+  "positive_word_count": 0.013790694996714592,
+  "negative_word_ratio": 0.011478953063488007,
+  "negative_word_count": 0.0086771035566926
+}

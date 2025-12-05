@@ -1,0 +1,13 @@
+{
+  "FSR_scaled": 0.4520659740672194,
+  "TDNorm_avg_PE_scaled": 0.0331104391556297,
+  "overall_avg_PE_scaled": 0.03247143868418988,
+  "shortness_score": 0.018576593116878468,
+  "sentiment_subjectivity": 0.016330846732224447,
+  "flesch_reading_ease": 0.014648998937163227,
+  "TDnorm_concept_learning": 0.014556953819073286,
+  "overall_concept_learning": 0.013553820099063554,
+  "lexical_diversity": 0.012912621439812389,
+  "sentiment_polarity": 0.01256389925047467,
+  "flesch_kincaid_grade": 0.010707878186880656
+}

@@ -1,0 +1,9 @@
+{
+  "shortness_score": 0.24857255816459656,
+  "avg_PE": 0.22126460075378418,
+  "sentiment_subjectivity": 0.11310011148452759,
+  "lexical_diversity": 0.11019562929868698,
+  "flesch_reading_ease": 0.08891956508159637,
+  "flesch_kincaid_grade": 0.08832919597625732,
+  "sentiment_polarity": 0.06573618203401566
+}

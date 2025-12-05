@@ -1,0 +1,33 @@
+{
+  "cv_accuracy_mean": 0.5303030303030303,
+  "cv_accuracy_std": 0.05648894509790075,
+  "cv_scores": [
+    0.5,
+    0.4696969696969697,
+    0.5227272727272727,
+    0.6363636363636364,
+    0.5227272727272727
+  ],
+  "n_features": 19,
+  "feature_names": [
+    "TDNorm_avg_PE",
+    "overall_avg_PE",
+    "TDnorm_concept_learning",
+    "overall_concept_learning",
+    "word_count",
+    "sentence_count",
+    "char_count",
+    "avg_word_length",
+    "avg_sentence_length",
+    "shortness_score",
+    "lexical_diversity",
+    "sentiment_polarity",
+    "sentiment_subjectivity",
+    "positive_word_count",
+    "negative_word_count",
+    "positive_word_ratio",
+    "negative_word_ratio",
+    "flesch_reading_ease",
+    "flesch_kincaid_grade"
+  ]
+}

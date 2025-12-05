@@ -1,0 +1,1 @@
+{"Clustering": {"KMIN": 2, "KMAX": 12, "ITERATIONS": 1000, "ASD_ONLY": true}, "Preprocessing": {"CORR_THRESH": 0.7, "USE_NLP": false, "HIGH_CORR_FEATS": ["overall_avg_PE", "BIS", "SRS.Raw"], "SELECTED_FEATURES": ["FSR", "TDNorm_avg_PE", "TDnorm_concept_learning", "overall_concept_learning"]}}

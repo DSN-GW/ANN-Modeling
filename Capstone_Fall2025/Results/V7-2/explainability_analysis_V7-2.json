@@ -1,0 +1,193 @@
+{
+  "model_performance": {
+    "total_features": 20,
+    "sample_size": 320
+  },
+  "characteristic_analysis": {},
+  "top_features": [
+    [
+      "FSR",
+      0.5422119498252869
+    ],
+    [
+      "lexical_diversity",
+      0.08081401139497757
+    ],
+    [
+      "sentiment_polarity",
+      0.057124730199575424
+    ],
+    [
+      "char_count",
+      0.0504537895321846
+    ],
+    [
+      "overall_avg_PE",
+      0.04103763774037361
+    ],
+    [
+      "flesch_kincaid_grade",
+      0.0407019704580307
+    ],
+    [
+      "TDNorm_avg_PE",
+      0.03412022069096565
+    ],
+    [
+      "flesch_reading_ease",
+      0.02914416231215
+    ],
+    [
+      "word_count",
+      0.025525040924549103
+    ],
+    [
+      "avg_word_length",
+      0.022292008623480797
+    ],
+    [
+      "shortness_score",
+      0.022015325725078583
+    ],
+    [
+      "avg_sentence_length",
+      0.018169555813074112
+    ],
+    [
+      "TDnorm_concept_learning",
+      0.01593596115708351
+    ],
+    [
+      "overall_concept_learning",
+      0.01432888861745596
+    ],
+    [
+      "sentiment_subjectivity",
+      0.0061247097328305244
+    ],
+    [
+      "sentence_count",
+      0.0
+    ],
+    [
+      "positive_word_count",
+      0.0
+    ],
+    [
+      "negative_word_count",
+      0.0
+    ],
+    [
+      "positive_word_ratio",
+      0.0
+    ],
+    [
+      "negative_word_ratio",
+      0.0
+    ]
+  ],
+  "td_vs_asd_patterns": [
+    {
+      "FSR": 4.456140350877193,
+      "lexical_diversity": 0.8508078279578268,
+      "sentiment_polarity": 0.1201359459254196,
+      "char_count": 94.19298245614036,
+      "overall_avg_PE": 6.01588693957115,
+      "flesch_kincaid_grade": 4.285695930496114,
+      "TDNorm_avg_PE": 5.199122807017544,
+      "flesch_reading_ease": 82.91242387842449,
+      "word_count": 19.43859649122807,
+      "avg_word_length": 4.107178664912104,
+      "shortness_score": 0.08275914729977088,
+      "avg_sentence_length": 12.03157894736842,
+      "TDnorm_concept_learning": 0.0613873157509469,
+      "overall_concept_learning": 0.014648590501697485,
+      "sentiment_subjectivity": 0.304937343358396,
+      "sentence_count": 1.7017543859649122,
+      "positive_word_count": 1.8421052631578947,
+      "negative_word_count": 0.5614035087719298,
+      "positive_word_ratio": 0.1231675404504256,
+      "negative_word_ratio": 0.030241178863380448
+    },
+    {
+      "FSR": 54.83726235741445,
+      "lexical_diversity": 0.9215612792934103,
+      "sentiment_polarity": 0.0583978869672786,
+      "char_count": 52.6425855513308,
+      "overall_avg_PE": 6.74328641629422,
+      "flesch_kincaid_grade": 2.6975850658870413,
+      "TDNorm_avg_PE": 6.077693282636249,
+      "flesch_reading_ease": 88.08404000484197,
+      "word_count": 11.079847908745247,
+      "avg_word_length": 4.126175226259939,
+      "shortness_score": 0.14568403991071813,
+      "avg_sentence_length": 7.7828263624841565,
+      "TDnorm_concept_learning": 0.004987905859913971,
+      "overall_concept_learning": -0.014101618044265709,
+      "sentiment_subjectivity": 0.21398591664989006,
+      "sentence_count": 1.3307984790874525,
+      "positive_word_count": 1.3650190114068441,
+      "negative_word_count": 0.3269961977186312,
+      "positive_word_ratio": 0.15021764876985716,
+      "negative_word_ratio": 0.027529824002273558
+    }
+  ],
+  "text_patterns": {
+    "class_0": {
+      "total_texts": 57,
+      "total_words": 940,
+      "unique_words": 344,
+      "top_words": {
+        "he": 63,
+        "and": 54,
+        "likes": 50,
+        "like": 35,
+        "she": 21,
+        "not": 20,
+        "but": 16,
+        "to": 16,
+        "of": 15,
+        "a": 15,
+        "the": 15,
+        "doesn't": 14,
+        "really": 11,
+        "is": 10,
+        "does": 9,
+        "things": 8,
+        "loves": 8,
+        "most": 7,
+        "liked": 7,
+        "they": 7
+      },
+      "avg_text_length": 94.19298245614036
+    },
+    "class_1": {
+      "total_texts": 263,
+      "total_words": 2572,
+      "unique_words": 624,
+      "top_words": {
+        "he": 196,
+        "likes": 178,
+        "and": 160,
+        "like": 138,
+        "not": 58,
+        "a": 55,
+        "but": 37,
+        "of": 35,
+        "they": 34,
+        "i": 34,
+        "she": 33,
+        "does": 32,
+        "is": 32,
+        "food": 32,
+        "doesn't": 32,
+        "to": 32,
+        "some": 26,
+        "the": 26,
+        "music": 25,
+        "or": 24
+      },
+      "avg_text_length": 52.6425855513308
+    }
+  }
+}

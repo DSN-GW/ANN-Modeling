@@ -1,0 +1,139 @@
+{
+  "test_metrics": {
+    "accuracy": 0.9,
+    "confusion_matrix": [
+      [
+        170,
+        26
+      ],
+      [
+        27,
+        307
+      ]
+    ],
+    "classification_report": {
+      "0": {
+        "precision": 0.8629441624365483,
+        "recall": 0.8673469387755102,
+        "f1-score": 0.8651399491094147,
+        "support": 196.0
+      },
+      "1": {
+        "precision": 0.9219219219219219,
+        "recall": 0.9191616766467066,
+        "f1-score": 0.9205397301349325,
+        "support": 334.0
+      },
+      "accuracy": 0.9,
+      "macro avg": {
+        "precision": 0.892433042179235,
+        "recall": 0.8932543077111084,
+        "f1-score": 0.8928398396221736,
+        "support": 530.0
+      },
+      "weighted avg": {
+        "precision": 0.9001112787914819,
+        "recall": 0.9,
+        "f1-score": 0.9000522639443637,
+        "support": 530.0
+      }
+    },
+    "roc_auc": 0.9639649272882805
+  },
+  "prediction_summary": {
+    "total_samples": 530,
+    "td_predictions": 197,
+    "asd_predictions": 333,
+    "average_confidence": 0.8989349603652954,
+    "high_confidence_predictions": 422,
+    "low_confidence_predictions": 39,
+    "prediction_summary": {
+      "td_percentage": 37.16981132075471,
+      "asd_percentage": 62.83018867924528
+    }
+  },
+  "explainability_summary": {
+    "top_characteristics": [
+      [
+        "personality inference",
+        {
+          "importance_score": 0.0,
+          "feature_count": 2,
+          "rank": 1
+        }
+      ],
+      [
+        "sweets",
+        {
+          "importance_score": 0.0,
+          "feature_count": 2,
+          "rank": 2
+        }
+      ],
+      [
+        "Fruits and vegetables",
+        {
+          "importance_score": 0.0,
+          "feature_count": 2,
+          "rank": 3
+        }
+      ],
+      [
+        "healthy savory food",
+        {
+          "importance_score": 0.0,
+          "feature_count": 2,
+          "rank": 4
+        }
+      ],
+      [
+        "food",
+        {
+          "importance_score": 0.0,
+          "feature_count": 2,
+          "rank": 5
+        }
+      ],
+      [
+        "cosmetics",
+        {
+          "importance_score": 0.0,
+          "feature_count": 2,
+          "rank": 6
+        }
+      ],
+      [
+        "fashion",
+        {
+          "importance_score": 0.0,
+          "feature_count": 2,
+          "rank": 7
+        }
+      ],
+      [
+        "toys, gadgets and games",
+        {
+          "importance_score": 0.0,
+          "feature_count": 2,
+          "rank": 8
+        }
+      ],
+      [
+        "sports",
+        {
+          "importance_score": 0.0,
+          "feature_count": 2,
+          "rank": 9
+        }
+      ],
+      [
+        "music",
+        {
+          "importance_score": 0.0,
+          "feature_count": 2,
+          "rank": 10
+        }
+      ]
+    ]
+  }
+}

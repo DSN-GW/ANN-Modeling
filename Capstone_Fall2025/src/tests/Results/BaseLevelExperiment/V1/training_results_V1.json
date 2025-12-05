@@ -1,0 +1,25 @@
+{
+  "cv_accuracy_mean": 0.8467894068565209,
+  "cv_accuracy_std": 0.020860566709101212,
+  "cv_scores": [
+    0.87248322147651,
+    0.8590604026845637,
+    0.825503355704698,
+    0.8187919463087249,
+    0.8581081081081081
+  ],
+  "n_features": 11,
+  "feature_names": [
+    "FSR_scaled",
+    "TDNorm_avg_PE_scaled",
+    "overall_avg_PE_scaled",
+    "TDnorm_concept_learning",
+    "overall_concept_learning",
+    "shortness_score",
+    "lexical_diversity",
+    "sentiment_polarity",
+    "sentiment_subjectivity",
+    "flesch_reading_ease",
+    "flesch_kincaid_grade"
+  ]
+}

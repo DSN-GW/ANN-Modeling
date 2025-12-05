@@ -1,0 +1,304 @@
+{
+  "model_performance": {
+    "total_features": 63,
+    "sample_size": 1960
+  },
+  "characteristic_analysis": {
+    "personality inference": {
+      "total_importance": 0.05450925603508949,
+      "features": [
+        "personality_inference_mentioned",
+        "personality_inference_positive",
+        "personality_inference_negative",
+        "personality_inference_neutral"
+      ],
+      "feature_count": 4
+    },
+    "sweets": {
+      "total_importance": 0.025417950935661793,
+      "features": [
+        "sweets_mentioned",
+        "sweets_positive",
+        "sweets_negative",
+        "sweets_neutral"
+      ],
+      "feature_count": 4
+    },
+    "Fruits and vegetables": {
+      "total_importance": 0.0319055556319654,
+      "features": [
+        "Fruits_and_vegetables_mentioned",
+        "Fruits_and_vegetables_positive",
+        "Fruits_and_vegetables_negative",
+        "Fruits_and_vegetables_neutral"
+      ],
+      "feature_count": 4
+    },
+    "healthy savory food": {
+      "total_importance": 0.0,
+      "features": [
+        "healthy_savory_food_mentioned",
+        "healthy_savory_food_positive",
+        "healthy_savory_food_negative",
+        "healthy_savory_food_neutral"
+      ],
+      "feature_count": 4
+    },
+    "food": {
+      "total_importance": 0.07627363689243793,
+      "features": [
+        "food_mentioned",
+        "food_positive",
+        "food_negative",
+        "food_neutral"
+      ],
+      "feature_count": 4
+    },
+    "cosmetics": {
+      "total_importance": 0.0,
+      "features": [
+        "cosmetics_mentioned",
+        "cosmetics_positive",
+        "cosmetics_negative",
+        "cosmetics_neutral"
+      ],
+      "feature_count": 4
+    },
+    "fashion": {
+      "total_importance": 0.0,
+      "features": [
+        "fashion_mentioned",
+        "fashion_positive",
+        "fashion_negative",
+        "fashion_neutral"
+      ],
+      "feature_count": 4
+    },
+    "toys, gadgets and games": {
+      "total_importance": 0.023563599213957787,
+      "features": [
+        "toys_gadgets_and_games_mentioned",
+        "toys_gadgets_and_games_positive",
+        "toys_gadgets_and_games_negative",
+        "toys_gadgets_and_games_neutral"
+      ],
+      "feature_count": 4
+    },
+    "sports": {
+      "total_importance": 0.0600670138373971,
+      "features": [
+        "sports_mentioned",
+        "sports_positive",
+        "sports_negative",
+        "sports_neutral"
+      ],
+      "feature_count": 4
+    },
+    "music": {
+      "total_importance": 0.04921488743275404,
+      "features": [
+        "music_mentioned",
+        "music_positive",
+        "music_negative",
+        "music_neutral"
+      ],
+      "feature_count": 4
+    },
+    "arts and crafts": {
+      "total_importance": 0.03194533195346594,
+      "features": [
+        "arts_and_crafts_mentioned",
+        "arts_and_crafts_positive",
+        "arts_and_crafts_negative",
+        "arts_and_crafts_neutral"
+      ],
+      "feature_count": 4
+    }
+  },
+  "top_features": [
+    [
+      "FSR",
+      0.3253066837787628
+    ],
+    [
+      "food_mentioned",
+      0.029373252764344215
+    ],
+    [
+      "shortness_score",
+      0.027927175164222717
+    ],
+    [
+      "char_count",
+      0.02698531746864319
+    ],
+    [
+      "toys_gadgets_and_games_mentioned",
+      0.023563599213957787
+    ],
+    [
+      "food_positive",
+      0.023343486711382866
+    ],
+    [
+      "personality_inference_neutral",
+      0.022809961810708046
+    ],
+    [
+      "avg_sentence_length",
+      0.021842405200004578
+    ],
+    [
+      "positive_word_count",
+      0.021570054814219475
+    ],
+    [
+      "sports_mentioned",
+      0.020799703896045685
+    ],
+    [
+      "music_positive",
+      0.01999334804713726
+    ],
+    [
+      "positive_word_ratio",
+      0.01930243708193302
+    ],
+    [
+      "sports_positive",
+      0.019000303000211716
+    ],
+    [
+      "music_neutral",
+      0.01782200112938881
+    ],
+    [
+      "word_count",
+      0.017629463225603104
+    ],
+    [
+      "avg_PE",
+      0.017454132437705994
+    ],
+    [
+      "personality_inference_mentioned",
+      0.017238257452845573
+    ],
+    [
+      "lexical_diversity",
+      0.017234468832612038
+    ],
+    [
+      "sentiment_subjectivity",
+      0.01714460738003254
+    ],
+    [
+      "mean_slope_overall",
+      0.016980601474642754
+    ]
+  ],
+  "td_vs_asd_patterns": [
+    {
+      "FSR": 13.542280945758,
+      "food_mentioned": 0.5632823365785814,
+      "shortness_score": 0.09825161479702678,
+      "char_count": 83.28094575799722,
+      "toys_gadgets_and_games_mentioned": 0.031988873435326845,
+      "food_positive": 0.3741307371349096,
+      "personality_inference_neutral": 0.8303198887343533,
+      "avg_sentence_length": 11.29711570302669,
+      "positive_word_count": 1.7872044506258693,
+      "sports_mentioned": 0.3588317107093185,
+      "music_positive": 0.2364394993045897,
+      "positive_word_ratio": 0.12421205741424399,
+      "sports_positive": 0.17663421418636996,
+      "music_neutral": 0.7287899860917941,
+      "word_count": 18.557719054242003,
+      "avg_PE": 6.219216504404265,
+      "personality_inference_mentioned": 0.7371349095966621,
+      "lexical_diversity": 0.8578280429645229,
+      "sentiment_subjectivity": 0.3020438506144348,
+      "mean_slope_overall": -0.0011070553424143677
+    },
+    {
+      "FSR": 42.46913779210314,
+      "food_mentioned": 0.5116841257050766,
+      "shortness_score": 0.13741319323998835,
+      "char_count": 55.4464141821112,
+      "toys_gadgets_and_games_mentioned": 0.0499597099113618,
+      "food_positive": 0.36261079774375504,
+      "personality_inference_neutral": 0.8436744560838034,
+      "avg_sentence_length": 8.227138572323907,
+      "positive_word_count": 1.3545527800161161,
+      "sports_mentioned": 0.26430298146655923,
+      "music_positive": 0.18936341659951653,
+      "positive_word_ratio": 0.1412103612230421,
+      "sports_positive": 0.15954875100725222,
+      "music_neutral": 0.7840451248992748,
+      "word_count": 11.589846897663175,
+      "avg_PE": 6.523677142089713,
+      "personality_inference_mentioned": 0.6913779210314263,
+      "lexical_diversity": 0.9115000930781992,
+      "sentiment_subjectivity": 0.2454505015569681,
+      "mean_slope_overall": -0.0046078714604640345
+    }
+  ],
+  "text_patterns": {
+    "class_1": {
+      "total_texts": 1241,
+      "total_words": 12583,
+      "unique_words": 1707,
+      "top_words": {
+        "likes": 830,
+        "and": 803,
+        "he": 802,
+        "like": 629,
+        "she": 333,
+        "not": 254,
+        "a": 232,
+        "is": 193,
+        "doesn't": 178,
+        "of": 174,
+        "but": 172,
+        "to": 164,
+        "some": 153,
+        "i": 150,
+        "they": 144,
+        "the": 141,
+        "food": 131,
+        "does": 130,
+        "music": 112,
+        "that": 92
+      },
+      "avg_text_length": 55.4464141821112
+    },
+    "class_0": {
+      "total_texts": 719,
+      "total_words": 10729,
+      "unique_words": 1572,
+      "top_words": {
+        "he": 647,
+        "and": 621,
+        "likes": 603,
+        "like": 488,
+        "she": 271,
+        "not": 251,
+        "a": 221,
+        "of": 189,
+        "to": 168,
+        "the": 168,
+        "is": 167,
+        "but": 160,
+        "i": 134,
+        "does": 130,
+        "doesn't": 126,
+        "that": 117,
+        "they": 108,
+        "some": 107,
+        "food": 77,
+        "things": 75
+      },
+      "avg_text_length": 83.28094575799722
+    }
+  }
+}
