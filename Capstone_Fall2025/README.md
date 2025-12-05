@@ -11,7 +11,10 @@ ASD Subtype identification using Consensus Clustering
 1. **Clone the repository:**
 ```bash
 git clone <repository-url>
+cd Capstone_Fall2025
 ```
+
+Root for running : Capstone_Fall2025
 
 2. **Install dependencies (root):**
 Create a virtual env and activate it ot just install dependencies in base python
