@@ -9,8 +9,9 @@ Advanced machine learning system for classifying Typically Developing (TD) vs Au
 1. **Clone the repository:**
 ```bash
 git clone <repository-url>
-cd fall-2025-group7
+cd Capstone_Fall2025
 ```
+Root for running Code is Capstone_Fall2025
 
 2. **Install dependencies (root):**
 Create a virtual env and activate it ot just install dependencies in base python
