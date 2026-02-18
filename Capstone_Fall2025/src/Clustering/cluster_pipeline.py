@@ -42,7 +42,7 @@ warnings.filterwarnings("ignore")
 current_dir = Path(__file__).parent
 project_root = current_dir.parent.parent
 results_root = project_root / "Results" / "Clustering"
-version = "V2"  # Change this every run so that the results folder does not get overwritten
+version = "V4"  # Change this every run so that the results folder does not get overwritten
 _dir = results_root / version
 if _dir.exists():
     shutil.rmtree(_dir)
@@ -50,8 +50,9 @@ _dir.mkdir(parents=True, exist_ok=True)
 plots_dir = results_root/ version / "plots"
 os.makedirs(plots_dir, exist_ok=True)
 data_dir = project_root / "data"
-data_path = data_dir / "Data_Clustering" / "LLM data_aggregate.csv"  # Change here if new file needs to be tested
+data_path = data_dir / "Data_Clustering" / "ASD_LLM data_aggregate.csv"  # Change here if new file needs to be tested
 
+TARGET_COL = "status"
 ASD_ONLY = True  # Make this false if you want to cluster with TD as well. This will do clustering with all if set to false
 
 # ---Consensus Cluster Variables
@@ -104,7 +105,7 @@ with open(results_root/ version / "info.json", "w") as file:
 #     # 'flesch_reading_ease'
 # ]
 
-COLS = ["sub", "td_or_asd"] + FEATURES
+COLS = ["sub", TARGET_COL] + FEATURES
 EMBED_METHOD = "pca"  # "pca" or "pca_umap"
 
 PCA_VAR = 0.95
@@ -831,7 +832,7 @@ def project_td_to_consensus(
         umap_model,
         clf
 ):
-    df_td = df[df["td_or_asd"] == 0].reset_index(drop=True)
+    df_td = df[df[TARGET_COL] == 0].reset_index(drop=True)
     if df_td.empty:
         return None, None
 
@@ -918,8 +919,8 @@ if __name__ == "__main__":
 
     # ASD-only for clustering
     if ASD_ONLY:
-        df_asd = df[df["td_or_asd"] == 1].reset_index(drop=True)
-        df_td = df[df["td_or_asd"] == 0].reset_index(drop=True)
+        df_asd = df[df[TARGET_COL] == 1].reset_index(drop=True)
+        df_td = df[df[TARGET_COL] == 0].reset_index(drop=True)
 
         print("ASD-only shape:", df_asd.shape)
         print("TD-only shape:", df_td.shape)
@@ -1068,8 +1069,8 @@ if __name__ == "__main__":
             df_asd[col] = combined_pca[:, i]
         df_asd.to_csv(results_root / version / "asd_and_td_consensus.csv", index=False)
         # Re-split inside df_asd (which now contains consensus_cluster labels)
-        df_td = df_asd[df_asd["td_or_asd"] == 0].copy()
-        df_asd_only = df_asd[df_asd["td_or_asd"] == 1].copy()
+        df_td = df_asd[df_asd[TARGET_COL] == 0].copy()
+        df_asd_only = df_asd[df_asd[TARGET_COL] == 1].copy()
 
         asd_counts = df_asd_only["consensus_cluster"].value_counts().sort_index()
         td_counts = df_td["consensus_cluster"].value_counts().sort_index()
