@@ -34,7 +34,7 @@ def _nltk_setup():
 
 _nltk_setup()
 
-
+TARGET_COL = "status" # td_or_asd for normal experiment. status for old - new asd experiment
 # ================================================================
 # 0. NLP feature extractor - From data_preprocessor
 # ================================================================
@@ -170,7 +170,7 @@ def fetch_final_features(data,text_col,thresh,plot_path,Use_nlp=True):
     df.drop(columns=['free_response_ASDprof_norm', 'free_response_ASDprof_unif'], inplace=True)
     df.dropna(inplace=True)
 
-    exclude_cols = ["sub","td_or_asd"]
+    exclude_cols = ["sub",TARGET_COL, "td_or_asd"]
     df_ = df[exclude_cols]
     num_cols = [c for c in df.columns if c not in exclude_cols and df[c].dtype != 'object']
     df_num = df[num_cols]
