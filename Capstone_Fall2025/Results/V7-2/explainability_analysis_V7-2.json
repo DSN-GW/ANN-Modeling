@@ -1,72 +1,76 @@
 {
   "model_performance": {
     "total_features": 20,
-    "sample_size": 320
+    "sample_size": 165
   },
   "characteristic_analysis": {},
   "top_features": [
     [
       "FSR",
-      0.5422119498252869
+      0.4806428849697113
     ],
     [
       "lexical_diversity",
-      0.08081401139497757
-    ],
-    [
-      "sentiment_polarity",
-      0.057124730199575424
-    ],
-    [
-      "char_count",
-      0.0504537895321846
-    ],
-    [
-      "overall_avg_PE",
-      0.04103763774037361
-    ],
-    [
-      "flesch_kincaid_grade",
-      0.0407019704580307
-    ],
-    [
-      "TDNorm_avg_PE",
-      0.03412022069096565
-    ],
-    [
-      "flesch_reading_ease",
-      0.02914416231215
+      0.10389486700296402
     ],
     [
       "word_count",
-      0.025525040924549103
+      0.07936901599168777
     ],
     [
-      "avg_word_length",
-      0.022292008623480797
+      "TDNorm_avg_PE",
+      0.06274503469467163
+    ],
+    [
+      "flesch_reading_ease",
+      0.056957390159368515
+    ],
+    [
+      "char_count",
+      0.05485435947775841
     ],
     [
       "shortness_score",
-      0.022015325725078583
+      0.03086015023291111
     ],
     [
-      "avg_sentence_length",
-      0.018169555813074112
-    ],
-    [
-      "TDnorm_concept_learning",
-      0.01593596115708351
+      "flesch_kincaid_grade",
+      0.02884828858077526
     ],
     [
       "overall_concept_learning",
-      0.01432888861745596
+      0.025015074759721756
+    ],
+    [
+      "sentiment_polarity",
+      0.0206337571144104
+    ],
+    [
+      "positive_word_ratio",
+      0.019367186352610588
     ],
     [
       "sentiment_subjectivity",
-      0.0061247097328305244
+      0.014248517341911793
+    ],
+    [
+      "avg_word_length",
+      0.012560177594423294
+    ],
+    [
+      "overall_avg_PE",
+      0.010003283619880676
+    ],
+    [
+      "TDnorm_concept_learning",
+      0.0
     ],
     [
       "sentence_count",
+      0.0
+    ],
+    [
+      "avg_sentence_length",
       0.0
     ],
     [
@@ -78,116 +82,112 @@
       0.0
     ],
     [
-      "positive_word_ratio",
-      0.0
-    ],
-    [
       "negative_word_ratio",
       0.0
     ]
   ],
   "td_vs_asd_patterns": [
     {
-      "FSR": 4.456140350877193,
-      "lexical_diversity": 0.8508078279578268,
-      "sentiment_polarity": 0.1201359459254196,
-      "char_count": 94.19298245614036,
-      "overall_avg_PE": 6.01588693957115,
-      "flesch_kincaid_grade": 4.285695930496114,
-      "TDNorm_avg_PE": 5.199122807017544,
-      "flesch_reading_ease": 82.91242387842449,
-      "word_count": 19.43859649122807,
-      "avg_word_length": 4.107178664912104,
-      "shortness_score": 0.08275914729977088,
-      "avg_sentence_length": 12.03157894736842,
-      "TDnorm_concept_learning": 0.0613873157509469,
-      "overall_concept_learning": 0.014648590501697485,
-      "sentiment_subjectivity": 0.304937343358396,
-      "sentence_count": 1.7017543859649122,
-      "positive_word_count": 1.8421052631578947,
-      "negative_word_count": 0.5614035087719298,
-      "positive_word_ratio": 0.1231675404504256,
-      "negative_word_ratio": 0.030241178863380448
+      "FSR": 4.363636363636363,
+      "lexical_diversity": 0.8588277318321708,
+      "word_count": 18.484848484848484,
+      "TDNorm_avg_PE": 5.245202020202022,
+      "flesch_reading_ease": 83.90727278720564,
+      "char_count": 89.48484848484848,
+      "shortness_score": 0.08747483309716052,
+      "flesch_kincaid_grade": 4.027930800915347,
+      "overall_concept_learning": 0.015962844065880954,
+      "sentiment_polarity": 0.10478682933228388,
+      "positive_word_ratio": 0.12712971308736384,
+      "sentiment_subjectivity": 0.3166091105863833,
+      "avg_word_length": 4.107133950239793,
+      "overall_avg_PE": 6.059595959595959,
+      "TDnorm_concept_learning": 0.05307585738097281,
+      "sentence_count": 1.6818181818181819,
+      "avg_sentence_length": 11.466666666666667,
+      "positive_word_count": 1.8181818181818181,
+      "negative_word_count": 0.5454545454545454,
+      "negative_word_ratio": 0.03264799892219694
     },
     {
-      "FSR": 54.83726235741445,
-      "lexical_diversity": 0.9215612792934103,
-      "sentiment_polarity": 0.0583978869672786,
-      "char_count": 52.6425855513308,
-      "overall_avg_PE": 6.74328641629422,
-      "flesch_kincaid_grade": 2.6975850658870413,
-      "TDNorm_avg_PE": 6.077693282636249,
-      "flesch_reading_ease": 88.08404000484197,
-      "word_count": 11.079847908745247,
-      "avg_word_length": 4.126175226259939,
-      "shortness_score": 0.14568403991071813,
-      "avg_sentence_length": 7.7828263624841565,
-      "TDnorm_concept_learning": 0.004987905859913971,
-      "overall_concept_learning": -0.014101618044265709,
-      "sentiment_subjectivity": 0.21398591664989006,
-      "sentence_count": 1.3307984790874525,
-      "positive_word_count": 1.3650190114068441,
-      "negative_word_count": 0.3269961977186312,
-      "positive_word_ratio": 0.15021764876985716,
-      "negative_word_ratio": 0.027529824002273558
+      "FSR": 63.57575757575758,
+      "lexical_diversity": 0.9358710694664233,
+      "word_count": 10.080808080808081,
+      "TDNorm_avg_PE": 6.343939393939394,
+      "flesch_reading_ease": 91.96187747388755,
+      "char_count": 48.4040404040404,
+      "shortness_score": 0.1514142425883631,
+      "flesch_kincaid_grade": 2.187212941273001,
+      "overall_concept_learning": -0.00813750701323004,
+      "sentiment_polarity": 0.041700471245925796,
+      "positive_word_ratio": 0.13922996232861196,
+      "sentiment_subjectivity": 0.23089879396697577,
+      "avg_word_length": 4.034390008093701,
+      "overall_avg_PE": 6.92790005316321,
+      "TDnorm_concept_learning": 0.02007920388762838,
+      "sentence_count": 1.2222222222222223,
+      "avg_sentence_length": 7.65959595959596,
+      "positive_word_count": 1.2525252525252526,
+      "negative_word_count": 0.3333333333333333,
+      "negative_word_ratio": 0.030680866469770637
     }
   ],
   "text_patterns": {
     "class_0": {
-      "total_texts": 57,
-      "total_words": 940,
-      "unique_words": 344,
+      "total_texts": 66,
+      "total_words": 1035,
+      "unique_words": 366,
       "top_words": {
-        "he": 63,
-        "and": 54,
-        "likes": 50,
-        "like": 35,
-        "she": 21,
-        "not": 20,
-        "but": 16,
-        "to": 16,
+        "he": 62,
+        "and": 61,
+        "likes": 60,
+        "like": 38,
+        "she": 27,
+        "not": 23,
+        "a": 18,
+        "to": 17,
         "of": 15,
-        "a": 15,
         "the": 15,
+        "but": 15,
         "doesn't": 14,
         "really": 11,
-        "is": 10,
-        "does": 9,
+        "is": 11,
+        "does": 10,
+        "loves": 10,
+        "some": 8,
         "things": 8,
-        "loves": 8,
-        "most": 7,
-        "liked": 7,
-        "they": 7
+        "or": 8,
+        "most": 7
       },
-      "avg_text_length": 94.19298245614036
+      "avg_text_length": 89.48484848484848
     },
     "class_1": {
-      "total_texts": 263,
-      "total_words": 2572,
-      "unique_words": 624,
+      "total_texts": 99,
+      "total_words": 903,
+      "unique_words": 309,
       "top_words": {
-        "he": 196,
-        "likes": 178,
-        "and": 160,
-        "like": 138,
-        "not": 58,
-        "a": 55,
-        "but": 37,
-        "of": 35,
-        "they": 34,
-        "i": 34,
-        "she": 33,
-        "does": 32,
-        "is": 32,
-        "food": 32,
-        "doesn't": 32,
-        "to": 32,
-        "some": 26,
-        "the": 26,
-        "music": 25,
-        "or": 24
+        "likes": 66,
+        "he": 63,
+        "and": 54,
+        "like": 43,
+        "a": 20,
+        "of": 15,
+        "is": 15,
+        "she": 14,
+        "but": 13,
+        "not": 13,
+        "they": 12,
+        "or": 11,
+        "things": 10,
+        "i": 10,
+        "the": 10,
+        "some": 10,
+        "to": 10,
+        "loves": 9,
+        "food": 8,
+        "does": 8
       },
-      "avg_text_length": 52.6425855513308
+      "avg_text_length": 48.4040404040404
     }
   }
 }

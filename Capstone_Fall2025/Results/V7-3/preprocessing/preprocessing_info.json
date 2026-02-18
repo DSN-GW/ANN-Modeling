@@ -1,10 +1,10 @@
 {
   "original_shape": [
-    1119,
-    12
+    1306,
+    13
   ],
   "filtered_shape": [
-    980,
+    1136,
     8
   ],
   "selected_columns": [
@@ -18,7 +18,7 @@
     "td_or_asd"
   ],
   "target_distribution": {
-    "1": 611,
-    "0": 369
+    "1": 712,
+    "0": 424
   }
 }

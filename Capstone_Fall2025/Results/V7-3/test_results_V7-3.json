@@ -5,36 +5,36 @@
       "precision": 1.0,
       "recall": 1.0,
       "f1-score": 1.0,
-      "support": 57.0
+      "support": 66.0
     },
     "1": {
       "precision": 1.0,
       "recall": 1.0,
       "f1-score": 1.0,
-      "support": 263.0
+      "support": 99.0
     },
     "accuracy": 1.0,
     "macro avg": {
       "precision": 1.0,
       "recall": 1.0,
       "f1-score": 1.0,
-      "support": 320.0
+      "support": 165.0
     },
     "weighted avg": {
       "precision": 1.0,
       "recall": 1.0,
       "f1-score": 1.0,
-      "support": 320.0
+      "support": 165.0
     }
   },
   "confusion_matrix": [
     [
-      57,
+      66,
       0
     ],
     [
       0,
-      263
+      99
     ]
   ]
 }
