@@ -42,7 +42,7 @@ warnings.filterwarnings("ignore")
 current_dir = Path(__file__).parent
 project_root = current_dir.parent.parent
 results_root = project_root / "Results" / "Clustering"
-version = "V2"  # Change this every run so that the results folder does not get overwritten
+version = "V1"  # Change this every run so that the results folder does not get overwritten
 _dir = results_root / version
 if _dir.exists():
     shutil.rmtree(_dir)
