@@ -42,7 +42,7 @@ warnings.filterwarnings("ignore")
 current_dir = Path(__file__).parent
 project_root = current_dir.parent.parent
 results_root = project_root / "Results" / "Clustering"
-version = "V1"  # Change this every run so that the results folder does not get overwritten
+version = "V2"  # Change this every run so that the results folder does not get overwritten
 _dir = results_root / version
 if _dir.exists():
     shutil.rmtree(_dir)
@@ -63,7 +63,7 @@ RESAMPLEFRAC = 0.8
 # --- Preprocessing for Feature Selection
 TEXT_COLUMN = "free_response_TDprof_norm"  # Can switch if we want to use a different free response
 CORR_THRESH = 0.7
-USE_NLP = True
+USE_NLP = False
 PLOT_PATH = plots_dir
 
 corr, thresh, high_corr_features, vif_df_final, FEATURES,DF = fetch_final_features(data=pd.read_csv(data_path),
